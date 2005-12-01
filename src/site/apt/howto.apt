@@ -1,0 +1,43 @@
+ ------
+ Maven 2 JavaNCSS Plugin
+ ------
+
+Maven 2 JavaNCSS Plugin
+
+  JavaNCSS plugin which generates code metric analysis.
+
+*Available Configuration Options
+ 
+*-------------------------+--------------*-----------------------------------------------------------------------------------------------------+
+ <<Parameter>>            | <<Optional>> | <<Description>>                                                                                     
+*-------------------------+----------*--------------------------------------------------------------------------------------------------------------+
+ lineThreshold            | Yes      | Number of lines to keep for objects & functions report. Default to 30.
+*-------------------------+----------*--------------------------------------------------------------------------------------------------------------+
+ tempFileName             | Yes      | Temporary filename for raw xml output from JavaNcss. Default to javancss-raw-report.xml
+*-------------------------+----------*---------------------------------------------------------------------------------------------------------------+ 
+
+*How to Generate JavaNCSS Report
+
+  In your project pom.xml, add the javaNcss plugin in <reporting> section.
+
+-------------------
+  <project>
+      ...
+      <reporting>
+          <plugins>
+              <plugin>
+                  <groupId>org.codehaus.mojo</groupId>
+                  <artifactId>javancss-maven-plugin</artifactId>
+                  <version>2.0-alpha1-SNAPSHOT</version>
+              </plugin>
+          </plugins>
+      </reporting>
+      ...
+  </project>
+-------------------    
+
+  Execute the site plugin to generate the report distribution.
+
+-------------------
+  mvn site:site
+-------------------  
