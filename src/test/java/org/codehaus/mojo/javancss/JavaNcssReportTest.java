@@ -18,12 +18,10 @@ package org.codehaus.mojo.javancss;
 
 import java.io.StringReader;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 
 import junit.framework.TestCase;
 
-import org.codehaus.mojo.javancss.NumericNodeComparator;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.Node;
@@ -48,15 +46,6 @@ public class JavaNcssReportTest
         assertEquals( "400", ( (Node) nodeList.get( 0 ) ).valueOf( "age" ) );
         assertEquals( "30", ( (Node) nodeList.get( 1 ) ).valueOf( "age" ) );
         assertEquals( "5", ( (Node) nodeList.get( 2 ) ).valueOf( "age" ) );
-        // dump
-        Iterator iterator = nodeList.iterator();
-        while ( iterator.hasNext() )
-        {
-            Node node = (Node) iterator.next();
-            System.out.print( node.valueOf( "age" ) + " - " );
-            ;
-            System.out.println( node.valueOf( "name" ) );
-        }
     }
 
 }

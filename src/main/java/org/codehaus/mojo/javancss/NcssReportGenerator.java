@@ -305,9 +305,20 @@ public class NcssReportGenerator
         paragraphHelper( bundle.getString( "report.javancss.explanation.ncss.paragraph3" ) );
         subtitleHelper( bundle.getString( "report.javancss.explanation.ccn.title" ) );
         paragraphHelper( bundle.getString( "report.javancss.explanation.ccn.paragraph1" ) );
-        sink.italic();
-        sink.text( "TODO : Explanation list missing here." );
-        sink.italic_();
+        paragraphHelper( bundle.getString( "report.javancss.explanation.ccn.paragraph1b" ) );
+        sink.list();
+        codeItemListHelper( "if" );
+        codeItemListHelper( "for" );
+        codeItemListHelper( "while" );
+        codeItemListHelper( "case" );
+        codeItemListHelper( "catch" );
+        sink.list_();
+        paragraphHelper( bundle.getString( "report.javancss.explanation.ccn.paragraph1c" ) );
+        sink.list();
+        codeItemListHelper( "if" );
+        codeItemListHelper( "for" );
+        sink.list_();
+        paragraphHelper( bundle.getString( "report.javancss.explanation.ccn.paragraph1d" ) );
         paragraphHelper( bundle.getString( "report.javancss.explanation.ccn.paragraph2" ) );
         paragraphHelper( bundle.getString( "report.javancss.explanation.ccn.paragraph3" ) );
     }
@@ -354,6 +365,16 @@ public class NcssReportGenerator
         sink.link_();
         sink.text( " ]" );
         sink.paragraph_();
+    }
+
+    // sink helper to write a "code" itemList
+    private void codeItemListHelper( String text )
+    {
+        sink.listItem();
+        sink.monospaced();
+        sink.text( text );
+        sink.monospaced_();
+        sink.listItem_();
     }
 
     // sink helper to write a paragrah
