@@ -299,9 +299,92 @@ public class NcssReportGenerator
         subtitleHelper( bundle.getString( "report.javancss.explanation.ncss.title" ) );
         paragraphHelper( bundle.getString( "report.javancss.explanation.ncss.paragraph1" ) );
         paragraphHelper( bundle.getString( "report.javancss.explanation.ncss.paragraph2" ) );
-        sink.italic();
-        sink.text( "TODO : Explanation table missing here." );
-        sink.italic_();
+        sink.table();
+        sink.tableRow();
+        headerCellHelper( "" );
+        headerCellHelper( bundle.getString( "report.javancss.explanation.ncss.table.examples" ) );
+        headerCellHelper( bundle.getString( "report.javancss.explanation.ncss.table.comments" ) );
+        sink.tableRow_();
+        sink.tableRow();
+        tableCellHelper( bundle.getString( "report.javancss.explanation.ncss.table.package" ) );
+        codeCellHelper( "package java.lang;" );
+        tableCellHelper( "" );
+        sink.tableRow_();
+        sink.tableRow();
+        tableCellHelper( bundle.getString( "report.javancss.explanation.ncss.table.import" ) );
+        codeCellHelper( "import java.awt.*;" );
+        tableCellHelper( "" );
+        sink.tableRow_();
+        sink.tableRow();
+        tableCellHelper( bundle.getString( "report.javancss.explanation.ncss.table.class" ) );
+        sink.tableCell();
+        sink.list();
+        codeItemListHelper( "public class Foo {" );
+        codeItemListHelper( "public class Foo extends Bla {" );
+        sink.list_();
+        sink.tableCell_();
+        tableCellHelper( "" );
+        sink.tableRow_();
+        sink.tableRow();
+        tableCellHelper( bundle.getString( "report.javancss.explanation.ncss.table.interface" ) );
+        codeCellHelper( "public interface Able ; {" );
+        tableCellHelper( "" );
+        sink.tableRow_();
+        sink.tableRow();
+        tableCellHelper( bundle.getString( "report.javancss.explanation.ncss.table.field" ) );
+        sink.tableCell();
+        sink.list();
+        codeItemListHelper( "int a; " );
+        codeItemListHelper( "int a, b, c = 5, d = 6;" );
+        sink.list_();
+        sink.tableCell_();
+        tableCellHelper( "" );
+        sink.tableRow_();
+        sink.tableRow();
+        tableCellHelper( bundle.getString( "report.javancss.explanation.ncss.table.method" ) );
+        sink.tableCell();
+        sink.list();
+        codeItemListHelper( "public void cry();" );
+        codeItemListHelper( "public void gib() throws DeadException {" );
+        sink.list_();
+        sink.tableCell_();
+        tableCellHelper( "" );
+        sink.tableRow_();
+        sink.tableRow();
+        tableCellHelper( bundle.getString( "report.javancss.explanation.ncss.table.constructorD" ) );
+        codeCellHelper( "public Foo() {" );
+        tableCellHelper( "" );
+        sink.tableRow_();
+        sink.tableRow();
+        tableCellHelper( bundle.getString( "report.javancss.explanation.ncss.table.constructorI" ) );
+        sink.tableCell();
+        sink.list();
+        codeItemListHelper( "this();" );
+        codeItemListHelper( "super();" );
+        sink.list_();
+        sink.tableCell_();
+        tableCellHelper( "" );
+        sink.tableRow_();
+        sink.tableRow();
+        tableCellHelper( bundle.getString( "report.javancss.explanation.ncss.table.statement" ) );
+        sink.tableCell();
+        sink.list();
+        codeItemListHelper( "i = 0;" );
+        codeItemListHelper( "if (ok)" );
+        codeItemListHelper( "if (exit) {" );
+        codeItemListHelper( "if (3 == 4);" );
+        codeItemListHelper( "if (4 == 4) { ;" );
+        codeItemListHelper( "} else {" );
+        sink.list_();
+        sink.tableCell_();
+        tableCellHelper( bundle.getString( "report.javancss.explanation.ncss.table.statement.comment" ) );
+        sink.tableRow_();
+        sink.tableRow();
+        tableCellHelper( bundle.getString( "report.javancss.explanation.ncss.table.label" ) );
+        codeCellHelper( "fine :" );
+        tableCellHelper( bundle.getString( "report.javancss.explanation.ncss.table.label.comment" ) );
+        sink.tableRow_();
+        sink.table_();
         paragraphHelper( bundle.getString( "report.javancss.explanation.ncss.paragraph3" ) );
         subtitleHelper( bundle.getString( "report.javancss.explanation.ccn.title" ) );
         paragraphHelper( bundle.getString( "report.javancss.explanation.ccn.paragraph1" ) );
@@ -343,7 +426,7 @@ public class NcssReportGenerator
         sink.section1_();
     }
 
-    // print out the navigatio bar
+    // print out the navigation bar
     private void navigationBar( Locale locale )
     {
         sink.paragraph();
@@ -393,6 +476,16 @@ public class NcssReportGenerator
         sink.text( text );
         sink.bold_();
         sink.paragraph_();
+    }
+
+    // sink helper to write cell containing code
+    private void codeCellHelper( String text )
+    {
+        sink.tableCell();
+        sink.monospaced();
+        sink.text( text );
+        sink.monospaced_();
+        sink.tableCell_();
     }
 
     // sink helper to write a simple table header cell
