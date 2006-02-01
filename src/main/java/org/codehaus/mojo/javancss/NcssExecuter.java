@@ -19,7 +19,8 @@ package org.codehaus.mojo.javancss;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.StringTokenizer;
+
+import org.apache.maven.reporting.MavenReportException;
 
 import javancss.Javancss;
 import javancss.Main;
@@ -32,10 +33,6 @@ import javancss.Main;
  */
 public class NcssExecuter
 {
-    private static final String WHAT_OPTION = "-package -object -function ";
-
-    private static final String DEFAULT_OPTION = "-xml -recursive -out ";
-
     private File sourceDirectory;
 
     private String outputFilename;
@@ -64,34 +61,31 @@ public class NcssExecuter
 
     /**
      * Call the javaNcss code analysis tool to produce the result to a temporary file name.<br>
+     * @throws MavenReportException if somethings goes bad during the execution
      */
     public void execute()
+        throws MavenReportException
     {
-        final String ncssCmdLine = WHAT_OPTION + DEFAULT_OPTION + outputFilename + " " + sourceDirectory;
-        new Javancss( transformArgs( ncssCmdLine ), Main.S_RCS_HEADER );
+        Javancss javancss = new Javancss( getCommandLineArgument(), Main.S_RCS_HEADER );
+        Throwable ncssException = javancss.getLastError();
+        if ( ncssException != null )
+        {
+            throw new MavenReportException( "Error while JavaNCSS was executing", new Exception( ncssException ) );
+        }
     }
 
-    /**
-     * Convert a space separated arguments String into an array of String.<br>
-     * package scope for testing purpose.
-     * 
-     * @param argString
-     *            A String of space separated arguments
-     * @return An array of String holding each arguments. returns null if input string is null. return an empty string array if there is no arguments.
-     */
-    /* package */String[] transformArgs( String argString )
+    private String[] getCommandLineArgument()
     {
-        if ( argString == null )
-        {
-            return null;
-        }
-        StringTokenizer strok = new StringTokenizer( argString, " " );
-        List list = new ArrayList();
-        while ( strok.hasMoreTokens() )
-        {
-            list.add( strok.nextToken() );
-        }
-        return (String[]) list.toArray( new String[list.size()] );
+        List argumentList = new ArrayList( 8 );
+        argumentList.add( "-package" );
+        argumentList.add( "-object" );
+        argumentList.add( "-function" );
+        argumentList.add( "-xml" );
+        argumentList.add( "-recursive" );
+        argumentList.add( "-out" );
+        argumentList.add( outputFilename );
+        argumentList.add( sourceDirectory.getAbsolutePath() );
+        return (String[]) argumentList.toArray( new String[argumentList.size()] );
     }
 
 }

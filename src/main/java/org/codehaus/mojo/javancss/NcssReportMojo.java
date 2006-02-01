@@ -24,6 +24,7 @@ import org.apache.maven.project.MavenProject;
 import org.apache.maven.reporting.AbstractMavenReport;
 import org.apache.maven.reporting.MavenReportException;
 import org.codehaus.doxia.site.renderer.SiteRenderer;
+import org.codehaus.plexus.util.DirectoryScanner;
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.io.SAXReader;
@@ -90,7 +91,7 @@ public class NcssReportMojo
     {
         if ( !canGenerateReport() )
         {
-            throw new MavenReportException( "There is no source directory." );
+            throw new MavenReportException( "There is no source directory or the source directory does not contains any source file." );
         }
         if ( getLog().isDebugEnabled() )
         {
@@ -142,7 +143,33 @@ public class NcssReportMojo
      */
     public boolean canGenerateReport()
     {
-        return ( sourceDirectory != null ) && sourceDirectory.exists();
+        if ( sourceDirectory == null )
+        {
+            return false;
+        }
+        if ( !sourceDirectory.exists() )
+        {
+            return false;
+        }
+        // now that we know we have a valid existing source directory
+        // we check if ant *.java files are existing.
+        String[] sources = scanForSources();
+        return ( sources != null ) && ( sources.length > 0 );
+    }
+
+    /**
+     * gets a list of all *.java files in the source directory.
+     * 
+     * @return the list of all files in the source directory;
+     */
+    private String[] scanForSources()
+    {
+        DirectoryScanner ds = new DirectoryScanner();
+        String[] includes = { "**\\*.java" };
+        ds.setIncludes( includes );
+        ds.setBasedir( sourceDirectory );
+        ds.scan();
+        return ds.getIncludedFiles();
     }
 
     /**
