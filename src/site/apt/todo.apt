@@ -1,0 +1,16 @@
+ ------
+ Maven 2 JavaNCSS Plugin
+ ------
+ Jean-Laurent de Morlhon
+ <jeanlaurent@NOSPAMgmail.com>
+ ------
+
+TODO List
+
+	* Number colorization based on variables (notably when CCN > 10)
+	
+	* JXR integration
+	
+	* Improve test coverage
+	
+	* Reports translation

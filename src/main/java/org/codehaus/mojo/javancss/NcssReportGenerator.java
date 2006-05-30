@@ -234,8 +234,8 @@ public class NcssReportGenerator
         sink.tableRow();
         tableCellHelper( node.valueOf( "ncss" ) );
         tableCellHelper( totalNcss );
-        tableCellHelper( node.valueOf( "functions" ) );
         tableCellHelper( node.valueOf( "classes" ) );
+        tableCellHelper( node.valueOf( "functions" ) );
         tableCellHelper( node.valueOf( "javadocs" ) );
         sink.tableRow_();
         sink.table_();

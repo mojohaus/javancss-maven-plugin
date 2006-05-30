@@ -1,24 +1,13 @@
  ------
  Maven 2 JavaNCSS Plugin
  ------
+ Jean-Laurent de Morlhon
+ <jeanlaurent@NOSPAMgmail.com>
+ ------
 
-Maven 2 JavaNCSS Plugin
+How to use
 
-  JavaNCSS plugin which generates code metric analysis.
-
-*Available Configuration Options
- 
-*-------------------------+--------------*-----------------------------------------------------------------------------------------------------+
- <<Parameter>>            | <<Optional>> | <<Description>>                                                                                     
-*-------------------------+----------*--------------------------------------------------------------------------------------------------------------+
- lineThreshold            | Yes      | Number of lines to keep for objects & functions report. Default to 30.
-*-------------------------+----------*--------------------------------------------------------------------------------------------------------------+
- tempFileName             | Yes      | Temporary filename for raw xml output from JavaNcss. Default to javancss-raw-report.xml
-*-------------------------+----------*---------------------------------------------------------------------------------------------------------------+ 
-
-*How to Generate JavaNCSS Report
-
-  In your project pom.xml, add the javaNcss plugin in <reporting> section.
+  In your project's pom.xml, add the JavaNCSS plugin in the <reporting> section.
 
 -------------------
   <project>
@@ -28,7 +17,7 @@ Maven 2 JavaNCSS Plugin
               <plugin>
                   <groupId>org.codehaus.mojo</groupId>
                   <artifactId>javancss-maven-plugin</artifactId>
-                  <version>2.0-alpha1-SNAPSHOT</version>
+                  <version>2.0-beta-1-SNAPSHOT</version>
               </plugin>
           </plugins>
       </reporting>
@@ -41,3 +30,28 @@ Maven 2 JavaNCSS Plugin
 -------------------
   mvn site:site
 -------------------  
+
+*Aggregate Reporting
+
+  When running against a project which has no source but has child modules, the JavaNCSS plugin will attempt to aggregate
+  any child JavaNCSS reports into an aggregate report.  Unfortunately Maven's internal support for report aggregation
+  is rather poor so it does have a number of limitations.  Foremost the aggregate report is generated *before* the child
+  reports so you must re-run the JavaNCSS report after the children have generated, like this:
+
+-------------------
+  mvn clean site:site (generate the site for every module recursively)
+  mvn javancss:javancss-report (re-run the JavaNCSS report recursively so the aggregate report works)
+-------------------
+
+
+*Available Configuration Options
+ 
+*-------------------------+--------------*-----------------------------------------------------------------------------------------------------+
+ <<Parameter>>            | <<Optional>> | <<Description>>                                                                                     
+*-------------------------+----------*--------------------------------------------------------------------------------------------------------------+
+ lineThreshold            | Yes      | Number of lines to keep for objects & functions report. Defaults to 30.
+*-------------------------+----------*--------------------------------------------------------------------------------------------------------------+
+ xmlOutputDirectory       | Yes      | Location where the temporary raw xml output from JavaNCSS will be written. Defaults to ${project.build.directory}
+*-------------------------+----------*---------------------------------------------------------------------------------------------------------------+ 
+ tempFileName             | Yes      | Filename for the temporary raw xml output from JavaNCSS. Defaults to javancss-raw-report.xml
+*-------------------------+----------*---------------------------------------------------------------------------------------------------------------+ 

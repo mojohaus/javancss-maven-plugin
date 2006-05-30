@@ -17,6 +17,9 @@ package org.codehaus.mojo.javancss;
  */
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -30,7 +33,7 @@ import org.dom4j.DocumentException;
 import org.dom4j.io.SAXReader;
 
 /**
- * Maven2 Plugin Mojo which generates JavaNCSS code metrics.
+ * Generates a JavaNCSS report based on this module's source code.
  * 
  * @goal javancss-report
  * 
@@ -40,18 +43,28 @@ public class NcssReportMojo
     extends AbstractMavenReport
 {
     /**
-     * Specifies the directory where the report will be generated
+     * Specifies the directory where the HTML report will be generated.
      * 
-     * @parameter default-value="${project.reporting.outputDirectory}"
+     * @parameter expression="${project.reporting.outputDirectory}"
      * @required
+     * @readonly
      */
     private File outputDirectory;
 
     /**
-     * Specifies the location of the source files to be used for Checkstyle
+     * Specifies the directory where the XML report will be generated.
+     * 
+     * @parameter default-value="${project.build.directory}"
+     * @required
+     */
+    private File xmlOutputDirectory;
+
+    /**
+     * Specifies the location of the source files to be used.
      * 
      * @parameter expression="${project.build.sourceDirectory}"
      * @required
+     * @readonly
      */
     private File sourceDirectory;
 
@@ -84,6 +97,14 @@ public class NcssReportMojo
     private SiteRenderer siteRenderer;
 
     /**
+     * The projects in the reactor for aggregation report.
+     *
+     * @parameter expression="${reactorProjects}"
+     * @readonly
+     */
+    private List reactorProjects;
+
+    /**
      * @see org.apache.maven.reporting.MavenReport#execute(java.util.Locale)
      */
     public void executeReport( Locale locale )
@@ -91,8 +112,68 @@ public class NcssReportMojo
     {
         if ( !canGenerateReport() )
         {
-            throw new MavenReportException( "There is no source directory or the source directory does not contains any source file." );
+            return;
         }
+
+        if ( canGenerateSingleReport() )
+        {
+            generateSingleReport( locale );
+        }
+        if ( canGenerateAggregateReport() )
+        {
+            generateAggregateReport( locale );
+        }
+    }
+
+    private void generateAggregateReport( Locale locale )
+        throws MavenReportException
+    {
+        // All this work just to get "target" so that we can scan the filesystem for
+        // child javancss xml files...
+        String basedir = project.getBasedir().toString();
+        String output = xmlOutputDirectory.toString();
+        if ( getLog().isDebugEnabled() )
+        {
+            getLog().debug( "basedir: " + basedir );
+            getLog().debug( "output: " + output );
+        }
+        String relative = null;
+        if ( output.startsWith( basedir ) )
+        {
+            relative = output.substring( basedir.length() + 1 );
+        }
+        else
+        {
+            getLog().error("Unable to aggregate report because I can't " +
+                    "determine the relative location of the XML report");
+            return;
+        }
+        getLog().debug( "relative: " + relative );
+        List reports = new ArrayList();
+        for ( Iterator it = reactorProjects.iterator(); it.hasNext(); )
+        {
+            MavenProject child = (MavenProject) it.next();
+            File xmlReport = new File( child.getBasedir() + File.separator + relative, tempFileName );
+            if ( xmlReport.exists() )
+            {
+                reports.add( new ModuleReport( child, loadDocument( xmlReport ) ) );
+            }
+            else
+            {
+                getLog().debug( "xml file not found: " + xmlReport );
+            }
+        }
+        getLog().debug( "Aggregating " + reports.size() + " JavaNCSS reports" );
+
+        // parse the freshly generated file and write the report
+        NcssAggregateReportGenerator reportGenerator = new NcssAggregateReportGenerator( getSink(),
+                                                                                         getBundle( locale ), getLog() );
+        reportGenerator.doReport( locale, reports, lineThreshold );
+    }
+
+    private void generateSingleReport( Locale locale )
+        throws MavenReportException
+    {
         if ( getLog().isDebugEnabled() )
         {
             getLog().debug( "Calling NCSSExecuter with src    : " + sourceDirectory );
@@ -110,22 +191,26 @@ public class NcssReportMojo
         reportGenerator.doReport( locale, loadDocument(), lineThreshold );
     }
 
-    // load the raw javancss xml report
-    private Document loadDocument()
+    private Document loadDocument( File file )
         throws MavenReportException
     {
         SAXReader reader = new SAXReader();
         Document document;
         try
         {
-            document = reader.read( buildOutputFileName() );
+            document = reader.read( file );
         }
         catch ( DocumentException de )
         {
-            de.printStackTrace();
             throw new MavenReportException( "Error while loading javancss raw generated report.", de );
         }
         return document;
+    }
+
+    private Document loadDocument()
+        throws MavenReportException
+    {
+        return loadDocument( new File( buildOutputFileName() ) );
     }
 
     /**
@@ -143,11 +228,28 @@ public class NcssReportMojo
      */
     public boolean canGenerateReport()
     {
-        if ( sourceDirectory == null )
+        return ( canGenerateSingleReport() || canGenerateAggregateReport() );
+    }
+
+    private boolean canGenerateAggregateReport()
+    {
+        if ( project.getModules().size() == 0 )
         {
+            // no child modules
             return false;
         }
-        if ( !sourceDirectory.exists() )
+        if ( sourceDirectory != null && sourceDirectory.exists() )
+        {
+            // only non-source projects can aggregate
+            String[] sources = scanForSources();
+            return !( ( sources != null ) && ( sources.length > 0 ) );
+        }
+        return true;
+    }
+
+    private boolean canGenerateSingleReport()
+    {
+        if ( sourceDirectory == null || !sourceDirectory.exists() )
         {
             return false;
         }
@@ -179,7 +281,7 @@ public class NcssReportMojo
      */
     /* package */String buildOutputFileName()
     {
-        return getOutputDirectory() + File.separator + tempFileName;
+        return getXmlOutputDirectory() + File.separator + tempFileName;
     }
 
     /**
@@ -204,6 +306,11 @@ public class NcssReportMojo
     protected String getOutputDirectory()
     {
         return outputDirectory.getAbsolutePath();
+    }
+
+    protected String getXmlOutputDirectory()
+    {
+        return xmlOutputDirectory.getAbsolutePath();
     }
 
     /**

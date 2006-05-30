@@ -1,6 +1,0 @@
-30/11/2005 - jeanlaurent@gmail.com
-- move temp raw report to {$basedir}/target
-- put the right LICENCE.txt
-- finish writing Explanation section of report
-- finish enhancing text in report (bold & red on CCN and NCSS)
-- improve test coverage
