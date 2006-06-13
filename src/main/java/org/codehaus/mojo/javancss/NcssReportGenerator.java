@@ -244,7 +244,7 @@ public class NcssReportGenerator
     private void doFunctionAnalysis( Locale locale, Document document )
     {
         subtitleHelper( bundle.getString( "report.javancss.top" ) + " " + lineThreshold + " "
-            + bundle.getString( "report.javancss.object.byfunction" ) );
+            + bundle.getString( "report.javancss.function.byncss" ) );
         sink.paragraph();
         sink.table();
         sink.tableRow();
