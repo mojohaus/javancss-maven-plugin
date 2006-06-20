@@ -5,7 +5,7 @@
 	  <parent>
 	    <artifactId>mojo</artifactId>
 	    <groupId>org.codehaus.mojo</groupId>
-	    <version>8</version>
+	    <version>9</version>
 	  </parent>
 	<artifactId>javancss-maven-plugin</artifactId>
 	<packaging>maven-plugin</packaging>
