@@ -26,15 +26,17 @@ import javancss.Javancss;
 import javancss.Main;
 
 /**
- * The NcssExecuter is able to call javaNcss to produce a code analysis.<br>
+ * The NcssExecuter is able to call javaNCSS to produce a code analysis.<br>
  * The results are produced into a raw xml file. 
  * 
  * @author <a href="jeanlaurent@gmail.com">Jean-Laurent de Morlhon</a>
  */
 public class NcssExecuter
 {
+   // the full path to the directory holding the sources to point JavaNCSS to.
     private File sourceDirectory;
 
+    // JavaNCSS will write an xml output into this file.
     private String outputFilename;
 
     /**
@@ -60,7 +62,7 @@ public class NcssExecuter
     }
 
     /**
-     * Call the javaNcss code analysis tool to produce the result to a temporary file name.<br>
+     * Call the javaNCSS code analysis tool to produce the result to a temporary file name.<br>
      * @throws MavenReportException if somethings goes bad during the execution
      */
     public void execute()

@@ -22,6 +22,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
+import org.apache.maven.plugin.logging.Log;
 import org.codehaus.doxia.sink.Sink;
 import org.dom4j.Document;
 import org.dom4j.Node;
@@ -31,12 +32,10 @@ import org.dom4j.Node;
  * 
  * @author <a href="jeanlaurent@gmail.com">Jean-Laurent de Morlhon</a>
  */
-public class NcssReportGenerator
+public class NcssReportGenerator extends AbstractNcssReportGenerator
 {
-    private ResourceBundle bundle;
-
-    private Sink sink;
-
+    private String xrefLocation;
+    
     private int lineThreshold;
 
     /**
@@ -45,10 +44,10 @@ public class NcssReportGenerator
      * @param sink the sink which will be used for reporting.
      * @param bundle the correct RessourceBundle to be used for reporting.
      */
-    public NcssReportGenerator( Sink sink, ResourceBundle bundle )
+    public NcssReportGenerator( Sink sink, ResourceBundle bundle,Log log,String xrefLocation )
     {
-        this.bundle = bundle;
-        this.sink = sink;
+    	super(sink,bundle,log);
+        this.xrefLocation = xrefLocation;
     }
 
     /**
@@ -206,7 +205,9 @@ public class NcssReportGenerator
         {
             Node node = (Node) nodeIterator.next();
             sink.tableRow();
-            tableCellHelper( node.valueOf( "name" ) );
+            sink.tableCell();
+            jxrLink(  node.valueOf( "name" ));
+            sink.tableCell_();
             tableCellHelper( node.valueOf( "ncss" ) );
             tableCellHelper( node.valueOf( "functions" ) );
             tableCellHelper( node.valueOf( "classes" ) );
@@ -261,7 +262,9 @@ public class NcssReportGenerator
         {
             Node node = (Node) nodeIterator.next();
             sink.tableRow();
-            tableCellHelper( node.valueOf( "name" ) );
+            sink.tableCell();
+            jxrFunctionLink(  node.valueOf( "name" ) );
+            sink.tableCell_();          
             tableCellHelper( node.valueOf( "ncss" ) );
             tableCellHelper( node.valueOf( "ccn" ) );
             tableCellHelper( node.valueOf( "javadocs" ) );
@@ -406,26 +409,6 @@ public class NcssReportGenerator
         paragraphHelper( bundle.getString( "report.javancss.explanation.ccn.paragraph3" ) );
     }
 
-    // sink helper to start a section
-    private void startSection( Locale locale, String link, String title )
-    {
-        sink.section1();
-        sink.sectionTitle1();
-        sink.anchor( bundle.getString( link ) );
-        sink.text( bundle.getString( title ) );
-        sink.anchor_();
-        sink.sectionTitle1_();
-        sink.paragraph();
-        navigationBar( locale );
-    }
-
-    // sink helper to end a section
-    private void endSection()
-    {
-        sink.paragraph_();
-        sink.section1_();
-    }
-
     // print out the navigation bar
     private void navigationBar( Locale locale )
     {
@@ -449,59 +432,42 @@ public class NcssReportGenerator
         sink.text( " ]" );
         sink.paragraph_();
     }
-
-    // sink helper to write a "code" itemList
-    private void codeItemListHelper( String text )
+    
+    // sink helper to start a section
+    protected void startSection( Locale locale, String link, String title )
     {
-        sink.listItem();
-        sink.monospaced();
-        sink.text( text );
-        sink.monospaced_();
-        sink.listItem_();
-    }
-
-    // sink helper to write a paragrah
-    private void paragraphHelper( String text )
+    	super.startSection(locale, link, title);
+        navigationBar( locale );
+    }	
+    
+    protected void jxrLink( String clazz )
     {
-        sink.paragraph();
-        sink.text( text );
-        sink.paragraph_();
-    }
-
-    // sink helper to write a subtitle
-    private void subtitleHelper( String text )
+        if ( xrefLocation != null )
+        {
+            sink.link( xrefLocation + "/" + clazz.replace('.', '/') + ".html" );
+        }
+        sink.text( clazz );
+        if ( xrefLocation != null )
+        {
+            sink.link_();
+        }
+    }    
+   
+    protected void jxrFunctionLink( String clazz )
     {
-        sink.paragraph();
-        sink.bold();
-        sink.text( text );
-        sink.bold_();
-        sink.paragraph_();
-    }
-
-    // sink helper to write cell containing code
-    private void codeCellHelper( String text )
-    {
-        sink.tableCell();
-        sink.monospaced();
-        sink.text( text );
-        sink.monospaced_();
-        sink.tableCell_();
-    }
-
-    // sink helper to write a simple table header cell
-    private void headerCellHelper( String text )
-    {
-        sink.tableHeaderCell();
-        sink.text( text );
-        sink.tableHeaderCell_();
-    }
-
-    // sink helper to write a simple tabke cell
-    private void tableCellHelper( String text )
-    {
-        sink.tableCell();
-        sink.text( text );
-        sink.tableCell_();
-    }
+        int indexDot = -1;
+        if ( xrefLocation != null )
+        {
+            indexDot =  clazz.lastIndexOf('.');
+            if (indexDot != -1) {
+               sink.link( xrefLocation + "/" + clazz.substring(0,indexDot).replace('.', '/') + ".html" );               
+            }
+        }
+        sink.text( clazz );
+        if ( xrefLocation != null && indexDot != -1)
+        {
+            sink.link_();
+        }
+    } 
 
 }

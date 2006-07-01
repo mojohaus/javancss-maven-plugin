@@ -31,15 +31,8 @@ import org.dom4j.Node;
  * 
  * @author <a href="mperham AT gmail.com">Mike Perham</a>
  */
-public class NcssAggregateReportGenerator
+public class NcssAggregateReportGenerator extends AbstractNcssReportGenerator
 {
-    private ResourceBundle bundle;
-
-    private Sink sink;
-
-    private Log log;
-
-    private int lineThreshold;
 
     /**
      * @param sink the sink which will be used for reporting.
@@ -48,9 +41,7 @@ public class NcssAggregateReportGenerator
      */
     public NcssAggregateReportGenerator( Sink sink, ResourceBundle bundle, Log log )
     {
-        this.bundle = bundle;
-        this.sink = sink;
-        this.log = log;
+    	super(sink,bundle,log);
     }
 
     /**
@@ -62,7 +53,6 @@ public class NcssAggregateReportGenerator
      */
     public void doReport( Locale locale, List moduleReports, int lineThreshold )
     {
-        this.lineThreshold = lineThreshold;
         // HEADER
         sink.head();
         sink.title();
@@ -177,79 +167,6 @@ public class NcssAggregateReportGenerator
         sink.tableRow_();
 
         sink.table_();
-    }
-
-    // sink helper to start a section
-    private void startSection( Locale locale, String link, String title )
-    {
-        sink.section1();
-        sink.sectionTitle1();
-        sink.anchor( bundle.getString( link ) );
-        sink.text( bundle.getString( title ) );
-        sink.anchor_();
-        sink.sectionTitle1_();
-        sink.paragraph();
-    }
-
-    // sink helper to end a section
-    private void endSection()
-    {
-        sink.paragraph_();
-        sink.section1_();
-    }
-
-    // sink helper to write a "code" itemList
-    private void codeItemListHelper( String text )
-    {
-        sink.listItem();
-        sink.monospaced();
-        sink.text( text );
-        sink.monospaced_();
-        sink.listItem_();
-    }
-
-    // sink helper to write a paragrah
-    private void paragraphHelper( String text )
-    {
-        sink.paragraph();
-        sink.text( text );
-        sink.paragraph_();
-    }
-
-    // sink helper to write a subtitle
-    private void subtitleHelper( String text )
-    {
-        sink.paragraph();
-        sink.bold();
-        sink.text( text );
-        sink.bold_();
-        sink.paragraph_();
-    }
-
-    // sink helper to write cell containing code
-    private void codeCellHelper( String text )
-    {
-        sink.tableCell();
-        sink.monospaced();
-        sink.text( text );
-        sink.monospaced_();
-        sink.tableCell_();
-    }
-
-    // sink helper to write a simple table header cell
-    private void headerCellHelper( String text )
-    {
-        sink.tableHeaderCell();
-        sink.text( text );
-        sink.tableHeaderCell_();
-    }
-
-    // sink helper to write a simple tabke cell
-    private void tableCellHelper( String text )
-    {
-        sink.tableCell();
-        sink.text( text );
-        sink.tableCell_();
     }
 
 }
