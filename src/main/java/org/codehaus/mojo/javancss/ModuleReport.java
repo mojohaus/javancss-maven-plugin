@@ -7,7 +7,7 @@ import org.dom4j.Document;
  * A bean which holds a child project and its associated JavaNCSS raw report.
  * 
  * @author mperham
- * @version $Id: $
+ * @version $Id$
  */
 public class ModuleReport
 {
