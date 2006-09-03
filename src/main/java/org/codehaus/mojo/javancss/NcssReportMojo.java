@@ -32,18 +32,15 @@ import org.codehaus.plexus.util.DirectoryScanner;
 import org.codehaus.plexus.util.PathTool;
 import org.codehaus.plexus.util.StringUtils;
 import org.dom4j.Document;
-import org.dom4j.DocumentException;
-import org.dom4j.io.SAXReader;
 
 /**
  * Generates a JavaNCSS report based on this module's source code.
  * 
- * @goal javancss-report
+ * @goal report
  * 
- * @author <a href="jeanlaurent@gmail.com">Jean-Laurent de Morlhon</a>
+ * @author <a href="jeanlaurentATgmail.com">Jean-Laurent de Morlhon</a>
  */
-public class NcssReportMojo
-    extends AbstractMavenReport
+public class NcssReportMojo extends AbstractMavenReport
 {
     /**
      * Specifies the directory where the HTML report will be generated.
@@ -101,23 +98,23 @@ public class NcssReportMojo
 
     /**
      * The projects in the reactor for aggregation report.
-     *
+     * 
      * @parameter expression="${reactorProjects}"
      * @readonly
      */
     private List reactorProjects;
 
-   /**
-     * Link the violation line numbers to the source xref. Defaults to true and will link
-     * automatically if jxr plugin is being used.
-     *
+    /**
+     * Link the violation line numbers to the source xref. Defaults to true and will link automatically if jxr plugin is
+     * being used.
+     * 
      * @parameter expression="${linkXRef}" default-value="true"
      */
     private boolean linkXRef;
 
     /**
      * Location of the Xrefs to link to.
-     *
+     * 
      * @parameter default-value="${project.build.directory}/site/xref"
      */
     private File xrefLocation;
@@ -125,8 +122,7 @@ public class NcssReportMojo
     /**
      * @see org.apache.maven.reporting.MavenReport#execute(java.util.Locale)
      */
-    public void executeReport( Locale locale )
-        throws MavenReportException
+    public void executeReport( Locale locale ) throws MavenReportException
     {
         if ( !canGenerateReport() )
         {
@@ -143,8 +139,7 @@ public class NcssReportMojo
         }
     }
 
-    private void generateAggregateReport( Locale locale )
-        throws MavenReportException
+    private void generateAggregateReport( Locale locale ) throws MavenReportException
     {
         // All this work just to get "target" so that we can scan the filesystem for
         // child javancss xml files...
@@ -162,19 +157,20 @@ public class NcssReportMojo
         }
         else
         {
-            getLog().error("Unable to aggregate report because I can't " +
-                    "determine the relative location of the XML report");
+            getLog().error(
+                            "Unable to aggregate report because I can't "
+                                            + "determine the relative location of the XML report" );
             return;
         }
         getLog().debug( "relative: " + relative );
         List reports = new ArrayList();
         for ( Iterator it = reactorProjects.iterator(); it.hasNext(); )
         {
-            MavenProject child = (MavenProject) it.next();
+            MavenProject child = ( MavenProject ) it.next();
             File xmlReport = new File( child.getBasedir() + File.separator + relative, tempFileName );
             if ( xmlReport.exists() )
             {
-                reports.add( new ModuleReport( child, loadDocument( xmlReport ) ) );
+                reports.add( new ModuleReport( child, XmlUtil.loadDocument( xmlReport ) ) );
             }
             else
             {
@@ -184,13 +180,12 @@ public class NcssReportMojo
         getLog().debug( "Aggregating " + reports.size() + " JavaNCSS reports" );
 
         // parse the freshly generated file and write the report
-        NcssAggregateReportGenerator reportGenerator = new NcssAggregateReportGenerator( getSink(),
-                                                                                         getBundle( locale ), getLog() );
+        NcssAggregateReportGenerator reportGenerator =
+            new NcssAggregateReportGenerator( getSink(), getBundle( locale ), getLog() );
         reportGenerator.doReport( locale, reports, lineThreshold );
     }
 
-    private void generateSingleReport( Locale locale )
-        throws MavenReportException
+    private void generateSingleReport( Locale locale ) throws MavenReportException
     {
         if ( getLog().isDebugEnabled() )
         {
@@ -205,30 +200,14 @@ public class NcssReportMojo
             throw new MavenReportException( "Can't process temp ncss xml file." );
         }
         // parse the freshly generated file and write the report
-        NcssReportGenerator reportGenerator = new NcssReportGenerator( getSink(), getBundle( locale ), getLog(), constructXRefLocation() );
+        NcssReportGenerator reportGenerator =
+            new NcssReportGenerator( getSink(), getBundle( locale ), getLog(), constructXRefLocation() );
         reportGenerator.doReport( locale, loadDocument(), lineThreshold );
     }
 
-    private Document loadDocument( File file )
-        throws MavenReportException
+    private Document loadDocument() throws MavenReportException
     {
-        SAXReader reader = new SAXReader();
-        Document document;
-        try
-        {
-            document = reader.read( file );
-        }
-        catch ( DocumentException de )
-        {
-            throw new MavenReportException( "Error while loading javancss raw generated report.", de );
-        }
-        return document;
-    }
-
-    private Document loadDocument()
-        throws MavenReportException
-    {
-        return loadDocument( new File( buildOutputFileName() ) );
+        return XmlUtil.loadDocument( new File( buildOutputFileName() ) );
     }
 
     /**
@@ -356,9 +335,9 @@ public class NcssReportMojo
     }
 
     /**
-     *  Getter for the source directory
-     *  
-     *  @return the source directory as a File object.
+     * Getter for the source directory
+     * 
+     * @return the source directory as a File object.
      */
     protected File getSourceDirectory()
     {
@@ -370,14 +349,15 @@ public class NcssReportMojo
     {
         return ResourceBundle.getBundle( "javancss-report", locale, NcssReportMojo.class.getClassLoader() );
     }
-    
+
     // blatantly copied from maven pmd plugin
     protected String constructXRefLocation()
     {
         String location = null;
         if ( linkXRef )
         {
-            String relativePath = PathTool.getRelativePath( outputDirectory.getAbsolutePath(), xrefLocation.getAbsolutePath() );
+            String relativePath =
+                PathTool.getRelativePath( outputDirectory.getAbsolutePath(), xrefLocation.getAbsolutePath() );
             if ( StringUtils.isEmpty( relativePath ) )
             {
                 relativePath = ".";
@@ -393,7 +373,7 @@ public class NcssReportMojo
                 // Not yet generated - check if the report is on its way
                 for ( Iterator reports = project.getReportPlugins().iterator(); reports.hasNext(); )
                 {
-                    ReportPlugin plugin = (ReportPlugin) reports.next();
+                    ReportPlugin plugin = ( ReportPlugin ) reports.next();
 
                     String artifactId = plugin.getArtifactId();
                     if ( "maven-jxr-plugin".equals( artifactId ) || "jxr-maven-plugin".equals( artifactId ) )
