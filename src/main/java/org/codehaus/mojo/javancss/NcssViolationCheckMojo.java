@@ -1,15 +1,18 @@
 package org.codehaus.mojo.javancss;
 
 import java.io.File;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
-import org.apache.maven.reporting.MavenReportException;
 import org.dom4j.Document;
+import org.dom4j.DocumentException;
 import org.dom4j.Node;
+import org.dom4j.io.SAXReader;
 
 /*
  * Copyright 2004-2005 The Apache Software Foundation.
@@ -28,7 +31,10 @@ import org.dom4j.Node;
  */
 
 /**
- * Fail the build if there were any Method with a ccn greater than a limit in the source code.
+ * Check the build if for any Method with a ccn greater than a limit in the source code.
+ * Fails the build if told so.
+ * 
+ * @author <a href="jeanlaurentATgmail.com">Jean-Laurent de Morlhon</a>
  * 
  * @goal check
  * @phase verify
@@ -48,7 +54,7 @@ public class NcssViolationCheckMojo extends AbstractMojo
     /**
      * Whether to fail the build if the validation check fails.
      * 
-     * @parameter expression="${ncss.failOnViolation}" default-value="true"
+     * @parameter default-value="true"
      * @required
      */
     private boolean failOnViolation;
@@ -80,57 +86,64 @@ public class NcssViolationCheckMojo extends AbstractMojo
 
     public void execute() throws MojoExecutionException, MojoFailureException
     {
-        int ccnViolation = 0;
-        int ncssViolation = 0;
+        Set ccnViolation = new HashSet();
+        Set ncssViolation = new HashSet();
+        List methodList = loadDocument().selectNodes( "//javancss/functions/function" );
+        // Count ccn & ncss violations
+        Iterator nodeIterator = methodList.iterator();
+        while ( nodeIterator.hasNext() )
+        {
+            Node node = ( Node ) nodeIterator.next();
+            // count ccn violation
+            int ccn = new Integer( node.valueOf( "ccn" ) ).intValue();
+            if ( ccn > ccnLimit )
+            {
+                ccnViolation.add( node.valueOf( "name" ) );
+            }
+            // count ncss violation
+            int ncss = new Integer( node.valueOf( "ncss" ) ).intValue();
+            if ( ncss > ncssLimit )
+            {
+                ncssViolation.add( node.valueOf( "name" ) );
+            }
+        }
+        // crappy....
+        reportViolation( "ccn", ccnViolation, ccnLimit );
+        reportViolation( "ncss", ncssViolation, ncssLimit );
+    }
+
+    private Document loadDocument() throws MojoFailureException
+    {
         // FIXME: Building of File is strangely equivalent to method buildOutputFileName of NcssReportGenerator class...
         File ncssXmlFile = new File( xmlOutputDirectory + File.separator + tempFileName );
         try
         {
-            Document document = XmlUtil.loadDocument( xmlOutputDirectory );
-            List list = document.selectNodes( "//javancss/functions/function" );
-            Iterator nodeIterator = list.iterator();
-            while ( nodeIterator.hasNext() )
-            {
-                Node node = ( Node ) nodeIterator.next();
-                // count ccn violation
-                int ccn = new Integer( node.valueOf( "ccn" ) ).intValue();
-                if ( ccn > ccnLimit )
-                {
-                    ccnViolation++;
-                }
-                // count ncss violation
-                int ncss = new Integer( node.valueOf( "ncss" ) ).intValue();
-                if ( ncss > ncssLimit )
-                {
-                    ncssViolation++;
-                }
-            }
-            // report ccn violation
-            if ( ccnViolation > 0 )
-            {
-                String violationString =
-                    "Your code has " + ccnViolation + " method(s) with a cnn greater than " + ccnLimit;
-                getLog().info( violationString );
-                if ( failOnViolation )
-                {
-                    throw new MojoFailureException( violationString );
-                }
-            }
-            // report ncss violation
-            if ( ncssViolation > 0 )
-            {
-                String violationString =
-                    "Your code has " + ncssViolation + " method(s) with a ncss greater than " + ncssLimit;
-                getLog().info( violationString );
-                if ( failOnViolation )
-                {
-                    throw new MojoFailureException( violationString );
-                }
-            }
+            return new SAXReader().read( ncssXmlFile );
         }
-        catch ( MavenReportException e )
+        catch ( DocumentException de )
         {
-            new MojoFailureException( "Can't read javancss xml output file : " + ncssXmlFile );
+            throw new MojoFailureException( "Can't read javancss xml output file : " + ncssXmlFile );
+        }
+    }
+
+    private void reportViolation( String statName, Set violationSet, int limit ) throws MojoFailureException
+    {
+        // report ncss violation
+        getLog().debug( statName + " Violation = " + violationSet.size() );
+        if ( violationSet.size() > 0 )
+        {
+            String violationString =
+                "Your code has " + violationSet.size() + " method(s) with a " + statName + " greater than " + limit;
+            getLog().warn( violationString );
+            Iterator iterator = violationSet.iterator();
+            while ( iterator.hasNext() )
+            {
+                getLog().warn( "    " + ( String ) iterator.next() );
+            }
+            if ( failOnViolation )
+            {
+                throw new MojoFailureException( violationString );
+            }
         }
     }
 }

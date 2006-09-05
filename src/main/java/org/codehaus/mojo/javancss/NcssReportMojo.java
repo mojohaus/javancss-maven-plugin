@@ -32,6 +32,8 @@ import org.codehaus.plexus.util.DirectoryScanner;
 import org.codehaus.plexus.util.PathTool;
 import org.codehaus.plexus.util.StringUtils;
 import org.dom4j.Document;
+import org.dom4j.DocumentException;
+import org.dom4j.io.SAXReader;
 
 /**
  * Generates a JavaNCSS report based on this module's source code.
@@ -170,7 +172,7 @@ public class NcssReportMojo extends AbstractMavenReport
             File xmlReport = new File( child.getBasedir() + File.separator + relative, tempFileName );
             if ( xmlReport.exists() )
             {
-                reports.add( new ModuleReport( child, XmlUtil.loadDocument( xmlReport ) ) );
+                reports.add( new ModuleReport( child, loadDocument( xmlReport ) ) );
             }
             else
             {
@@ -205,9 +207,21 @@ public class NcssReportMojo extends AbstractMavenReport
         reportGenerator.doReport( locale, loadDocument(), lineThreshold );
     }
 
+    private Document loadDocument( File file ) throws MavenReportException
+    {
+        try
+        {
+            return new SAXReader().read( file );
+        }
+        catch ( DocumentException de )
+        {
+            throw new MavenReportException( de.getMessage() );
+        }
+    }
+
     private Document loadDocument() throws MavenReportException
     {
-        return XmlUtil.loadDocument( new File( buildOutputFileName() ) );
+        return loadDocument( new File( buildOutputFileName() ) );
     }
 
     /**

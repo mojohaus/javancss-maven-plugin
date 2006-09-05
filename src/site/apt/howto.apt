@@ -40,7 +40,7 @@ How to use
 
 -------------------
   mvn clean site:site (generate the site for every module recursively)
-  mvn javancss:javancss-report (re-run the JavaNCSS report recursively so the aggregate report works)
+  mvn javancss:report (re-run the JavaNCSS report recursively so the aggregate report works)
 -------------------
 
 
