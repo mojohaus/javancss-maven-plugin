@@ -21,6 +21,10 @@
 	      <distribution>repo</distribution>
 	    </license>
 	</licenses>	
+	<issueManagement>
+      <system>JIRA</system>
+      <url>http://jira.codehaus.org/browse/MJNCSS</url>
+    </issueManagement>
 	<developers>
 		<developer>
 			<name>Jean-Laurent de Morlhon</name>
