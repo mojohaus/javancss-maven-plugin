@@ -19,7 +19,6 @@ package org.codehaus.mojo.javancss;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Locale;
 import java.util.ResourceBundle;
 
 import org.apache.maven.plugin.logging.Log;
@@ -35,29 +34,32 @@ import org.dom4j.Node;
 public class NcssReportGenerator extends AbstractNcssReportGenerator
 {
     private String xrefLocation;
-    
+
     private int lineThreshold;
 
     /**
      * build a new NcssReportGenerator.
      * 
-     * @param sink the sink which will be used for reporting.
-     * @param bundle the correct RessourceBundle to be used for reporting.
+     * @param sink
+     *            the sink which will be used for reporting.
+     * @param bundle
+     *            the correct RessourceBundle to be used for reporting.
      */
-    public NcssReportGenerator( Sink sink, ResourceBundle bundle,Log log,String xrefLocation )
+    public NcssReportGenerator( Sink sink, ResourceBundle bundle, Log log, String xrefLocation )
     {
-    	super(sink,bundle,log);
+        super( sink, bundle, log );
         this.xrefLocation = xrefLocation;
     }
 
     /**
      * Generates the JavaNcss reports.
      * 
-     * @param locale the Locale used for this report.
-     * @param document the javaNcss raw report as an XML document.
-     * @param lineThreshold the maximum number of lines to keep in major reports.
+     * @param document
+     *            the javaNcss raw report as an XML document.
+     * @param lineThreshold
+     *            the maximum number of lines to keep in major reports.
      */
-    public void doReport( Locale locale, Document document, int lineThreshold )
+    public void doReport( Document document, int lineThreshold )
     {
         this.lineThreshold = lineThreshold;
         // HEADER
@@ -68,38 +70,38 @@ public class NcssReportGenerator extends AbstractNcssReportGenerator
         sink.head_();
         // BODY
         sink.body();
-        doIntro( locale );
+        doIntro();
         // packages
-        startSection( locale, "report.javancss.package.link", "report.javancss.package.title" );
-        doMainPackageAnalysis( locale, document );
-        doTotalPackageAnalysis( locale, document );
+        startSection( "report.javancss.package.link", "report.javancss.package.title" );
+        doMainPackageAnalysis( document );
+        doTotalPackageAnalysis( document );
         endSection();
         // Objects
-        startSection( locale, "report.javancss.object.link", "report.javancss.object.title" );
-        doTopObjectNcss( locale, document );
-        doTopObjectFunctions( locale, document );
-        doObjectAverage( locale, document );
+        startSection( "report.javancss.object.link", "report.javancss.object.title" );
+        doTopObjectNcss( document );
+        doTopObjectFunctions( document );
+        doObjectAverage( document );
         endSection();
         // Functions
-        startSection( locale, "report.javancss.function.link", "report.javancss.function.title" );
-        doFunctionAnalysis( locale, document );
-        doFunctionAverage( locale, document );
+        startSection( "report.javancss.function.link", "report.javancss.function.title" );
+        doFunctionAnalysis( document );
+        doFunctionAverage( document );
         endSection();
         // Explanation
-        startSection( locale, "report.javancss.explanation.link", "report.javancss.explanation.title" );
-        doExplanation( locale );
+        startSection( "report.javancss.explanation.link", "report.javancss.explanation.title" );
+        doExplanation();
         endSection();
         sink.body_();
     }
 
-    private void doIntro( Locale locale )
+    private void doIntro()
     {
         sink.section1();
         sink.sectionTitle1();
         sink.text( bundle.getString( "report.javancss.main.title" ) );
         sink.sectionTitle1_();
         sink.paragraph();
-        navigationBar( locale );
+        navigationBar();
         sink.text( bundle.getString( "report.javancss.main.text" ) + " " );
         sink.lineBreak();
         sink.link( "http://www.kclee.de/clemens/java/javancss/" );
@@ -109,7 +111,7 @@ public class NcssReportGenerator extends AbstractNcssReportGenerator
         sink.section1_();
     }
 
-    private void doMainPackageAnalysis( Locale locale, Document document )
+    private void doMainPackageAnalysis( Document document )
     {
         subtitleHelper( bundle.getString( "report.javancss.package.text" ) );
         sink.table();
@@ -130,7 +132,7 @@ public class NcssReportGenerator extends AbstractNcssReportGenerator
         Iterator nodeIterator = list.iterator();
         while ( nodeIterator.hasNext() )
         {
-            Node node = (Node) nodeIterator.next();
+            Node node = ( Node ) nodeIterator.next();
             sink.tableRow();
             tableCellHelper( node.valueOf( "name" ) );
             tableCellHelper( node.valueOf( "classes" ) );
@@ -145,7 +147,7 @@ public class NcssReportGenerator extends AbstractNcssReportGenerator
         sink.table_();
     }
 
-    private void doTotalPackageAnalysis( Locale locale, Document document )
+    private void doTotalPackageAnalysis( Document document )
     {
         sink.table();
         sink.tableRow();
@@ -170,26 +172,26 @@ public class NcssReportGenerator extends AbstractNcssReportGenerator
         sink.table_();
     }
 
-    private void doTopObjectNcss( Locale locale, Document document )
+    private void doTopObjectNcss( Document document )
     {
         subtitleHelper( bundle.getString( "report.javancss.top" ) + " " + lineThreshold + " "
-            + bundle.getString( "report.javancss.object.byncss" ) );
+                        + bundle.getString( "report.javancss.object.byncss" ) );
         List nodeList = document.selectNodes( "//javancss/objects/object" );
         Collections.sort( nodeList, new NumericNodeComparator( "ncss" ) );
-        doTopObjectGeneric( locale, nodeList );
+        doTopObjectGeneric( nodeList );
     }
 
-    private void doTopObjectFunctions( Locale locale, Document document )
+    private void doTopObjectFunctions( Document document )
     {
         subtitleHelper( bundle.getString( "report.javancss.top" ) + " " + lineThreshold + " "
-            + bundle.getString( "report.javancss.object.byfunction" ) );
+                        + bundle.getString( "report.javancss.object.byfunction" ) );
         List nodeList = document.selectNodes( "//javancss/objects/object" );
         Collections.sort( nodeList, new NumericNodeComparator( "functions" ) );
-        doTopObjectGeneric( locale, nodeList );
+        doTopObjectGeneric( nodeList );
     }
 
     // generic method called by doTopObjectFunctions & doTopObjectNCss
-    private void doTopObjectGeneric( Locale locale, List nodeList )
+    private void doTopObjectGeneric( List nodeList )
     {
         sink.table();
         sink.tableRow();
@@ -203,10 +205,10 @@ public class NcssReportGenerator extends AbstractNcssReportGenerator
         int i = 0;
         while ( nodeIterator.hasNext() && ( i++ < lineThreshold ) )
         {
-            Node node = (Node) nodeIterator.next();
+            Node node = ( Node ) nodeIterator.next();
             sink.tableRow();
             sink.tableCell();
-            jxrLink(  node.valueOf( "name" ));
+            jxrLink( node.valueOf( "name" ) );
             sink.tableCell_();
             tableCellHelper( node.valueOf( "ncss" ) );
             tableCellHelper( node.valueOf( "functions" ) );
@@ -217,7 +219,7 @@ public class NcssReportGenerator extends AbstractNcssReportGenerator
         sink.table_();
     }
 
-    private void doObjectAverage( Locale locale, Document document )
+    private void doObjectAverage( Document document )
     {
         sink.bold();
         sink.text( bundle.getString( "report.javancss.averages" ) );
@@ -242,10 +244,10 @@ public class NcssReportGenerator extends AbstractNcssReportGenerator
         sink.table_();
     }
 
-    private void doFunctionAnalysis( Locale locale, Document document )
+    private void doFunctionAnalysis( Document document )
     {
         subtitleHelper( bundle.getString( "report.javancss.top" ) + " " + lineThreshold + " "
-            + bundle.getString( "report.javancss.function.byncss" ) );
+                        + bundle.getString( "report.javancss.function.byncss" ) );
         sink.paragraph();
         sink.table();
         sink.tableRow();
@@ -260,11 +262,11 @@ public class NcssReportGenerator extends AbstractNcssReportGenerator
         int i = 0;
         while ( nodeIterator.hasNext() && ( i++ < lineThreshold ) )
         {
-            Node node = (Node) nodeIterator.next();
+            Node node = ( Node ) nodeIterator.next();
             sink.tableRow();
             sink.tableCell();
-            jxrFunctionLink(  node.valueOf( "name" ) );
-            sink.tableCell_();          
+            jxrFunctionLink( node.valueOf( "name" ) );
+            sink.tableCell_();
             tableCellHelper( node.valueOf( "ncss" ) );
             tableCellHelper( node.valueOf( "ccn" ) );
             tableCellHelper( node.valueOf( "javadocs" ) );
@@ -274,7 +276,7 @@ public class NcssReportGenerator extends AbstractNcssReportGenerator
         sink.paragraph_();
     }
 
-    private void doFunctionAverage( Locale locale, Document document )
+    private void doFunctionAverage( Document document )
     {
         subtitleHelper( bundle.getString( "report.javancss.averages" ) );
         sink.paragraph();
@@ -297,7 +299,7 @@ public class NcssReportGenerator extends AbstractNcssReportGenerator
         sink.paragraph_();
     }
 
-    private void doExplanation( Locale locale )
+    private void doExplanation()
     {
         subtitleHelper( bundle.getString( "report.javancss.explanation.ncss.title" ) );
         paragraphHelper( bundle.getString( "report.javancss.explanation.ncss.paragraph1" ) );
@@ -410,7 +412,7 @@ public class NcssReportGenerator extends AbstractNcssReportGenerator
     }
 
     // print out the navigation bar
-    private void navigationBar( Locale locale )
+    private void navigationBar()
     {
         sink.paragraph();
         sink.text( "[ " );
@@ -432,42 +434,43 @@ public class NcssReportGenerator extends AbstractNcssReportGenerator
         sink.text( " ]" );
         sink.paragraph_();
     }
-    
+
     // sink helper to start a section
-    protected void startSection( Locale locale, String link, String title )
+    protected void startSection( String link, String title )
     {
-    	super.startSection(locale, link, title);
-        navigationBar( locale );
-    }	
-    
+        super.startSection( link, title );
+        navigationBar();
+    }
+
     protected void jxrLink( String clazz )
     {
         if ( xrefLocation != null )
         {
-            sink.link( xrefLocation + "/" + clazz.replace('.', '/') + ".html" );
+            sink.link( xrefLocation + "/" + clazz.replace( '.', '/' ) + ".html" );
         }
         sink.text( clazz );
         if ( xrefLocation != null )
         {
             sink.link_();
         }
-    }    
-   
+    }
+
     protected void jxrFunctionLink( String clazz )
     {
         int indexDot = -1;
         if ( xrefLocation != null )
         {
-            indexDot =  clazz.lastIndexOf('.');
-            if (indexDot != -1) {
-               sink.link( xrefLocation + "/" + clazz.substring(0,indexDot).replace('.', '/') + ".html" );               
+            indexDot = clazz.lastIndexOf( '.' );
+            if ( indexDot != -1 )
+            {
+                sink.link( xrefLocation + "/" + clazz.substring( 0, indexDot ).replace( '.', '/' ) + ".html" );
             }
         }
         sink.text( clazz );
-        if ( xrefLocation != null && indexDot != -1)
+        if ( xrefLocation != null && indexDot != -1 )
         {
             sink.link_();
         }
-    } 
+    }
 
 }

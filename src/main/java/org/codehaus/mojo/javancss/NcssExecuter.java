@@ -27,13 +27,13 @@ import javancss.Main;
 
 /**
  * The NcssExecuter is able to call javaNCSS to produce a code analysis.<br>
- * The results are produced into a raw xml file. 
+ * The results are produced into a raw xml file.
  * 
  * @author <a href="jeanlaurent@gmail.com">Jean-Laurent de Morlhon</a>
  */
 public class NcssExecuter
 {
-   // the full path to the directory holding the sources to point JavaNCSS to.
+    // the full path to the directory holding the sources to point JavaNCSS to.
     private File sourceDirectory;
 
     // JavaNCSS will write an xml output into this file.
@@ -43,7 +43,7 @@ public class NcssExecuter
      * Construct a NcssExecuter with no arguments.<br>
      * Used for testing.
      */
-    /*package*/NcssExecuter()
+    /* package */NcssExecuter()
     {
         this.sourceDirectory = null;
         this.outputFilename = null;
@@ -52,8 +52,10 @@ public class NcssExecuter
     /**
      * Construct a NcssExecuter.
      * 
-     * @param sourceDirectory the directory where the source to analyse are.
-     * @param outputFilename the output file where the result will be written. 
+     * @param sourceDirectory
+     *            the directory where the source to analyse are.
+     * @param outputFilename
+     *            the output file where the result will be written.
      */
     public NcssExecuter( File sourceDirectory, String outputFilename )
     {
@@ -63,10 +65,11 @@ public class NcssExecuter
 
     /**
      * Call the javaNCSS code analysis tool to produce the result to a temporary file name.<br>
-     * @throws MavenReportException if somethings goes bad during the execution
+     * 
+     * @throws MavenReportException
+     *             if somethings goes bad during the execution
      */
-    public void execute()
-        throws MavenReportException
+    public void execute() throws MavenReportException
     {
         Javancss javancss = new Javancss( getCommandLineArgument(), Main.S_RCS_HEADER );
         Throwable ncssException = javancss.getLastError();
@@ -87,7 +90,7 @@ public class NcssExecuter
         argumentList.add( "-out" );
         argumentList.add( outputFilename );
         argumentList.add( sourceDirectory.getAbsolutePath() );
-        return (String[]) argumentList.toArray( new String[argumentList.size()] );
+        return ( String[] ) argumentList.toArray( new String[argumentList.size()] );
     }
 
 }

@@ -32,6 +32,7 @@ import org.dom4j.io.SAXReader;
 
 /**
  * Check the build if for any Method with a ccn greater than a limit in the source code.
+ * 
  * Fails the build if told so.
  * 
  * @author <a href="jeanlaurentATgmail.com">Jean-Laurent de Morlhon</a>
@@ -128,7 +129,6 @@ public class NcssViolationCheckMojo extends AbstractMojo
 
     private void reportViolation( String statName, Set violationSet, int limit ) throws MojoFailureException
     {
-        // report ncss violation
         getLog().debug( statName + " Violation = " + violationSet.size() );
         if ( violationSet.size() > 0 )
         {

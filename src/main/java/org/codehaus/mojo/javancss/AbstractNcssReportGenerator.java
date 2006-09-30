@@ -16,7 +16,6 @@ package org.codehaus.mojo.javancss;
  * limitations under the License.
  */
 
-import java.util.Locale;
 import java.util.ResourceBundle;
 
 import org.apache.maven.plugin.logging.Log;
@@ -40,9 +39,12 @@ public abstract class AbstractNcssReportGenerator
     /**
      * build a new NcssReportGenerator.
      * 
-     * @param sink the sink which will be used for reporting.
-     * @param bundle the correct RessourceBundle to be used for reporting.
-     * @param log the log object enabling logging within maven plugins.
+     * @param sink
+     *            the sink which will be used for reporting.
+     * @param bundle
+     *            the correct RessourceBundle to be used for reporting.
+     * @param log
+     *            the log object enabling logging within maven plugins.
      */
     protected AbstractNcssReportGenerator( Sink sink, ResourceBundle bundle, Log log )
     {
@@ -54,7 +56,8 @@ public abstract class AbstractNcssReportGenerator
     /**
      * sink helper to write a "code" itemList.
      * 
-     * @param test the text to write within the code tags.
+     * @param test
+     *            the text to write within the code tags.
      */
     protected void codeItemListHelper( String text )
     {
@@ -68,7 +71,8 @@ public abstract class AbstractNcssReportGenerator
     /**
      * sink helper to write a paragrah
      * 
-     * @param the text to write within the paragraph.
+     * @param the
+     *            text to write within the paragraph.
      */
     protected void paragraphHelper( String text )
     {
@@ -80,7 +84,8 @@ public abstract class AbstractNcssReportGenerator
     /**
      * sink helper to write a subtitle
      * 
-     * @param text the text to write as a subtitle.
+     * @param text
+     *            the text to write as a subtitle.
      */
     protected void subtitleHelper( String text )
     {
@@ -94,7 +99,8 @@ public abstract class AbstractNcssReportGenerator
     /**
      * sink helper to write cell containing code.
      * 
-     * @param text the text to write within a cell and within code tags.
+     * @param text
+     *            the text to write within a cell and within code tags.
      */
     protected void codeCellHelper( String text )
     {
@@ -106,9 +112,10 @@ public abstract class AbstractNcssReportGenerator
     }
 
     /**
-     *sink helper to write a simple table header cell.
-     *
-     * @param text the text to write within a table header cell.
+     * sink helper to write a simple table header cell.
+     * 
+     * @param text
+     *            the text to write within a table header cell.
      */
     protected void headerCellHelper( String text )
     {
@@ -120,7 +127,8 @@ public abstract class AbstractNcssReportGenerator
     /**
      * sink helper to write a simple tabke cell.
      * 
-     * @param text the text to write within a table cell.
+     * @param text
+     *            the text to write within a table cell.
      */
     protected void tableCellHelper( String text )
     {
@@ -132,11 +140,14 @@ public abstract class AbstractNcssReportGenerator
     /**
      * sink helper to start a section.
      * 
-     * @param locale the locale to be used to display text within the section start.
-     * @param link the anchor link.
-     * @param title the title of the anchor link.
+     * @param locale
+     *            the locale to be used to display text within the section start.
+     * @param link
+     *            the anchor link.
+     * @param title
+     *            the title of the anchor link.
      */
-    protected void startSection( Locale locale, String link, String title )
+    protected void startSection( String link, String title )
     {
         sink.section1();
         sink.sectionTitle1();

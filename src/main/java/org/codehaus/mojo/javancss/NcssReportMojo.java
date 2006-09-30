@@ -204,7 +204,7 @@ public class NcssReportMojo extends AbstractMavenReport
         // parse the freshly generated file and write the report
         NcssReportGenerator reportGenerator =
             new NcssReportGenerator( getSink(), getBundle( locale ), getLog(), constructXRefLocation() );
-        reportGenerator.doReport( locale, loadDocument(), lineThreshold );
+        reportGenerator.doReport( loadDocument(), lineThreshold );
     }
 
     private Document loadDocument( File file ) throws MavenReportException

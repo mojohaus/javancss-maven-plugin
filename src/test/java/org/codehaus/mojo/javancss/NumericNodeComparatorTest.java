@@ -26,79 +26,98 @@ import org.easymock.MockControl;
  * 
  * @author <a href="jeanlaurent@gmail.com">Jean-Laurent de Morlhon</a>
  */
-public class NumericNodeComparatorTest extends TestCase {
-   private static final String NODE_PROPERTY = "foobar";
-   private static final Integer SMALL_VALUE = new Integer(10);
-   private static final Integer BIG_VALUE = new Integer(42);
-   private MockControl control;
-   private Node bigNodeMock;
-   private Node smallNodeMock;
-   private NumericNodeComparator nnc;
+public class NumericNodeComparatorTest extends TestCase
+{
+    private static final String NODE_PROPERTY = "foobar";
 
-   public void setUp() {
-      control = MockControl.createControl(Node.class);
-      nnc = new NumericNodeComparator(NODE_PROPERTY);
-      bigNodeMock = (Node) control.getMock();
-      smallNodeMock = (Node) control.getMock();
-   }
+    private static final Integer SMALL_VALUE = new Integer( 10 );
 
-   public void testComparePositive() {
-      bigNodeMock.numberValueOf(NODE_PROPERTY);
-      control.setReturnValue(BIG_VALUE);
-      smallNodeMock.numberValueOf(NODE_PROPERTY);
-      control.setReturnValue(SMALL_VALUE);
-      control.replay();
-      assertTrue(nnc.compare(smallNodeMock, bigNodeMock) > 0);
-      control.verify();
-   }
+    private static final Integer BIG_VALUE = new Integer( 42 );
 
-   public void testCompareNegative() {
-      bigNodeMock.numberValueOf(NODE_PROPERTY);
-      control.setReturnValue(BIG_VALUE);
-      smallNodeMock.numberValueOf(NODE_PROPERTY);
-      control.setReturnValue(SMALL_VALUE);
-      control.replay();
-      assertTrue(nnc.compare(smallNodeMock, bigNodeMock) > 0);
-      control.verify();
-   }
+    private MockControl control;
 
-   public void testCompareEqual() {
-      bigNodeMock.numberValueOf(NODE_PROPERTY);
-      control.setReturnValue(SMALL_VALUE);
-      smallNodeMock.numberValueOf(NODE_PROPERTY);
-      control.setReturnValue(SMALL_VALUE);
-      control.replay();
-      assertEquals(0, nnc.compare(smallNodeMock, bigNodeMock));
-      control.verify();
-   }
+    private Node bigNodeMock;
 
-  // should throw npe whenever one of the node is null
-   public void testCompareWithBigNull() {
-      smallNodeMock.numberValueOf(NODE_PROPERTY);
-      control.setReturnValue(SMALL_VALUE);
-      control.replay();
-      boolean caught = false;
-      try {
-         nnc.compare(null, smallNodeMock);
-      } catch (NullPointerException npe) {
-         caught = true;
-      }
-      assertTrue(caught);
-      control.verify();
-   }
+    private Node smallNodeMock;
 
-   public void testCompareWithSmallNull() {
-      bigNodeMock.numberValueOf(NODE_PROPERTY);
-      control.setReturnValue(BIG_VALUE, MockControl.ZERO_OR_MORE);
-      control.replay();
-      boolean caught = false;
-      try {
-         nnc.compare(bigNodeMock, null);
-      } catch (NullPointerException npe) {
-         caught = true;
-      }
-      assertTrue(caught);
-      control.verify();
-   }
+    private NumericNodeComparator nnc;
+
+    public void setUp()
+    {
+        control = MockControl.createControl( Node.class );
+        nnc = new NumericNodeComparator( NODE_PROPERTY );
+        bigNodeMock = ( Node ) control.getMock();
+        smallNodeMock = ( Node ) control.getMock();
+    }
+
+    public void testComparePositive()
+    {
+        bigNodeMock.numberValueOf( NODE_PROPERTY );
+        control.setReturnValue( BIG_VALUE );
+        smallNodeMock.numberValueOf( NODE_PROPERTY );
+        control.setReturnValue( SMALL_VALUE );
+        control.replay();
+        assertTrue( nnc.compare( smallNodeMock, bigNodeMock ) > 0 );
+        control.verify();
+    }
+
+    public void testCompareNegative()
+    {
+        bigNodeMock.numberValueOf( NODE_PROPERTY );
+        control.setReturnValue( BIG_VALUE );
+        smallNodeMock.numberValueOf( NODE_PROPERTY );
+        control.setReturnValue( SMALL_VALUE );
+        control.replay();
+        assertTrue( nnc.compare( smallNodeMock, bigNodeMock ) > 0 );
+        control.verify();
+    }
+
+    public void testCompareEqual()
+    {
+        bigNodeMock.numberValueOf( NODE_PROPERTY );
+        control.setReturnValue( SMALL_VALUE );
+        smallNodeMock.numberValueOf( NODE_PROPERTY );
+        control.setReturnValue( SMALL_VALUE );
+        control.replay();
+        assertEquals( 0, nnc.compare( smallNodeMock, bigNodeMock ) );
+        control.verify();
+    }
+
+    // should throw npe whenever one of the node is null
+    public void testCompareWithBigNull()
+    {
+        smallNodeMock.numberValueOf( NODE_PROPERTY );
+        control.setReturnValue( SMALL_VALUE );
+        control.replay();
+        boolean caught = false;
+        try
+        {
+            nnc.compare( null, smallNodeMock );
+        }
+        catch ( NullPointerException npe )
+        {
+            caught = true;
+        }
+        assertTrue( caught );
+        control.verify();
+    }
+
+    public void testCompareWithSmallNull()
+    {
+        bigNodeMock.numberValueOf( NODE_PROPERTY );
+        control.setReturnValue( BIG_VALUE, MockControl.ZERO_OR_MORE );
+        control.replay();
+        boolean caught = false;
+        try
+        {
+            nnc.compare( bigNodeMock, null );
+        }
+        catch ( NullPointerException npe )
+        {
+            caught = true;
+        }
+        assertTrue( caught );
+        control.verify();
+    }
 
 }

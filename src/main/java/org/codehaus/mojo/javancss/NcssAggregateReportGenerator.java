@@ -35,21 +35,26 @@ public class NcssAggregateReportGenerator extends AbstractNcssReportGenerator
 {
 
     /**
-     * @param sink the sink which will be used for reporting.
-     * @param bundle the correct RessourceBundle to be used for reporting.
+     * @param sink
+     *            the sink which will be used for reporting.
+     * @param bundle
+     *            the correct RessourceBundle to be used for reporting.
      * @param log
      */
     public NcssAggregateReportGenerator( Sink sink, ResourceBundle bundle, Log log )
     {
-    	super(sink,bundle,log);
+        super( sink, bundle, log );
     }
 
     /**
      * Generates the JavaNCSS report.
      * 
-     * @param locale the Locale used for this report.
-     * @param moduleReports the javancss raw reports to aggregate, List of ModuleReport.
-     * @param lineThreshold the maximum number of lines to keep in major reports.
+     * @param locale
+     *            the Locale used for this report.
+     * @param moduleReports
+     *            the javancss raw reports to aggregate, List of ModuleReport.
+     * @param lineThreshold
+     *            the maximum number of lines to keep in major reports.
      */
     public void doReport( Locale locale, List moduleReports, int lineThreshold )
     {
@@ -61,16 +66,16 @@ public class NcssAggregateReportGenerator extends AbstractNcssReportGenerator
         sink.head_();
         // BODY
         sink.body();
-        doIntro( locale );
+        doIntro();
         // packages
-        startSection( locale, "report.javancss.module.link", "report.javancss.module.title" );
-        doModuleAnalysis( locale, moduleReports );
+        startSection( "report.javancss.module.link", "report.javancss.module.title" );
+        doModuleAnalysis( moduleReports );
         endSection();
         sink.body_();
         sink.close();
     }
 
-    private void doIntro( Locale locale )
+    private void doIntro()
     {
         sink.section1();
         sink.sectionTitle1();
@@ -86,7 +91,7 @@ public class NcssAggregateReportGenerator extends AbstractNcssReportGenerator
         sink.section1_();
     }
 
-    private void doModuleAnalysis( Locale locale, List reports )
+    private void doModuleAnalysis( List reports )
     {
         sink.table();
         sink.tableRow();
@@ -111,7 +116,7 @@ public class NcssAggregateReportGenerator extends AbstractNcssReportGenerator
         int multi = 0;
         for ( Iterator it = reports.iterator(); it.hasNext(); )
         {
-            ModuleReport report = (ModuleReport) it.next();
+            ModuleReport report = ( ModuleReport ) it.next();
             Document document = report.getJavancssDocument();
             sink.tableRow();
             log.debug( "Aggregating " + report.getModule().getArtifactId() );

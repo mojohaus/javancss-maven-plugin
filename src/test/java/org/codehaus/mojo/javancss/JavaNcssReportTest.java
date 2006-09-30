@@ -30,22 +30,21 @@ import org.dom4j.io.SAXReader;
 /**
  * @author Jean-Laurent de Morlhon
  */
-public class JavaNcssReportTest
-    extends TestCase
+public class JavaNcssReportTest extends TestCase
 {
 
-    public void testSort()
-        throws DocumentException
+    public void testSort() throws DocumentException
     {
-        String toBeSorted = "<test><person><name>Arthur</name><age>5</age></person><person><name>Blake</name><age>400</age></person><person><name>John</name><age>30</age></person></test>";
+        String toBeSorted =
+            "<test><person><name>Arthur</name><age>5</age></person><person><name>Blake</name><age>400</age></person><person><name>John</name><age>30</age></person></test>";
         SAXReader reader = new SAXReader();
         Document document;
-        document = reader.read( new StringReader( toBeSorted ) );//JavaNcssReportTest.class.getClassLoader().getResourceAsStream("javancss-raw-report.xml"));
+        document = reader.read( new StringReader( toBeSorted ) );// JavaNcssReportTest.class.getClassLoader().getResourceAsStream("javancss-raw-report.xml"));
         List nodeList = document.selectNodes( "//test/person", "number(age)" );
         Collections.sort( nodeList, new NumericNodeComparator( "age" ) );
-        assertEquals( "400", ( (Node) nodeList.get( 0 ) ).valueOf( "age" ) );
-        assertEquals( "30", ( (Node) nodeList.get( 1 ) ).valueOf( "age" ) );
-        assertEquals( "5", ( (Node) nodeList.get( 2 ) ).valueOf( "age" ) );
+        assertEquals( "400", ( ( Node ) nodeList.get( 0 ) ).valueOf( "age" ) );
+        assertEquals( "30", ( ( Node ) nodeList.get( 1 ) ).valueOf( "age" ) );
+        assertEquals( "5", ( ( Node ) nodeList.get( 2 ) ).valueOf( "age" ) );
     }
 
 }

@@ -55,3 +55,29 @@ How to use
 *-------------------------+----------*---------------------------------------------------------------------------------------------------------------+ 
  tempFileName             | Yes      | Filename for the temporary raw xml output from JavaNCSS. Defaults to javancss-raw-report.xml
 *-------------------------+----------*---------------------------------------------------------------------------------------------------------------+ 
+
+*Checking your build for ccn or ncss limits
+
+You can use this plugin to check wether or not your code has reached a ccn or ncss limit.
+Setup is the same when used for reporting.
+You can execute this mojo with the following command line :
+-------------------
+  mvn javancss:check
+------------------- 
+
+
+*Available Configuration Options specific of javancss:check
+
+javancss:check mojo has the same configuration options of the reporting mojos plus the following:
+ 
+*-------------------------+--------------*-----------------------------------------------------------------------------------------------------+
+ <<Parameter>>            | <<Optional>> | <<Description>>                                                                                     
+*-------------------------+----------*--------------------------------------------------------------------------------------------------------------+
+ failOnViolation          | Yes      | When either ccnLimit or ncssLimit is reached, will fail the build when set to true. It will display a warning on the console in any case. Defaults to true.
+*-------------------------+----------*--------------------------------------------------------------------------------------------------------------+
+ ccnLimit                 | Yes      | The limit for the CCN metric. Defaults to 10
+*-------------------------+----------*---------------------------------------------------------------------------------------------------------------+ 
+ ncssLimit                | Yes      | The limit for the NCSS metric. Defaults to 100
+*-------------------------+----------*---------------------------------------------------------------------------------------------------------------+ 
+
+todo: example configuration for user to copy/paste
