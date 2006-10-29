@@ -1,0 +1,35 @@
+ ------
+ Maven 2 JavaNCSS Plugin
+ ------
+ Jean-Laurent de Morlhon
+ <jeanlaurent@NOSPAMgmail.com>
+ ------
+ 
+Maven2 JavaNCSS Plugin
+ 
+  {{{http://www.kclee.de/clemens/java/javancss/}JavaNCSS}} is a source measurement suite for Java which produces quantity & complexity metrics for your java source code.
+
+  This plugin provides the capability to run the JavaNCSS tool on your Maven 2 project sources and produce an html report.
+  Optionally you can fail the build whenever one of the metrics goes beyond a fixed limit.
+   
+  Many thanks to Clemens Lee and the many contributors to the JavaNCSS project for producing this tool for all to use.
+
+* Goals Overview
+  
+ * {{{report-mojo.html}javancss:report}} Generates a report of quantity and complexity metric on your code.
+ 
+ * {{{check-mojo.html}javancss:check}} Check if your source code has a CCN or NCSS value too high, fails the build if so.
+  
+
+* Usage
+
+  Instructions on how to use the Maven2 JavaNCSS plugin can be found {{{usage.html}here}}.
+
+* Examples
+
+  To provide you with better understanding of some usages of the Maven 2 JavaNCSS plugin,
+  you can take a look into the following examples:
+
+  * {{{examples/javancss-report.html} Example Report}}
+  
+  * {{{examples/javancss-aggregate-report.html}Example Aggregate Report}}

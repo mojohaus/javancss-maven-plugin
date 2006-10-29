@@ -18,13 +18,14 @@
          <item name="Back to Mojo" href="http://mojo.codehaus.org"/>
     </menu>
     <menu name="Overview">
-      <item name="Plugin Goals" href="index.html"/>
-      <item name="Introduction" href="introduction.html"/>
-      <item name="How to Use" href="howto.html"/>
-      <item name="Sample Report" href="javancss-report.html"/>
-      <item name="Sample Aggregate Report" href="javancss-aggregate-report.html"/>
-      <item name="Javadoc" href="apidocs/index.html"/>
-      <item name="TODO" href="todo.html"/>
+      <item name="Introduction" href="index.html"/>
+      <item name="Goals" href="plugin-info.html"/>
+      <item name="Usage" href="usage.html"/>
+      <item name="FAQ" href="faq.html"/>    
+    </menu>
+    <menu name="Examples">
+      <item name="Example Report" href="examples/javancss-report.html"/>
+      <item name="Example Aggregate Report" href="examples/javancss-aggregate-report.html"/>
     </menu>
     ${reports}
   </body>

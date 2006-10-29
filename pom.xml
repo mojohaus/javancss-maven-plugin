@@ -13,6 +13,13 @@
 	<version>2.0-beta-2-SNAPSHOT</version>
 	<name>Maven2 JavaNCSS plugin</name>
 	<inceptionYear>2005</inceptionYear>
+        <organization>
+          <name>CodeHaus</name>
+          <url>http://www.codehaus.org</url>
+        </organization>
+        <prerequisites>
+          <maven>2.0</maven>
+        </prerequisites>
 	<description>Maven2 plugins which generates NCSS and CCN code metrics.</description>
 	<licenses>
 	    <license>
@@ -78,6 +85,21 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
+       <build>
+<plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-docck-plugin</artifactId>
+        <executions>
+          <execution>
+            <goals>
+              <goal>check</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+</plugins>
+</build>
 	<reporting>
  		<plugins>
      	<plugin>

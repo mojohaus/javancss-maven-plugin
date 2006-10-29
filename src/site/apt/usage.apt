@@ -58,9 +58,9 @@ How to use
 
 *Checking your build for ccn or ncss limits
 
-You can use this plugin to check wether or not your code has reached a ccn or ncss limit.
-Setup is the same when used for reporting.
-You can execute this mojo with the following command line :
+  You can use this plugin to check wether or not your code has reached a ccn or ncss limit.
+  Setup is the same when used for reporting.
+  You can execute this mojo with the following command line :
 -------------------
   mvn javancss:check
 ------------------- 
@@ -68,7 +68,7 @@ You can execute this mojo with the following command line :
 
 *Available Configuration Options specific of javancss:check
 
-javancss:check mojo has the same configuration options of the reporting mojos plus the following:
+  javancss:check mojo has the same configuration options of the reporting mojos plus the following:
  
 *-------------------------+--------------*-----------------------------------------------------------------------------------------------------+
  <<Parameter>>            | <<Optional>> | <<Description>>                                                                                     
@@ -80,4 +80,4 @@ javancss:check mojo has the same configuration options of the reporting mojos pl
  ncssLimit                | Yes      | The limit for the NCSS metric. Defaults to 100
 *-------------------------+----------*---------------------------------------------------------------------------------------------------------------+ 
 
-todo: example configuration for user to copy/paste
+  todo: example configuration for user to copy/paste
