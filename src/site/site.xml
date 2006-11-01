@@ -24,9 +24,13 @@
       <item name="FAQ" href="faq.html"/>    
     </menu>
     <menu name="Examples">
-      <item name="Example Report" href="examples/javancss-report.html"/>
-      <item name="Example Aggregate Report" href="examples/javancss-aggregate-report.html"/>
+      <item name="Include/Exclude" href="examples/include.html"/>
+      <item name="Checking at build time" href="examples/check.html"/>
     </menu>
+    <menu name="Sample Reports">
+      <item name="Basic Report" href="reports/javancss-report.html"/>
+      <item name="Aggregate Report" href="reports/javancss-aggregate-report.html"/>
+	</menu>
     ${reports}
   </body>
 </project>

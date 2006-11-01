@@ -37,6 +37,6 @@ Maven2 JavaNCSS Plugin
   If you want to take a look at the kind of reports this plugin is able to generate you can 
   view some examples here :
   
-  * {{{examples/javancss-report.html} Example Report}}
+  * {{{reports/javancss-report.html} Default Report}}
   
-  * {{{examples/javancss-aggregate-report.html}Example Aggregate Report}}
+  * {{{reports/javancss-aggregate-report.html} Aggregate Report}}
