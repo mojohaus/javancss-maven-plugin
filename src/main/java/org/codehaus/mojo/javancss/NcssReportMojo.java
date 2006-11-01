@@ -17,6 +17,9 @@ package org.codehaus.mojo.javancss;
  */
 
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -41,10 +44,14 @@ import org.dom4j.io.SAXReader;
  * @goal report
  * 
  * @author <a href="jeanlaurentATgmail.com">Jean-Laurent de Morlhon</a>
+ * 
+ * @version $Id$
  */
 public class NcssReportMojo extends AbstractMavenReport
 {
-    /**
+    private static final String OUTPUT_NAME = "javancss";
+
+	/**
      * Specifies the directory where the HTML report will be generated.
      * 
      * @parameter expression="${project.reporting.outputDirectory}"
@@ -124,6 +131,24 @@ public class NcssReportMojo extends AbstractMavenReport
     private File xrefLocation;
 
     /**
+     * List of ant-style patterns used to specify the java sources that should be excluded when 
+     * running JavaNCSS. When none specified all .java files in the project source directories
+     *  are included.
+     * 
+     * @parameter
+     */
+    protected String[] includes;
+
+    /**
+     * List of ant-style patterns used to specify the java sources that should be excluded when 
+     * running JavaNCSS. When none specified all .java files in the project source directories
+     *  are excluded.
+     * 
+     * @parameter
+     */
+    protected String[] excludes;
+    
+    /**
      * @see org.apache.maven.reporting.MavenReport#execute(java.util.Locale)
      */
     public void executeReport( Locale locale ) throws MavenReportException
@@ -197,7 +222,7 @@ public class NcssReportMojo extends AbstractMavenReport
             getLog().debug( "Calling NCSSExecuter with output : " + buildOutputFileName() );
         }
         // run javaNCss and produce an temp xml file
-        NcssExecuter ncssExecuter = new NcssExecuter( sourceDirectory, buildOutputFileName() );
+        NcssExecuter ncssExecuter = new NcssExecuter( createTempFile(), buildOutputFileName() );
         ncssExecuter.execute();
         if ( !isTempReportGenerated() )
         {
@@ -273,18 +298,47 @@ public class NcssReportMojo extends AbstractMavenReport
     }
 
     /**
-     * gets a list of all *.java files in the source directory.
+     * gets a list of all files in the source directory.
      * 
      * @return the list of all files in the source directory;
      */
     private String[] scanForSources()
     {
+   	  String[] defaultIncludes = { "**\\*.java" };
         DirectoryScanner ds = new DirectoryScanner();
-        String[] includes = { "**\\*.java" };
-        ds.setIncludes( includes );
+        if (includes == null) {
+      	  ds.setIncludes( defaultIncludes );      	  
+        } else {
+      	  ds.setIncludes( includes );
+        }        
+        if(excludes!=null){
+      	  ds.setExcludes( excludes );
+        }
         ds.setBasedir( sourceDirectory );
         ds.scan();
         return ds.getIncludedFiles();
+    }
+    
+    private File createTempFile() throws MavenReportException {
+   	 File file;
+   	 //TODO: decide if this is better than having it in the target directory...
+   	 try {
+			file = File.createTempFile("MJNCSS", null);
+			getLog().debug("Writing javancss temporary file to " + file.toString());
+			file.deleteOnExit();
+			PrintWriter printWriter = new PrintWriter(new FileOutputStream(file));
+			String[] sourceList = scanForSources();
+			for (int i=0;i<sourceList.length;i++) {
+				String file2Include = sourceDirectory + File.separator + sourceList[i]; 
+				getLog().info("Including for parsing : " + file2Include);
+				printWriter.println(file2Include);
+			}
+			printWriter.close();
+		}
+		catch (IOException e) {
+			throw new MavenReportException(e.getMessage());
+		}
+		return file;
     }
 
     /**
@@ -347,7 +401,7 @@ public class NcssReportMojo extends AbstractMavenReport
      */
     public String getOutputName()
     {
-        return "javancss";
+        return OUTPUT_NAME;
     }
 
     /**
@@ -360,7 +414,7 @@ public class NcssReportMojo extends AbstractMavenReport
         return sourceDirectory;
     }
 
-    // helper to retrive the right bundle
+    // helper to retrieve the right bundle
     private static ResourceBundle getBundle( Locale locale )
     {
         return ResourceBundle.getBundle( "javancss-report", locale, NcssReportMojo.class.getClassLoader() );

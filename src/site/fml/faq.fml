@@ -7,8 +7,9 @@
        <p>
        Unfortunately Maven's internal support for report aggregation
   is rather poor so it does have a number of limitations.  Foremost the aggregate report is generated *before* the child
-  reports so you must re-run the JavaNCSS report after the children have generated, like this:
-
+  reports so you must re-run the JavaNCSS report after the children have generated, like this:`
+      </p>
+      <p>
 <code>
   mvn clean site:site (generate the site for every module recursively)
   mvn javancss:report (re-run the JavaNCSS report recursively so the aggregate report works)

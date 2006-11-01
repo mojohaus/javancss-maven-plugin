@@ -30,11 +30,14 @@ import javancss.Main;
  * The results are produced into a raw xml file.
  * 
  * @author <a href="jeanlaurent@gmail.com">Jean-Laurent de Morlhon</a>
+ * 
+ * @version $Id$
  */
 public class NcssExecuter
 {
     // the full path to the directory holding the sources to point JavaNCSS to.
-    private File sourceDirectory;
+	 // Or the location of a file holding the path towards all files. (javancss style *sigh* :)
+    private File sourceLocation;
 
     // JavaNCSS will write an xml output into this file.
     private String outputFilename;
@@ -45,7 +48,7 @@ public class NcssExecuter
      */
     /* package */NcssExecuter()
     {
-        this.sourceDirectory = null;
+        this.sourceLocation = null;
         this.outputFilename = null;
     }
 
@@ -59,7 +62,7 @@ public class NcssExecuter
      */
     public NcssExecuter( File sourceDirectory, String outputFilename )
     {
-        this.sourceDirectory = sourceDirectory;
+        this.sourceLocation = sourceDirectory;
         this.outputFilename = outputFilename;
     }
 
@@ -89,7 +92,15 @@ public class NcssExecuter
         argumentList.add( "-recursive" );
         argumentList.add( "-out" );
         argumentList.add( outputFilename );
-        argumentList.add( sourceDirectory.getAbsolutePath() );
+        // If the sourcelocation is a directory it means we can pass it straight to
+        // javancss. If it's a file, we assume it's containing the file list to parse
+        // so we pass it to javancss the way it expects it.
+        // (check javancss cmd line doc for more information)
+        if (sourceLocation.isDirectory()) {
+      	  argumentList.add( sourceLocation.getAbsolutePath() );
+        } else {
+      	  argumentList.add( '@' + sourceLocation.getAbsolutePath());
+        }
         return ( String[] ) argumentList.toArray( new String[argumentList.size()] );
     }
 

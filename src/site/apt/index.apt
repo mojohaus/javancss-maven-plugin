@@ -29,7 +29,14 @@ Maven2 JavaNCSS Plugin
 
   To provide you with better understanding of some usages of the Maven 2 JavaNCSS plugin,
   you can take a look into the following examples:
+  
+  * {{{examples/include.html} How to include,exclude java code to be parsed.}}
 
+* Sample report
+
+  If you want to take a look at the kind of reports this plugin is able to generate you can 
+  view some examples here :
+  
   * {{{examples/javancss-report.html} Example Report}}
   
   * {{{examples/javancss-aggregate-report.html}Example Aggregate Report}}
