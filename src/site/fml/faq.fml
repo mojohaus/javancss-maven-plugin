@@ -10,10 +10,9 @@
   reports so you must re-run the JavaNCSS report after the children have generated, like this:`
       </p>
       <p>
-<code>
-  mvn clean site:site (generate the site for every module recursively)
-  mvn javancss:report (re-run the JavaNCSS report recursively so the aggregate report works)
-</code>  
+<code>mvn clean site:site</code> (generate the site for every module recursively)<br/>
+<code>mvn javancss:report</code> (re-run the JavaNCSS report recursively so the aggregate report works)<br/>
+  
        </p>
      </answer>
    </faq>

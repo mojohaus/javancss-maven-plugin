@@ -104,18 +104,18 @@
 </build>
 	<reporting>
  		<plugins>
-     	<plugin>
-			<artifactId>maven-javadoc-plugin</artifactId>
-	  	</plugin>
-     	
-     	<plugin>
-			<artifactId>maven-jxr-plugin</artifactId>
-	  	</plugin>
-	  	
-	  	<plugin>
-	      <groupId>org.codehaus.mojo</groupId>
-	      <artifactId>javancss-maven-plugin</artifactId>
-	   	</plugin>	   
+	     	<plugin>
+				<artifactId>maven-javadoc-plugin</artifactId>
+		  	</plugin>
+	     	
+	     	<plugin>
+				<artifactId>maven-jxr-plugin</artifactId>
+		  	</plugin>
+		  	
+		  	<plugin>
+		      <groupId>org.codehaus.mojo</groupId>
+		      <artifactId>javancss-maven-plugin</artifactId>
+		   	</plugin>	   
 
 		</plugins>
   	</reporting>
