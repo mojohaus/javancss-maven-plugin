@@ -64,11 +64,11 @@ public class NumericNodeComparatorTest extends TestCase
     public void testCompareNegative()
     {
         bigNodeMock.numberValueOf( NODE_PROPERTY );
-        control.setReturnValue( BIG_VALUE );
-        smallNodeMock.numberValueOf( NODE_PROPERTY );
         control.setReturnValue( SMALL_VALUE );
+        smallNodeMock.numberValueOf( NODE_PROPERTY );
+        control.setReturnValue( BIG_VALUE );
         control.replay();
-        assertTrue( nnc.compare( smallNodeMock, bigNodeMock ) > 0 );
+        assertTrue( nnc.compare( smallNodeMock, bigNodeMock ) < 0 );
         control.verify();
     }
 
