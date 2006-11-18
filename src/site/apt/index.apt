@@ -31,6 +31,7 @@ Examples
   you can take a look into the following examples:
   
   * {{{examples/include.html} How to include,exclude java code to be parsed.}}
+  * {{{examples/check.html} How to conditionaly check your code at build time.}}
 
 * Sample report
 

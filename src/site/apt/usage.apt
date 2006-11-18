@@ -46,7 +46,7 @@ How to use
   reports so you must re-run the JavaNCSS report after the children have generated, like this:
 
 -------------------
-  mvn clean site:site (generate the site for every module recursively)
+  mvn clean site (generate the site for every module recursively)
   mvn javancss:report (re-run the JavaNCSS report recursively so the aggregate report works)
 -------------------
 
