@@ -116,7 +116,7 @@ public class NcssAggregateReportGenerator extends AbstractNcssReportGenerator
         int multi = 0;
         for ( Iterator it = reports.iterator(); it.hasNext(); )
         {
-            ModuleReport report = ( ModuleReport ) it.next();
+            ModuleReport report = (ModuleReport) it.next();
             Document document = report.getJavancssDocument();
             sink.tableRow();
             log.debug( "Aggregating " + report.getModule().getArtifactId() );

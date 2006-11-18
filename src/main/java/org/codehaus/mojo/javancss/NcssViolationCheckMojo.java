@@ -94,7 +94,7 @@ public class NcssViolationCheckMojo extends AbstractMojo
         Iterator nodeIterator = methodList.iterator();
         while ( nodeIterator.hasNext() )
         {
-            Node node = ( Node ) nodeIterator.next();
+            Node node = (Node) nodeIterator.next();
             // count ccn violation
             int ccn = new Integer( node.valueOf( "ccn" ) ).intValue();
             if ( ccn > ccnLimit )
@@ -138,7 +138,7 @@ public class NcssViolationCheckMojo extends AbstractMojo
             Iterator iterator = violationSet.iterator();
             while ( iterator.hasNext() )
             {
-                getLog().warn( "    " + ( String ) iterator.next() );
+                getLog().warn( "    " + (String) iterator.next() );
             }
             if ( failOnViolation )
             {

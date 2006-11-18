@@ -42,9 +42,9 @@ public class JavaNcssReportTest extends TestCase
         document = reader.read( new StringReader( toBeSorted ) );// JavaNcssReportTest.class.getClassLoader().getResourceAsStream("javancss-raw-report.xml"));
         List nodeList = document.selectNodes( "//test/person", "number(age)" );
         Collections.sort( nodeList, new NumericNodeComparator( "age" ) );
-        assertEquals( "400", ( ( Node ) nodeList.get( 0 ) ).valueOf( "age" ) );
-        assertEquals( "30", ( ( Node ) nodeList.get( 1 ) ).valueOf( "age" ) );
-        assertEquals( "5", ( ( Node ) nodeList.get( 2 ) ).valueOf( "age" ) );
+        assertEquals( "400", ( (Node) nodeList.get( 0 ) ).valueOf( "age" ) );
+        assertEquals( "30", ( (Node) nodeList.get( 1 ) ).valueOf( "age" ) );
+        assertEquals( "5", ( (Node) nodeList.get( 2 ) ).valueOf( "age" ) );
     }
 
 }

@@ -36,7 +36,7 @@ import javancss.Main;
 public class NcssExecuter
 {
     // the full path to the directory holding the sources to point JavaNCSS to.
-	 // Or the location of a file holding the path towards all files. (javancss style *sigh* :)
+    // Or the location of a file holding the path towards all files. (javancss style *sigh* :)
     private File sourceLocation;
 
     // JavaNCSS will write an xml output into this file.
@@ -96,12 +96,15 @@ public class NcssExecuter
         // javancss. If it's a file, we assume it's containing the file list to parse
         // so we pass it to javancss the way it expects it.
         // (check javancss cmd line doc for more information)
-        if (sourceLocation.isDirectory()) {
-      	  argumentList.add( sourceLocation.getAbsolutePath() );
-        } else {
-      	  argumentList.add( '@' + sourceLocation.getAbsolutePath());
+        if ( sourceLocation.isDirectory() )
+        {
+            argumentList.add( sourceLocation.getAbsolutePath() );
         }
-        return ( String[] ) argumentList.toArray( new String[argumentList.size()] );
+        else
+        {
+            argumentList.add( '@' + sourceLocation.getAbsolutePath() );
+        }
+        return (String[]) argumentList.toArray( new String[argumentList.size()] );
     }
 
 }

@@ -45,8 +45,8 @@ public class NumericNodeComparator implements Comparator
      */
     public int compare( Object object1, Object object2 )
     {
-        Node node1 = ( Node ) object1;
-        Node node2 = ( Node ) object2;
+        Node node1 = (Node) object1;
+        Node node2 = (Node) object2;
         return node2.numberValueOf( tagProperty ).intValue() - node1.numberValueOf( tagProperty ).intValue();
     }
 

@@ -132,7 +132,7 @@ public class NcssReportGenerator extends AbstractNcssReportGenerator
         Iterator nodeIterator = list.iterator();
         while ( nodeIterator.hasNext() )
         {
-            Node node = ( Node ) nodeIterator.next();
+            Node node = (Node) nodeIterator.next();
             sink.tableRow();
             tableCellHelper( node.valueOf( "name" ) );
             tableCellHelper( node.valueOf( "classes" ) );
@@ -205,7 +205,7 @@ public class NcssReportGenerator extends AbstractNcssReportGenerator
         int i = 0;
         while ( nodeIterator.hasNext() && ( i++ < lineThreshold ) )
         {
-            Node node = ( Node ) nodeIterator.next();
+            Node node = (Node) nodeIterator.next();
             sink.tableRow();
             sink.tableCell();
             jxrLink( node.valueOf( "name" ) );
@@ -262,7 +262,7 @@ public class NcssReportGenerator extends AbstractNcssReportGenerator
         int i = 0;
         while ( nodeIterator.hasNext() && ( i++ < lineThreshold ) )
         {
-            Node node = ( Node ) nodeIterator.next();
+            Node node = (Node) nodeIterator.next();
             sink.tableRow();
             sink.tableCell();
             jxrFunctionLink( node.valueOf( "name" ) );

@@ -46,8 +46,8 @@ public class NumericNodeComparatorTest extends TestCase
     {
         control = MockControl.createControl( Node.class );
         nnc = new NumericNodeComparator( NODE_PROPERTY );
-        bigNodeMock = ( Node ) control.getMock();
-        smallNodeMock = ( Node ) control.getMock();
+        bigNodeMock = (Node) control.getMock();
+        smallNodeMock = (Node) control.getMock();
     }
 
     public void testComparePositive()

@@ -51,7 +51,7 @@ public class NcssReportMojo extends AbstractMavenReport
 {
     private static final String OUTPUT_NAME = "javancss";
 
-	/**
+    /**
      * Specifies the directory where the HTML report will be generated.
      * 
      * @parameter expression="${project.reporting.outputDirectory}"
@@ -131,23 +131,21 @@ public class NcssReportMojo extends AbstractMavenReport
     private File xrefLocation;
 
     /**
-     * List of ant-style patterns used to specify the java sources that should be excluded when 
-     * running JavaNCSS. When none specified all .java files in the project source directories
-     *  are included.
+     * List of ant-style patterns used to specify the java sources that should be excluded when running JavaNCSS. When
+     * none specified all .java files in the project source directories are included.
      * 
      * @parameter
      */
     protected String[] includes;
 
     /**
-     * List of ant-style patterns used to specify the java sources that should be excluded when 
-     * running JavaNCSS. When none specified all .java files in the project source directories
-     *  are excluded.
+     * List of ant-style patterns used to specify the java sources that should be excluded when running JavaNCSS. When
+     * none specified all .java files in the project source directories are excluded.
      * 
      * @parameter
      */
     protected String[] excludes;
-    
+
     /**
      * @see org.apache.maven.reporting.MavenReport#execute(java.util.Locale)
      */
@@ -195,7 +193,7 @@ public class NcssReportMojo extends AbstractMavenReport
         List reports = new ArrayList();
         for ( Iterator it = reactorProjects.iterator(); it.hasNext(); )
         {
-            MavenProject child = ( MavenProject ) it.next();
+            MavenProject child = (MavenProject) it.next();
             File xmlReport = new File( child.getBasedir() + File.separator + relative, tempFileName );
             if ( xmlReport.exists() )
             {
@@ -304,41 +302,49 @@ public class NcssReportMojo extends AbstractMavenReport
      */
     private String[] scanForSources()
     {
-   	  String[] defaultIncludes = { "**\\*.java" };
+        String[] defaultIncludes = { "**\\*.java" };
         DirectoryScanner ds = new DirectoryScanner();
-        if (includes == null) {
-      	  ds.setIncludes( defaultIncludes );      	  
-        } else {
-      	  ds.setIncludes( includes );
-        }        
-        if(excludes!=null){
-      	  ds.setExcludes( excludes );
+        if ( includes == null )
+        {
+            ds.setIncludes( defaultIncludes );
+        }
+        else
+        {
+            ds.setIncludes( includes );
+        }
+        if ( excludes != null )
+        {
+            ds.setExcludes( excludes );
         }
         ds.setBasedir( sourceDirectory );
         ds.scan();
         return ds.getIncludedFiles();
     }
-    
-    private File createTempFile() throws MavenReportException {
-   	 File file;
-   	 //TODO: decide if this is better than having it in the target directory...
-   	 try {
-			file = File.createTempFile("MJNCSS", null);
-			getLog().debug("Writing javancss temporary file to " + file.toString());
-			file.deleteOnExit();
-			PrintWriter printWriter = new PrintWriter(new FileOutputStream(file));
-			String[] sourceList = scanForSources();
-			for (int i=0;i<sourceList.length;i++) {
-				String file2Include = sourceDirectory + File.separator + sourceList[i]; 
-				getLog().info("Including for parsing : " + file2Include);
-				printWriter.println(file2Include);
-			}
-			printWriter.close();
-		}
-		catch (IOException e) {
-			throw new MavenReportException(e.getMessage());
-		}
-		return file;
+
+    private File createTempFile() throws MavenReportException
+    {
+        File file;
+        // TODO: decide if this is better than having it in the target directory...
+        try
+        {
+            file = File.createTempFile( "MJNCSS", null );
+            getLog().debug( "Writing javancss temporary file to " + file.toString() );
+            file.deleteOnExit();
+            PrintWriter printWriter = new PrintWriter( new FileOutputStream( file ) );
+            String[] sourceList = scanForSources();
+            for ( int i = 0; i < sourceList.length; i++ )
+            {
+                String file2Include = sourceDirectory + File.separator + sourceList[i];
+                getLog().info( "Including for parsing : " + file2Include );
+                printWriter.println( file2Include );
+            }
+            printWriter.close();
+        }
+        catch ( IOException e )
+        {
+            throw new MavenReportException( e.getMessage() );
+        }
+        return file;
     }
 
     /**
@@ -443,7 +449,7 @@ public class NcssReportMojo extends AbstractMavenReport
                 // Not yet generated - check if the report is on its way
                 for ( Iterator reports = project.getReportPlugins().iterator(); reports.hasNext(); )
                 {
-                    ReportPlugin plugin = ( ReportPlugin ) reports.next();
+                    ReportPlugin plugin = (ReportPlugin) reports.next();
 
                     String artifactId = plugin.getArtifactId();
                     if ( "maven-jxr-plugin".equals( artifactId ) || "jxr-maven-plugin".equals( artifactId ) )
