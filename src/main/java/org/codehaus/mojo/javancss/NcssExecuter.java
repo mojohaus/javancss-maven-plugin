@@ -35,6 +35,8 @@ import javancss.Main;
  */
 public class NcssExecuter
 {
+    private static final int ARG_SIZE = 8;
+
     // the full path to the directory holding the sources to point JavaNCSS to.
     // Or the location of a file holding the path towards all files. (javancss style *sigh* :)
     private File sourceLocation;
@@ -84,7 +86,7 @@ public class NcssExecuter
 
     private String[] getCommandLineArgument()
     {
-        List argumentList = new ArrayList( 8 );
+        List argumentList = new ArrayList( ARG_SIZE );
         argumentList.add( "-package" );
         argumentList.add( "-object" );
         argumentList.add( "-function" );

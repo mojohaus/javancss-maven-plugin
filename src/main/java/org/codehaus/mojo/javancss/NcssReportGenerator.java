@@ -63,13 +63,13 @@ public class NcssReportGenerator extends AbstractNcssReportGenerator
     {
         this.lineThreshold = lineThreshold;
         // HEADER
-        sink.head();
-        sink.title();
-        sink.text( bundle.getString( "report.javancss.title" ) );
-        sink.title_();
-        sink.head_();
+        getSink().head();
+        getSink().title();
+        getSink().text( getResourceBundle().getString( "report.javancss.title" ) );
+        getSink().title_();
+        getSink().head_();
         // BODY
-        sink.body();
+        getSink().body();
         doIntro();
         // packages
         startSection( "report.javancss.package.link", "report.javancss.package.title" );
@@ -91,41 +91,41 @@ public class NcssReportGenerator extends AbstractNcssReportGenerator
         startSection( "report.javancss.explanation.link", "report.javancss.explanation.title" );
         doExplanation();
         endSection();
-        sink.body_();
+        getSink().body_();
     }
 
     private void doIntro()
     {
-        sink.section1();
-        sink.sectionTitle1();
-        sink.text( bundle.getString( "report.javancss.main.title" ) );
-        sink.sectionTitle1_();
-        sink.paragraph();
+        getSink().section1();
+        getSink().sectionTitle1();
+        getSink().text( getResourceBundle().getString( "report.javancss.main.title" ) );
+        getSink().sectionTitle1_();
+        getSink().paragraph();
         navigationBar();
-        sink.text( bundle.getString( "report.javancss.main.text" ) + " " );
-        sink.lineBreak();
-        sink.link( "http://www.kclee.de/clemens/java/javancss/" );
-        sink.text( "JavaNCSS web site." );
-        sink.link_();
-        sink.paragraph_();
-        sink.section1_();
+        getSink().text( getResourceBundle().getString( "report.javancss.main.text" ) + " " );
+        getSink().lineBreak();
+        getSink().link( "http://www.kclee.de/clemens/java/javancss/" );
+        getSink().text( "JavaNCSS web site." );
+        getSink().link_();
+        getSink().paragraph_();
+        getSink().section1_();
     }
 
     private void doMainPackageAnalysis( Document document )
     {
-        subtitleHelper( bundle.getString( "report.javancss.package.text" ) );
-        sink.table();
-        sink.tableRow();
+        subtitleHelper( getResourceBundle().getString( "report.javancss.package.text" ) );
+        getSink().table();
+        getSink().tableRow();
         // HEADER
-        headerCellHelper( bundle.getString( "report.javancss.header.package" ) );
-        headerCellHelper( bundle.getString( "report.javancss.header.classe" ) );
-        headerCellHelper( bundle.getString( "report.javancss.header.function" ) );
-        headerCellHelper( bundle.getString( "report.javancss.header.ncss" ) );
-        headerCellHelper( bundle.getString( "report.javancss.header.javadoc" ) );
-        headerCellHelper( bundle.getString( "report.javancss.header.javadoc_line" ) );
-        headerCellHelper( bundle.getString( "report.javancss.header.single_comment" ) );
-        headerCellHelper( bundle.getString( "report.javancss.header.multi_comment" ) );
-        sink.tableRow_();
+        headerCellHelper( getResourceBundle().getString( "report.javancss.header.package" ) );
+        headerCellHelper( getResourceBundle().getString( "report.javancss.header.classe" ) );
+        headerCellHelper( getResourceBundle().getString( "report.javancss.header.function" ) );
+        headerCellHelper( getResourceBundle().getString( "report.javancss.header.ncss" ) );
+        headerCellHelper( getResourceBundle().getString( "report.javancss.header.javadoc" ) );
+        headerCellHelper( getResourceBundle().getString( "report.javancss.header.javadoc_line" ) );
+        headerCellHelper( getResourceBundle().getString( "report.javancss.header.single_comment" ) );
+        headerCellHelper( getResourceBundle().getString( "report.javancss.header.multi_comment" ) );
+        getSink().tableRow_();
         // DATA
         List list = document.selectNodes( "//javancss/packages/package" );
         Collections.sort( list, new NumericNodeComparator( "ncss" ) );
@@ -133,7 +133,7 @@ public class NcssReportGenerator extends AbstractNcssReportGenerator
         while ( nodeIterator.hasNext() )
         {
             Node node = (Node) nodeIterator.next();
-            sink.tableRow();
+            getSink().tableRow();
             tableCellHelper( node.valueOf( "name" ) );
             tableCellHelper( node.valueOf( "classes" ) );
             tableCellHelper( node.valueOf( "functions" ) );
@@ -142,25 +142,25 @@ public class NcssReportGenerator extends AbstractNcssReportGenerator
             tableCellHelper( node.valueOf( "javadoc_lines" ) );
             tableCellHelper( node.valueOf( "single_comment_lines" ) );
             tableCellHelper( node.valueOf( "multi_comment_lines" ) );
-            sink.tableRow_();
+            getSink().tableRow_();
         }
-        sink.table_();
+        getSink().table_();
     }
 
     private void doTotalPackageAnalysis( Document document )
     {
-        sink.table();
-        sink.tableRow();
-        headerCellHelper( bundle.getString( "report.javancss.header.classetotal" ) );
-        headerCellHelper( bundle.getString( "report.javancss.header.functiontotal" ) );
-        headerCellHelper( bundle.getString( "report.javancss.header.ncsstotal" ) );
-        headerCellHelper( bundle.getString( "report.javancss.header.javadoc" ) );
-        headerCellHelper( bundle.getString( "report.javancss.header.javadoc_line" ) );
-        headerCellHelper( bundle.getString( "report.javancss.header.single_comment" ) );
-        headerCellHelper( bundle.getString( "report.javancss.header.multi_comment" ) );
-        sink.tableRow_();
+        getSink().table();
+        getSink().tableRow();
+        headerCellHelper( getResourceBundle().getString( "report.javancss.header.classetotal" ) );
+        headerCellHelper( getResourceBundle().getString( "report.javancss.header.functiontotal" ) );
+        headerCellHelper( getResourceBundle().getString( "report.javancss.header.ncsstotal" ) );
+        headerCellHelper( getResourceBundle().getString( "report.javancss.header.javadoc" ) );
+        headerCellHelper( getResourceBundle().getString( "report.javancss.header.javadoc_line" ) );
+        headerCellHelper( getResourceBundle().getString( "report.javancss.header.single_comment" ) );
+        headerCellHelper( getResourceBundle().getString( "report.javancss.header.multi_comment" ) );
+        getSink().tableRow_();
         Node node = document.selectSingleNode( "//javancss/packages/total" );
-        sink.tableRow();
+        getSink().tableRow();
         tableCellHelper( node.valueOf( "classes" ) );
         tableCellHelper( node.valueOf( "functions" ) );
         tableCellHelper( node.valueOf( "ncss" ) );
@@ -168,14 +168,14 @@ public class NcssReportGenerator extends AbstractNcssReportGenerator
         tableCellHelper( node.valueOf( "javadoc_lines" ) );
         tableCellHelper( node.valueOf( "single_comment_lines" ) );
         tableCellHelper( node.valueOf( "multi_comment_lines" ) );
-        sink.tableRow_();
-        sink.table_();
+        getSink().tableRow_();
+        getSink().table_();
     }
 
     private void doTopObjectNcss( Document document )
     {
-        subtitleHelper( bundle.getString( "report.javancss.top" ) + " " + lineThreshold + " "
-                        + bundle.getString( "report.javancss.object.byncss" ) );
+        subtitleHelper( getResourceBundle().getString( "report.javancss.top" ) + " " + lineThreshold + " "
+                        + getResourceBundle().getString( "report.javancss.object.byncss" ) );
         List nodeList = document.selectNodes( "//javancss/objects/object" );
         Collections.sort( nodeList, new NumericNodeComparator( "ncss" ) );
         doTopObjectGeneric( nodeList );
@@ -183,8 +183,8 @@ public class NcssReportGenerator extends AbstractNcssReportGenerator
 
     private void doTopObjectFunctions( Document document )
     {
-        subtitleHelper( bundle.getString( "report.javancss.top" ) + " " + lineThreshold + " "
-                        + bundle.getString( "report.javancss.object.byfunction" ) );
+        subtitleHelper( getResourceBundle().getString( "report.javancss.top" ) + " " + lineThreshold + " "
+                        + getResourceBundle().getString( "report.javancss.object.byfunction" ) );
         List nodeList = document.selectNodes( "//javancss/objects/object" );
         Collections.sort( nodeList, new NumericNodeComparator( "functions" ) );
         doTopObjectGeneric( nodeList );
@@ -193,69 +193,69 @@ public class NcssReportGenerator extends AbstractNcssReportGenerator
     // generic method called by doTopObjectFunctions & doTopObjectNCss
     private void doTopObjectGeneric( List nodeList )
     {
-        sink.table();
-        sink.tableRow();
-        headerCellHelper( bundle.getString( "report.javancss.header.object" ) );
-        headerCellHelper( bundle.getString( "report.javancss.header.ncss" ) );
-        headerCellHelper( bundle.getString( "report.javancss.header.function" ) );
-        headerCellHelper( bundle.getString( "report.javancss.header.classe" ) );
-        headerCellHelper( bundle.getString( "report.javancss.header.javadoc" ) );
-        sink.tableRow_();
+        getSink().table();
+        getSink().tableRow();
+        headerCellHelper( getResourceBundle().getString( "report.javancss.header.object" ) );
+        headerCellHelper( getResourceBundle().getString( "report.javancss.header.ncss" ) );
+        headerCellHelper( getResourceBundle().getString( "report.javancss.header.function" ) );
+        headerCellHelper( getResourceBundle().getString( "report.javancss.header.classe" ) );
+        headerCellHelper( getResourceBundle().getString( "report.javancss.header.javadoc" ) );
+        getSink().tableRow_();
         Iterator nodeIterator = nodeList.iterator();
         int i = 0;
         while ( nodeIterator.hasNext() && ( i++ < lineThreshold ) )
         {
             Node node = (Node) nodeIterator.next();
-            sink.tableRow();
-            sink.tableCell();
+            getSink().tableRow();
+            getSink().tableCell();
             jxrLink( node.valueOf( "name" ) );
-            sink.tableCell_();
+            getSink().tableCell_();
             tableCellHelper( node.valueOf( "ncss" ) );
             tableCellHelper( node.valueOf( "functions" ) );
             tableCellHelper( node.valueOf( "classes" ) );
             tableCellHelper( node.valueOf( "javadocs" ) );
-            sink.tableRow_();
+            getSink().tableRow_();
         }
-        sink.table_();
+        getSink().table_();
     }
 
     private void doObjectAverage( Document document )
     {
-        sink.bold();
-        sink.text( bundle.getString( "report.javancss.averages" ) );
-        sink.bold_();
-        sink.table();
-        sink.tableRow();
-        headerCellHelper( bundle.getString( "report.javancss.header.ncssaverage" ) );
-        headerCellHelper( bundle.getString( "report.javancss.header.programncss" ) );
-        headerCellHelper( bundle.getString( "report.javancss.header.classeaverage" ) );
-        headerCellHelper( bundle.getString( "report.javancss.header.functionaverage" ) );
-        headerCellHelper( bundle.getString( "report.javancss.header.javadocaverage" ) );
-        sink.tableRow_();
+        getSink().bold();
+        getSink().text( getResourceBundle().getString( "report.javancss.averages" ) );
+        getSink().bold_();
+        getSink().table();
+        getSink().tableRow();
+        headerCellHelper( getResourceBundle().getString( "report.javancss.header.ncssaverage" ) );
+        headerCellHelper( getResourceBundle().getString( "report.javancss.header.programncss" ) );
+        headerCellHelper( getResourceBundle().getString( "report.javancss.header.classeaverage" ) );
+        headerCellHelper( getResourceBundle().getString( "report.javancss.header.functionaverage" ) );
+        headerCellHelper( getResourceBundle().getString( "report.javancss.header.javadocaverage" ) );
+        getSink().tableRow_();
         Node node = document.selectSingleNode( "//javancss/objects/averages" );
         String totalNcss = document.selectSingleNode( "//javancss/objects/ncss" ).getText();
-        sink.tableRow();
+        getSink().tableRow();
         tableCellHelper( node.valueOf( "ncss" ) );
         tableCellHelper( totalNcss );
         tableCellHelper( node.valueOf( "classes" ) );
         tableCellHelper( node.valueOf( "functions" ) );
         tableCellHelper( node.valueOf( "javadocs" ) );
-        sink.tableRow_();
-        sink.table_();
+        getSink().tableRow_();
+        getSink().table_();
     }
 
     private void doFunctionAnalysis( Document document )
     {
-        subtitleHelper( bundle.getString( "report.javancss.top" ) + " " + lineThreshold + " "
-                        + bundle.getString( "report.javancss.function.byncss" ) );
-        sink.paragraph();
-        sink.table();
-        sink.tableRow();
-        headerCellHelper( bundle.getString( "report.javancss.header.function" ) );
-        headerCellHelper( bundle.getString( "report.javancss.header.ncss" ) );
-        headerCellHelper( bundle.getString( "report.javancss.header.ccn" ) );
-        headerCellHelper( bundle.getString( "report.javancss.header.javadoc" ) );
-        sink.tableRow_();
+        subtitleHelper( getResourceBundle().getString( "report.javancss.top" ) + " " + lineThreshold + " "
+                        + getResourceBundle().getString( "report.javancss.function.byncss" ) );
+        getSink().paragraph();
+        getSink().table();
+        getSink().tableRow();
+        headerCellHelper( getResourceBundle().getString( "report.javancss.header.function" ) );
+        headerCellHelper( getResourceBundle().getString( "report.javancss.header.ncss" ) );
+        headerCellHelper( getResourceBundle().getString( "report.javancss.header.ccn" ) );
+        headerCellHelper( getResourceBundle().getString( "report.javancss.header.javadoc" ) );
+        getSink().tableRow_();
         List list = document.selectNodes( "//javancss/functions/function" );
         Collections.sort( list, new NumericNodeComparator( "ncss" ) );
         Iterator nodeIterator = list.iterator();
@@ -263,176 +263,176 @@ public class NcssReportGenerator extends AbstractNcssReportGenerator
         while ( nodeIterator.hasNext() && ( i++ < lineThreshold ) )
         {
             Node node = (Node) nodeIterator.next();
-            sink.tableRow();
-            sink.tableCell();
+            getSink().tableRow();
+            getSink().tableCell();
             jxrFunctionLink( node.valueOf( "name" ) );
-            sink.tableCell_();
+            getSink().tableCell_();
             tableCellHelper( node.valueOf( "ncss" ) );
             tableCellHelper( node.valueOf( "ccn" ) );
             tableCellHelper( node.valueOf( "javadocs" ) );
-            sink.tableRow_();
+            getSink().tableRow_();
         }
-        sink.table_();
-        sink.paragraph_();
+        getSink().table_();
+        getSink().paragraph_();
     }
 
     private void doFunctionAverage( Document document )
     {
-        subtitleHelper( bundle.getString( "report.javancss.averages" ) );
-        sink.paragraph();
-        sink.table();
-        sink.tableRow();
-        headerCellHelper( bundle.getString( "report.javancss.header.programncss" ) );
-        headerCellHelper( bundle.getString( "report.javancss.header.ncssaverage" ) );
-        headerCellHelper( bundle.getString( "report.javancss.header.ccnaverage" ) );
-        headerCellHelper( bundle.getString( "report.javancss.header.javadocaverage" ) );
-        sink.tableRow_();
+        subtitleHelper( getResourceBundle().getString( "report.javancss.averages" ) );
+        getSink().paragraph();
+        getSink().table();
+        getSink().tableRow();
+        headerCellHelper( getResourceBundle().getString( "report.javancss.header.programncss" ) );
+        headerCellHelper( getResourceBundle().getString( "report.javancss.header.ncssaverage" ) );
+        headerCellHelper( getResourceBundle().getString( "report.javancss.header.ccnaverage" ) );
+        headerCellHelper( getResourceBundle().getString( "report.javancss.header.javadocaverage" ) );
+        getSink().tableRow_();
         Node node = document.selectSingleNode( "//javancss/functions/function_averages" );
         String totalNcss = document.selectSingleNode( "//javancss/functions/ncss" ).getText();
-        sink.tableRow();
+        getSink().tableRow();
         tableCellHelper( totalNcss );
         tableCellHelper( node.valueOf( "ncss" ) );
         tableCellHelper( node.valueOf( "ccn" ) );
         tableCellHelper( node.valueOf( "javadocs" ) );
-        sink.tableRow_();
-        sink.table_();
-        sink.paragraph_();
+        getSink().tableRow_();
+        getSink().table_();
+        getSink().paragraph_();
     }
 
     private void doExplanation()
     {
-        subtitleHelper( bundle.getString( "report.javancss.explanation.ncss.title" ) );
-        paragraphHelper( bundle.getString( "report.javancss.explanation.ncss.paragraph1" ) );
-        paragraphHelper( bundle.getString( "report.javancss.explanation.ncss.paragraph2" ) );
-        sink.table();
-        sink.tableRow();
+        subtitleHelper( getResourceBundle().getString( "report.javancss.explanation.ncss.title" ) );
+        paragraphHelper( getResourceBundle().getString( "report.javancss.explanation.ncss.paragraph1" ) );
+        paragraphHelper( getResourceBundle().getString( "report.javancss.explanation.ncss.paragraph2" ) );
+        getSink().table();
+        getSink().tableRow();
         headerCellHelper( "" );
-        headerCellHelper( bundle.getString( "report.javancss.explanation.ncss.table.examples" ) );
-        headerCellHelper( bundle.getString( "report.javancss.explanation.ncss.table.comments" ) );
-        sink.tableRow_();
-        sink.tableRow();
-        tableCellHelper( bundle.getString( "report.javancss.explanation.ncss.table.package" ) );
+        headerCellHelper( getResourceBundle().getString( "report.javancss.explanation.ncss.table.examples" ) );
+        headerCellHelper( getResourceBundle().getString( "report.javancss.explanation.ncss.table.comments" ) );
+        getSink().tableRow_();
+        getSink().tableRow();
+        tableCellHelper( getResourceBundle().getString( "report.javancss.explanation.ncss.table.package" ) );
         codeCellHelper( "package java.lang;" );
         tableCellHelper( "" );
-        sink.tableRow_();
-        sink.tableRow();
-        tableCellHelper( bundle.getString( "report.javancss.explanation.ncss.table.import" ) );
+        getSink().tableRow_();
+        getSink().tableRow();
+        tableCellHelper( getResourceBundle().getString( "report.javancss.explanation.ncss.table.import" ) );
         codeCellHelper( "import java.awt.*;" );
         tableCellHelper( "" );
-        sink.tableRow_();
-        sink.tableRow();
-        tableCellHelper( bundle.getString( "report.javancss.explanation.ncss.table.class" ) );
-        sink.tableCell();
-        sink.list();
+        getSink().tableRow_();
+        getSink().tableRow();
+        tableCellHelper( getResourceBundle().getString( "report.javancss.explanation.ncss.table.class" ) );
+        getSink().tableCell();
+        getSink().list();
         codeItemListHelper( "public class Foo {" );
         codeItemListHelper( "public class Foo extends Bla {" );
-        sink.list_();
-        sink.tableCell_();
+        getSink().list_();
+        getSink().tableCell_();
         tableCellHelper( "" );
-        sink.tableRow_();
-        sink.tableRow();
-        tableCellHelper( bundle.getString( "report.javancss.explanation.ncss.table.interface" ) );
+        getSink().tableRow_();
+        getSink().tableRow();
+        tableCellHelper( getResourceBundle().getString( "report.javancss.explanation.ncss.table.interface" ) );
         codeCellHelper( "public interface Able ; {" );
         tableCellHelper( "" );
-        sink.tableRow_();
-        sink.tableRow();
-        tableCellHelper( bundle.getString( "report.javancss.explanation.ncss.table.field" ) );
-        sink.tableCell();
-        sink.list();
+        getSink().tableRow_();
+        getSink().tableRow();
+        tableCellHelper( getResourceBundle().getString( "report.javancss.explanation.ncss.table.field" ) );
+        getSink().tableCell();
+        getSink().list();
         codeItemListHelper( "int a; " );
         codeItemListHelper( "int a, b, c = 5, d = 6;" );
-        sink.list_();
-        sink.tableCell_();
+        getSink().list_();
+        getSink().tableCell_();
         tableCellHelper( "" );
-        sink.tableRow_();
-        sink.tableRow();
-        tableCellHelper( bundle.getString( "report.javancss.explanation.ncss.table.method" ) );
-        sink.tableCell();
-        sink.list();
+        getSink().tableRow_();
+        getSink().tableRow();
+        tableCellHelper( getResourceBundle().getString( "report.javancss.explanation.ncss.table.method" ) );
+        getSink().tableCell();
+        getSink().list();
         codeItemListHelper( "public void cry();" );
         codeItemListHelper( "public void gib() throws DeadException {" );
-        sink.list_();
-        sink.tableCell_();
+        getSink().list_();
+        getSink().tableCell_();
         tableCellHelper( "" );
-        sink.tableRow_();
-        sink.tableRow();
-        tableCellHelper( bundle.getString( "report.javancss.explanation.ncss.table.constructorD" ) );
+        getSink().tableRow_();
+        getSink().tableRow();
+        tableCellHelper( getResourceBundle().getString( "report.javancss.explanation.ncss.table.constructorD" ) );
         codeCellHelper( "public Foo() {" );
         tableCellHelper( "" );
-        sink.tableRow_();
-        sink.tableRow();
-        tableCellHelper( bundle.getString( "report.javancss.explanation.ncss.table.constructorI" ) );
-        sink.tableCell();
-        sink.list();
+        getSink().tableRow_();
+        getSink().tableRow();
+        tableCellHelper( getResourceBundle().getString( "report.javancss.explanation.ncss.table.constructorI" ) );
+        getSink().tableCell();
+        getSink().list();
         codeItemListHelper( "this();" );
         codeItemListHelper( "super();" );
-        sink.list_();
-        sink.tableCell_();
+        getSink().list_();
+        getSink().tableCell_();
         tableCellHelper( "" );
-        sink.tableRow_();
-        sink.tableRow();
-        tableCellHelper( bundle.getString( "report.javancss.explanation.ncss.table.statement" ) );
-        sink.tableCell();
-        sink.list();
+        getSink().tableRow_();
+        getSink().tableRow();
+        tableCellHelper( getResourceBundle().getString( "report.javancss.explanation.ncss.table.statement" ) );
+        getSink().tableCell();
+        getSink().list();
         codeItemListHelper( "i = 0;" );
         codeItemListHelper( "if (ok)" );
         codeItemListHelper( "if (exit) {" );
         codeItemListHelper( "if (3 == 4);" );
         codeItemListHelper( "if (4 == 4) { ;" );
         codeItemListHelper( "} else {" );
-        sink.list_();
-        sink.tableCell_();
-        tableCellHelper( bundle.getString( "report.javancss.explanation.ncss.table.statement.comment" ) );
-        sink.tableRow_();
-        sink.tableRow();
-        tableCellHelper( bundle.getString( "report.javancss.explanation.ncss.table.label" ) );
+        getSink().list_();
+        getSink().tableCell_();
+        tableCellHelper( getResourceBundle().getString( "report.javancss.explanation.ncss.table.statement.comment" ) );
+        getSink().tableRow_();
+        getSink().tableRow();
+        tableCellHelper( getResourceBundle().getString( "report.javancss.explanation.ncss.table.label" ) );
         codeCellHelper( "fine :" );
-        tableCellHelper( bundle.getString( "report.javancss.explanation.ncss.table.label.comment" ) );
-        sink.tableRow_();
-        sink.table_();
-        paragraphHelper( bundle.getString( "report.javancss.explanation.ncss.paragraph3" ) );
-        subtitleHelper( bundle.getString( "report.javancss.explanation.ccn.title" ) );
-        paragraphHelper( bundle.getString( "report.javancss.explanation.ccn.paragraph1" ) );
-        paragraphHelper( bundle.getString( "report.javancss.explanation.ccn.paragraph1b" ) );
-        sink.list();
+        tableCellHelper( getResourceBundle().getString( "report.javancss.explanation.ncss.table.label.comment" ) );
+        getSink().tableRow_();
+        getSink().table_();
+        paragraphHelper( getResourceBundle().getString( "report.javancss.explanation.ncss.paragraph3" ) );
+        subtitleHelper( getResourceBundle().getString( "report.javancss.explanation.ccn.title" ) );
+        paragraphHelper( getResourceBundle().getString( "report.javancss.explanation.ccn.paragraph1" ) );
+        paragraphHelper( getResourceBundle().getString( "report.javancss.explanation.ccn.paragraph1b" ) );
+        getSink().list();
         codeItemListHelper( "if" );
         codeItemListHelper( "for" );
         codeItemListHelper( "while" );
         codeItemListHelper( "case" );
         codeItemListHelper( "catch" );
-        sink.list_();
-        paragraphHelper( bundle.getString( "report.javancss.explanation.ccn.paragraph1c" ) );
-        sink.list();
+        getSink().list_();
+        paragraphHelper( getResourceBundle().getString( "report.javancss.explanation.ccn.paragraph1c" ) );
+        getSink().list();
         codeItemListHelper( "if" );
         codeItemListHelper( "for" );
-        sink.list_();
-        paragraphHelper( bundle.getString( "report.javancss.explanation.ccn.paragraph1d" ) );
-        paragraphHelper( bundle.getString( "report.javancss.explanation.ccn.paragraph2" ) );
-        paragraphHelper( bundle.getString( "report.javancss.explanation.ccn.paragraph3" ) );
+        getSink().list_();
+        paragraphHelper( getResourceBundle().getString( "report.javancss.explanation.ccn.paragraph1d" ) );
+        paragraphHelper( getResourceBundle().getString( "report.javancss.explanation.ccn.paragraph2" ) );
+        paragraphHelper( getResourceBundle().getString( "report.javancss.explanation.ccn.paragraph3" ) );
     }
 
     // print out the navigation bar
     private void navigationBar()
     {
-        sink.paragraph();
-        sink.text( "[ " );
-        sink.link( "#" + bundle.getString( "report.javancss.package.link" ) );
-        sink.text( bundle.getString( "report.javancss.package.link" ) );
-        sink.link_();
-        sink.text( " ] [ " );
-        sink.link( "#" + bundle.getString( "report.javancss.object.link" ) );
-        sink.text( bundle.getString( "report.javancss.object.link" ) );
-        sink.link_();
-        sink.text( " ] [ " );
-        sink.link( "#" + bundle.getString( "report.javancss.function.link" ) );
-        sink.text( bundle.getString( "report.javancss.function.link" ) );
-        sink.link_();
-        sink.text( " ] [ " );
-        sink.link( "#" + bundle.getString( "report.javancss.explanation.link" ) );
-        sink.text( bundle.getString( "report.javancss.explanation.link" ) );
-        sink.link_();
-        sink.text( " ]" );
-        sink.paragraph_();
+        getSink().paragraph();
+        getSink().text( "[ " );
+        getSink().link( "#" + getResourceBundle().getString( "report.javancss.package.link" ) );
+        getSink().text( getResourceBundle().getString( "report.javancss.package.link" ) );
+        getSink().link_();
+        getSink().text( " ] [ " );
+        getSink().link( "#" + getResourceBundle().getString( "report.javancss.object.link" ) );
+        getSink().text( getResourceBundle().getString( "report.javancss.object.link" ) );
+        getSink().link_();
+        getSink().text( " ] [ " );
+        getSink().link( "#" + getResourceBundle().getString( "report.javancss.function.link" ) );
+        getSink().text( getResourceBundle().getString( "report.javancss.function.link" ) );
+        getSink().link_();
+        getSink().text( " ] [ " );
+        getSink().link( "#" + getResourceBundle().getString( "report.javancss.explanation.link" ) );
+        getSink().text( getResourceBundle().getString( "report.javancss.explanation.link" ) );
+        getSink().link_();
+        getSink().text( " ]" );
+        getSink().paragraph_();
     }
 
     // sink helper to start a section
@@ -446,12 +446,12 @@ public class NcssReportGenerator extends AbstractNcssReportGenerator
     {
         if ( xrefLocation != null )
         {
-            sink.link( xrefLocation + "/" + clazz.replace( '.', '/' ) + ".html" );
+            getSink().link( xrefLocation + "/" + clazz.replace( '.', '/' ) + ".html" );
         }
-        sink.text( clazz );
+        getSink().text( clazz );
         if ( xrefLocation != null )
         {
-            sink.link_();
+            getSink().link_();
         }
     }
 
@@ -463,13 +463,13 @@ public class NcssReportGenerator extends AbstractNcssReportGenerator
             indexDot = clazz.lastIndexOf( '.' );
             if ( indexDot != -1 )
             {
-                sink.link( xrefLocation + "/" + clazz.substring( 0, indexDot ).replace( '.', '/' ) + ".html" );
+                getSink().link( xrefLocation + "/" + clazz.substring( 0, indexDot ).replace( '.', '/' ) + ".html" );
             }
         }
-        sink.text( clazz );
+        getSink().text( clazz );
         if ( xrefLocation != null && indexDot != -1 )
         {
-            sink.link_();
+            getSink().link_();
         }
     }
 

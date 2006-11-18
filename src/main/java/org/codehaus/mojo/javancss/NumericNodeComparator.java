@@ -23,10 +23,13 @@ import org.dom4j.Node;
 /**
  * Comparator for numeric xml node tag.
  * 
- * @author <a href="jeanlaurent@gmail.com">Jean-Laurent de Morlhon</a>
+ * @author <a href="jeanlaurentATgmail.com">Jean-Laurent de Morlhon</a>
  */
 public class NumericNodeComparator implements Comparator
 {
+    /**
+     * the tag property used by this comparator
+     */
     private String tagProperty;
 
     /**

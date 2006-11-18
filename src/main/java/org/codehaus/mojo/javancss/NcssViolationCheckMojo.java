@@ -1,19 +1,5 @@
 package org.codehaus.mojo.javancss;
 
-import java.io.File;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Set;
-
-import org.apache.maven.plugin.AbstractMojo;
-import org.apache.maven.plugin.MojoExecutionException;
-import org.apache.maven.plugin.MojoFailureException;
-import org.dom4j.Document;
-import org.dom4j.DocumentException;
-import org.dom4j.Node;
-import org.dom4j.io.SAXReader;
-
 /*
  * Copyright 2004-2005 The Apache Software Foundation.
  *
@@ -29,6 +15,20 @@ import org.dom4j.io.SAXReader;
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
+import java.io.File;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Set;
+
+import org.apache.maven.plugin.AbstractMojo;
+import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.plugin.MojoFailureException;
+import org.dom4j.Document;
+import org.dom4j.DocumentException;
+import org.dom4j.Node;
+import org.dom4j.io.SAXReader;
 
 /**
  * Check the build if for any Method with a ccn greater than a limit in the source code.

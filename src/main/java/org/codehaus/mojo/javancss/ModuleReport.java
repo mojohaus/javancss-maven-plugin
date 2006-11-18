@@ -27,8 +27,14 @@ import org.dom4j.Document;
  */
 public class ModuleReport
 {
+    /**
+     * The MavenProject associated with the report.
+     */
     private MavenProject module;
 
+    /**
+     * The Report associated with the MavenProject
+     */
     private Document report;
 
     public ModuleReport( MavenProject project, Document document )
@@ -52,8 +58,8 @@ public class ModuleReport
         return module;
     }
 
-    public void setModule( MavenProject module )
+    public void setModule( MavenProject project )
     {
-        this.module = module;
+        this.module = project;
     }
 }

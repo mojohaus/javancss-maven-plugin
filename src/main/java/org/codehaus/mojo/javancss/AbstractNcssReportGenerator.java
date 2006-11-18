@@ -30,11 +30,11 @@ import org.codehaus.doxia.sink.Sink;
 public abstract class AbstractNcssReportGenerator
 {
 
-    protected ResourceBundle bundle;
+    private ResourceBundle bundle;
 
-    protected Sink sink;
+    private Sink sink;
 
-    protected Log log;
+    private Log log;
 
     /**
      * build a new NcssReportGenerator.
@@ -51,6 +51,36 @@ public abstract class AbstractNcssReportGenerator
         this.bundle = bundle;
         this.sink = sink;
         this.log = log;
+    }
+
+    /**
+     * Getter for the Log instance.
+     * 
+     * @return the current log instance associated with this report generator.
+     */
+    public Log getLog()
+    {
+        return this.log;
+    }
+
+    /**
+     * Getter for the Sink instance.
+     * 
+     * @return the current instance of Sink associated with this report generator.
+     */
+    public Sink getSink()
+    {
+        return this.sink;
+    }
+
+    /**
+     * Getter for the RessourceBundle.
+     * 
+     * @return the current ResourceBundle associated with this report generator.
+     */
+    public ResourceBundle getResourceBundle()
+    {
+        return this.bundle;
     }
 
     /**

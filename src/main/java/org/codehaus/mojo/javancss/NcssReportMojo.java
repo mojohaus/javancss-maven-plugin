@@ -136,7 +136,7 @@ public class NcssReportMojo extends AbstractMavenReport
      * 
      * @parameter
      */
-    protected String[] includes;
+    private String[] includes;
 
     /**
      * List of ant-style patterns used to specify the java sources that should be excluded when running JavaNCSS. When
@@ -144,7 +144,7 @@ public class NcssReportMojo extends AbstractMavenReport
      * 
      * @parameter
      */
-    protected String[] excludes;
+    private String[] excludes;
 
     /**
      * @see org.apache.maven.reporting.MavenReport#execute(java.util.Locale)
