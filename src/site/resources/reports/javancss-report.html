@@ -1,257 +1,45 @@
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-
-
-
-
-
-
-
-
-
 <html>
-  <head>
-    <title>Maven JavaNCSS Plugin - JavaNCSS Metric Results</title>
-    <style type="text/css" media="all">
-      @import url("./css/maven-base.css");
-      @import url("./css/maven-theme.css");
-      @import url("./css/site.css");
-    </style>
-    <link rel="stylesheet" href="./css/print.css" type="text/css" media="print" />
-        <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-      </head>
-  <body class="composite">
-    <div id="banner">
-                  <a href="../" id="bannerLeft">
-    
-                                    <img src="http://mojo.codehaus.org/images/mojo_logo.png" alt="" />
-    
-            </a>
-                        <a href="http://www.codehaus.org" id="bannerRight">
-    
-                                    <img src="http://mojo.codehaus.org/images/codehaus-small.png" alt="" />
-    
-            </a>
-            <div class="clear">
-        <hr/>
-      </div>
-    </div>
-    <div id="breadcrumbs">
-          
-  
+<head>
+<title>JavaNCSS Metric Results</title>
+<style type="text/css" media="all">
+@import url("./css/maven-base.css");
+@import url("./css/maven-theme.css");@import url("./css/site.css");
+</style>
+<link rel="stylesheet" href="./style/print.css" type="text/css" media="print"></link>
+<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1"></meta>
+</head>
 
-  
-    
-  
-  
-            <div class="xleft">
-        Last Published: 11/18/2006
-                      </div>
-            <div class="xright">      <a href="../">Mojo</a>
-          |
-          <a href="http://maven.apache.org/">Maven</a>
-          
-  
+<body class="composite">
+<div id="banner">
 
-  
-    
-  
-  
-  </div>
-      <div class="clear">
-        <hr/>
-      </div>
-    </div>
-    <div id="leftColumn">
-      <div id="navcolumn">
-           
-  
 
-  
-    
-  
-  
-                   <h5>Mojo</h5>
-        <ul>
-              
-    <li class="none">
-              <a href="../">Back to Mojo</a>
-        </li>
-          </ul>
-          <h5>Overview</h5>
-        <ul>
-              
-    <li class="none">
-              <a href="index.html">Introduction</a>
-        </li>
-              
-    <li class="none">
-              <a href="overview.html">Overview</a>
-        </li>
-              
-    <li class="none">
-              <a href="plugin-info.html">Goals</a>
-        </li>
-              
-    <li class="none">
-              <a href="usage.html">Usage</a>
-        </li>
-              
-    <li class="none">
-              <a href="faq.html">FAQ</a>
-        </li>
-          </ul>
-          <h5>Examples</h5>
-        <ul>
-              
-    <li class="none">
-              <a href="examples/include.html">Include/Exclude</a>
-        </li>
-              
-    <li class="none">
-              <a href="examples/check.html">Checking at build time</a>
-        </li>
-          </ul>
-          <h5>Sample Reports</h5>
-        <ul>
-              
-    <li class="none">
-              <a href="reports/javancss-report.html">Basic Report</a>
-        </li>
-              
-    <li class="none">
-              <a href="reports/javancss-aggregate-report.html">Aggregate Report</a>
-        </li>
-          </ul>
-          <h5>Project Documentation</h5>
-        <ul>
-              
-                
-              
-      
-            
-      
-            
-      
-            
-      
-            
-      
-            
-      
-            
-      
-            
-      
-              
-        <li class="collapsed">
-              <a href="project-info.html">Project Information</a>
-              </li>
-              
-                
-              
-      
-            
-      
-            
-      
-            
-            
-            
-      
-            
-      
-            
-      
-            
-      
-            
-      
-            
-      
-              
-            <li class="expanded">
-              <a href="project-reports.html">Project Reports</a>
-                <ul>
-                  
-    <li class="none">
-              <a href="checkstyle.html">Checkstyle</a>
-        </li>
-                  
-    <li class="none">
-              <a href="cpd.html">CPD Report</a>
-        </li>
-                  
-    <li class="none">
-              <a href="apidocs/index.html">JavaDocs</a>
-        </li>
-                  
-    <li class="none">
-              <strong>JavaNCSS Report</strong>
-        </li>
-                  
-    <li class="none">
-              <a href="surefire-report.html">Maven Surefire Report</a>
-        </li>
-                  
-    <li class="none">
-              <a href="plugin-info.html">Plugin documentation</a>
-        </li>
-                  
-    <li class="none">
-              <a href="pmd.html">PMD Report</a>
-        </li>
-                  
-    <li class="none">
-              <a href="xref/index.html">Source Xref</a>
-        </li>
-                  
-    <li class="none">
-              <a href="taglist.html">Tag List</a>
-        </li>
-                  
-    <li class="none">
-              <a href="xref-test/index.html">Test Source Xref</a>
-        </li>
-              </ul>
-        </li>
-          </ul>
-                                       <a href="http://maven.apache.org/" title="Built by Maven" id="poweredBy">
-            <img alt="Built by Maven" src="./images/logos/maven-feather.png"></img>
-          </a>
-                       
-  
-
-  
-    
-  
-  
-        </div>
-    </div>
-    <div id="bodyColumn">
-      <div id="contentBox">
-        <div class="section"><h2>JavaNCSS Metric Results</h2><p><p>[ <a href="#package">package</a> ] [ <a href="#object">object</a> ] [ <a href="#Method">Method</a> ] [ <a href="#explanation">explanation</a> ]</p>The following document contains the results of a JavaNCSS metric analysis. <br /><a href="http://www.kclee.de/clemens/java/javancss/">JavaNCSS web site.</a></p></div><div class="section"><h2><a name="package">Packages</a></h2><p><p>[ <a href="#package">package</a> ] [ <a href="#object">object</a> ] [ <a href="#Method">Method</a> ] [ <a href="#explanation">explanation</a> ]</p><p><b>Packages sorted by NCSS.</b></p><table class="bodyTable"><tr class="a"><th>Package</th><th>Classes</th><th>Methods</th><th>NCSS</th><th>Javadocs</th><th>Javadoc lines</th><th>Single lines comment</th><th>Multi lines comment</th></tr><tr class="b"><td>org.codehaus.mojo.javancss</td><td>8</td><td>68</td><td>792</td><td>39</td><td>334</td><td>43</td><td>131</td></tr></table><table class="bodyTable"><tr class="a"><th>Classes total</th><th>Methods total</th><th>NCSS total</th><th>Javadocs</th><th>Javadoc lines</th><th>Single lines comment</th><th>Multi lines comment</th></tr><tr class="b"><td>8</td><td>68</td><td>792</td><td>39</td><td>334</td><td>43</td><td>131</td></tr></table></p></div><div class="section"><h2><a name="object">Objects</a></h2><p><p>[ <a href="#package">package</a> ] [ <a href="#object">object</a> ] [ <a href="#Method">Method</a> ] [ <a href="#explanation">explanation</a> ]</p><p><b>TOP 30 classes containing the most NCSS.</b></p><table class="bodyTable"><tr class="a"><th>Object</th><th>NCSS</th><th>Methods</th><th>Classes</th><th>Javadocs</th></tr><tr class="b"><td><a href="./xref/org/codehaus/mojo/javancss/NcssReportGenerator.html">org.codehaus.mojo.javancss.NcssReportGenerator</a></td><td>345</td><td>16</td><td>0</td><td>3</td></tr><tr class="a"><td><a href="./xref/org/codehaus/mojo/javancss/NcssReportMojo.html">org.codehaus.mojo.javancss.NcssReportMojo</a></td><td>142</td><td>22</td><td>0</td><td>12</td></tr><tr class="b"><td><a href="./xref/org/codehaus/mojo/javancss/NcssAggregateReportGenerator.html">org.codehaus.mojo.javancss.NcssAggregateReportGenerator</a></td><td>94</td><td>4</td><td>0</td><td>3</td></tr><tr class="a"><td><a href="./xref/org/codehaus/mojo/javancss/AbstractNcssReportGenerator.html">org.codehaus.mojo.javancss.AbstractNcssReportGenerator</a></td><td>55</td><td>12</td><td>0</td><td>13</td></tr><tr class="b"><td><a href="./xref/org/codehaus/mojo/javancss/NcssViolationCheckMojo.html">org.codehaus.mojo.javancss.NcssViolationCheckMojo</a></td><td>36</td><td>3</td><td>0</td><td>1</td></tr><tr class="a"><td><a href="./xref/org/codehaus/mojo/javancss/NcssExecuter.html">org.codehaus.mojo.javancss.NcssExecuter</a></td><td>29</td><td>4</td><td>0</td><td>3</td></tr><tr class="b"><td><a href="./xref/org/codehaus/mojo/javancss/ModuleReport.html">org.codehaus.mojo.javancss.ModuleReport</a></td><td>14</td><td>5</td><td>0</td><td>1</td></tr><tr class="a"><td><a href="./xref/org/codehaus/mojo/javancss/NumericNodeComparator.html">org.codehaus.mojo.javancss.NumericNodeComparator</a></td><td>8</td><td>2</td><td>0</td><td>3</td></tr></table><p><b>TOP 30 classes containing the most Methods.</b></p><table class="bodyTable"><tr class="b"><th>Object</th><th>NCSS</th><th>Methods</th><th>Classes</th><th>Javadocs</th></tr><tr class="a"><td><a href="./xref/org/codehaus/mojo/javancss/NcssReportMojo.html">org.codehaus.mojo.javancss.NcssReportMojo</a></td><td>142</td><td>22</td><td>0</td><td>12</td></tr><tr class="b"><td><a href="./xref/org/codehaus/mojo/javancss/NcssReportGenerator.html">org.codehaus.mojo.javancss.NcssReportGenerator</a></td><td>345</td><td>16</td><td>0</td><td>3</td></tr><tr class="a"><td><a href="./xref/org/codehaus/mojo/javancss/AbstractNcssReportGenerator.html">org.codehaus.mojo.javancss.AbstractNcssReportGenerator</a></td><td>55</td><td>12</td><td>0</td><td>13</td></tr><tr class="b"><td><a href="./xref/org/codehaus/mojo/javancss/ModuleReport.html">org.codehaus.mojo.javancss.ModuleReport</a></td><td>14</td><td>5</td><td>0</td><td>1</td></tr><tr class="a"><td><a href="./xref/org/codehaus/mojo/javancss/NcssAggregateReportGenerator.html">org.codehaus.mojo.javancss.NcssAggregateReportGenerator</a></td><td>94</td><td>4</td><td>0</td><td>3</td></tr><tr class="b"><td><a href="./xref/org/codehaus/mojo/javancss/NcssExecuter.html">org.codehaus.mojo.javancss.NcssExecuter</a></td><td>29</td><td>4</td><td>0</td><td>3</td></tr><tr class="a"><td><a href="./xref/org/codehaus/mojo/javancss/NcssViolationCheckMojo.html">org.codehaus.mojo.javancss.NcssViolationCheckMojo</a></td><td>36</td><td>3</td><td>0</td><td>1</td></tr><tr class="b"><td><a href="./xref/org/codehaus/mojo/javancss/NumericNodeComparator.html">org.codehaus.mojo.javancss.NumericNodeComparator</a></td><td>8</td><td>2</td><td>0</td><td>3</td></tr></table><b>Averages.</b><table class="bodyTable"><tr class="a"><th>NCSS average</th><th>Program NCSS</th><th>Classes average</th><th>Methods average</th><th>Javadocs average</th></tr><tr class="b"><td>90.38</td><td>792.00</td><td>0.00</td><td>8.50</td><td>4.88</td></tr></table></p></div><div class="section"><h2><a name="Method">Methods</a></h2><p><p>[ <a href="#package">package</a> ] [ <a href="#object">object</a> ] [ <a href="#Method">Method</a> ] [ <a href="#explanation">explanation</a> ]</p><p><b>TOP 30 Methods containing the most NCSS.</b></p><p><table class="bodyTable"><tr class="a"><th>Methods</th><th>NCSS</th><th>CCN</th><th>Javadocs</th></tr><tr class="b"><td><a href="./xref/org/codehaus/mojo/javancss/NcssReportGenerator.html">org.codehaus.mojo.javancss.NcssReportGenerator.doExplanation()</a></td><td>109</td><td>1</td><td>0</td></tr><tr class="a"><td><a href="./xref/org/codehaus/mojo/javancss/NcssAggregateReportGenerator.html">org.codehaus.mojo.javancss.NcssAggregateReportGenerator.doModuleAnalysis(List)</a></td><td>65</td><td>2</td><td>0</td></tr><tr class="b"><td><a href="./xref/org/codehaus/mojo/javancss/NcssReportGenerator.html">org.codehaus.mojo.javancss.NcssReportGenerator.doMainPackageAnalysis(Document)</a></td><td>29</td><td>2</td><td>0</td></tr><tr class="a"><td><a href="./xref/org/codehaus/mojo/javancss/NcssReportGenerator.html">org.codehaus.mojo.javancss.NcssReportGenerator.doReport(Document,int)</a></td><td>26</td><td>1</td><td>1</td></tr><tr class="b"><td><a href="./xref/org/codehaus/mojo/javancss/NcssReportGenerator.html">org.codehaus.mojo.javancss.NcssReportGenerator.doFunctionAnalysis(Document)</a></td><td>26</td><td>3</td><td>0</td></tr><tr class="a"><td><a href="./xref/org/codehaus/mojo/javancss/NcssReportMojo.html">org.codehaus.mojo.javancss.NcssReportMojo.generateAggregateReport(Locale)</a></td><td>24</td><td>6</td><td>0</td></tr><tr class="b"><td><a href="./xref/org/codehaus/mojo/javancss/NcssReportGenerator.html">org.codehaus.mojo.javancss.NcssReportGenerator.doTopObjectGeneric(List)</a></td><td>23</td><td>3</td><td>0</td></tr><tr class="a"><td><a href="./xref/org/codehaus/mojo/javancss/NcssReportGenerator.html">org.codehaus.mojo.javancss.NcssReportGenerator.doTotalPackageAnalysis(Document)</a></td><td>22</td><td>1</td><td>0</td></tr><tr class="b"><td><a href="./xref/org/codehaus/mojo/javancss/NcssReportGenerator.html">org.codehaus.mojo.javancss.NcssReportGenerator.doObjectAverage(Document)</a></td><td>22</td><td>1</td><td>0</td></tr><tr class="a"><td><a href="./xref/org/codehaus/mojo/javancss/NcssReportGenerator.html">org.codehaus.mojo.javancss.NcssReportGenerator.doFunctionAverage(Document)</a></td><td>20</td><td>1</td><td>0</td></tr><tr class="b"><td><a href="./xref/org/codehaus/mojo/javancss/NcssReportGenerator.html">org.codehaus.mojo.javancss.NcssReportGenerator.navigationBar()</a></td><td>20</td><td>1</td><td>0</td></tr><tr class="a"><td><a href="./xref/org/codehaus/mojo/javancss/NcssReportMojo.html">org.codehaus.mojo.javancss.NcssReportMojo.constructXRefLocation()</a></td><td>18</td><td>8</td><td>0</td></tr><tr class="b"><td><a href="./xref/org/codehaus/mojo/javancss/NcssReportMojo.html">org.codehaus.mojo.javancss.NcssReportMojo.createTempFile()</a></td><td>15</td><td>4</td><td>0</td></tr><tr class="a"><td><a href="./xref/org/codehaus/mojo/javancss/NcssViolationCheckMojo.html">org.codehaus.mojo.javancss.NcssViolationCheckMojo.execute()</a></td><td>15</td><td>4</td><td>0</td></tr><tr class="b"><td><a href="./xref/org/codehaus/mojo/javancss/NcssExecuter.html">org.codehaus.mojo.javancss.NcssExecuter.getCommandLineArgument()</a></td><td>14</td><td>2</td><td>0</td></tr><tr class="a"><td><a href="./xref/org/codehaus/mojo/javancss/NcssReportGenerator.html">org.codehaus.mojo.javancss.NcssReportGenerator.doIntro()</a></td><td>14</td><td>1</td><td>0</td></tr><tr class="b"><td><a href="./xref/org/codehaus/mojo/javancss/NcssAggregateReportGenerator.html">org.codehaus.mojo.javancss.NcssAggregateReportGenerator.doReport(Locale,List,int)</a></td><td>13</td><td>1</td><td>1</td></tr><tr class="a"><td><a href="./xref/org/codehaus/mojo/javancss/NcssAggregateReportGenerator.html">org.codehaus.mojo.javancss.NcssAggregateReportGenerator.doIntro()</a></td><td>13</td><td>1</td><td>0</td></tr><tr class="b"><td><a href="./xref/org/codehaus/mojo/javancss/NcssReportMojo.html">org.codehaus.mojo.javancss.NcssReportMojo.scanForSources()</a></td><td>12</td><td>3</td><td>1</td></tr><tr class="a"><td><a href="./xref/org/codehaus/mojo/javancss/NcssReportMojo.html">org.codehaus.mojo.javancss.NcssReportMojo.generateSingleReport(Locale)</a></td><td>10</td><td>4</td><td>0</td></tr><tr class="b"><td><a href="./xref/org/codehaus/mojo/javancss/NcssViolationCheckMojo.html">org.codehaus.mojo.javancss.NcssViolationCheckMojo.reportViolation(String,Set,int)</a></td><td>10</td><td>5</td><td>0</td></tr><tr class="a"><td><a href="./xref/org/codehaus/mojo/javancss/NcssReportGenerator.html">org.codehaus.mojo.javancss.NcssReportGenerator.jxrFunctionLink(String)</a></td><td>9</td><td>5</td><td>0</td></tr><tr class="b"><td><a href="./xref/org/codehaus/mojo/javancss/AbstractNcssReportGenerator.html">org.codehaus.mojo.javancss.AbstractNcssReportGenerator.startSection(String,String)</a></td><td>8</td><td>1</td><td>1</td></tr><tr class="a"><td><a href="./xref/org/codehaus/mojo/javancss/NcssReportMojo.html">org.codehaus.mojo.javancss.NcssReportMojo.executeReport(Locale)</a></td><td>7</td><td>5</td><td>1</td></tr><tr class="b"><td><a href="./xref/org/codehaus/mojo/javancss/NcssReportMojo.html">org.codehaus.mojo.javancss.NcssReportMojo.canGenerateAggregateReport()</a></td><td>7</td><td>7</td><td>0</td></tr><tr class="a"><td><a href="./xref/org/codehaus/mojo/javancss/AbstractNcssReportGenerator.html">org.codehaus.mojo.javancss.AbstractNcssReportGenerator.codeItemListHelper(String)</a></td><td>6</td><td>1</td><td>1</td></tr><tr class="b"><td><a href="./xref/org/codehaus/mojo/javancss/AbstractNcssReportGenerator.html">org.codehaus.mojo.javancss.AbstractNcssReportGenerator.subtitleHelper(String)</a></td><td>6</td><td>1</td><td>1</td></tr><tr class="a"><td><a href="./xref/org/codehaus/mojo/javancss/AbstractNcssReportGenerator.html">org.codehaus.mojo.javancss.AbstractNcssReportGenerator.codeCellHelper(String)</a></td><td>6</td><td>1</td><td>1</td></tr><tr class="b"><td><a href="./xref/org/codehaus/mojo/javancss/NcssReportGenerator.html">org.codehaus.mojo.javancss.NcssReportGenerator.jxrLink(String)</a></td><td>6</td><td>3</td><td>0</td></tr><tr class="a"><td><a href="./xref/org/codehaus/mojo/javancss/NcssExecuter.html">org.codehaus.mojo.javancss.NcssExecuter.execute()</a></td><td>5</td><td>3</td><td>1</td></tr></table></p><p><b>Averages.</b></p><p><table class="bodyTable"><tr class="b"><th>Program NCSS</th><th>NCSS average</th><th>CCN average</th><th>Javadocs average</th></tr><tr class="a"><td>792.00</td><td>10.09</td><td>1.93</td><td>0.46</td></tr></table></p></p></div><div class="section"><h2><a name="explanation">Explanations</a></h2><p><p>[ <a href="#package">package</a> ] [ <a href="#object">object</a> ] [ <a href="#Method">Method</a> ] [ <a href="#explanation">explanation</a> ]</p><p><b>Non Commenting Source Statements (NCSS)</b></p><p>Statements for JavaNCSS are not statements as specified in the Java Language Specification but include all kinds of declarations too. Roughly spoken, NCSS is approximately equivalent to counting ';' and '{' characters in Java source files.</p><p>Not counted are empty statements, empty blocks or semicolons after closing brackets. Of course, comments don't get counted too. Closing brackets also never get counted, the same applies to blocks in general.</p><table class="bodyTable"><tr class="b"><th></th><th>Examples</th><th>Comments</th></tr><tr class="a"><td>Package declaration</td><td><tt>package java.lang;</tt></td><td></td></tr><tr class="b"><td>Import declaration</td><td><tt>import java.awt.*;</tt></td><td></td></tr><tr class="a"><td>Class declaration</td><td><ul><li><tt>public class Foo {</tt></li><li><tt>public class Foo extends Bla {</tt></li></ul></td><td></td></tr><tr class="b"><td>Interface declaration</td><td><tt>public interface Able ; {</tt></td><td></td></tr><tr class="a"><td>Field declaration</td><td><ul><li><tt>int a; </tt></li><li><tt>int a, b, c = 5, d = 6;</tt></li></ul></td><td></td></tr><tr class="b"><td>Method declaration</td><td><ul><li><tt>public void cry();</tt></li><li><tt>public void gib() throws DeadException {</tt></li></ul></td><td></td></tr><tr class="a"><td>Constructor declaration</td><td><tt>public Foo() {</tt></td><td></td></tr><tr class="b"><td>Constructor invocation</td><td><ul><li><tt>this();</tt></li><li><tt>super();</tt></li></ul></td><td></td></tr><tr class="a"><td>Statement declaration</td><td><ul><li><tt>i = 0;</tt></li><li><tt>if (ok)</tt></li><li><tt>if (exit) {</tt></li><li><tt>if (3 == 4);</tt></li><li><tt>if (4 == 4) { ;</tt></li><li><tt>} else {</tt></li></ul></td><td>expression, if, else, while, do, for, switch, break, continue, return, throw, synchronized, catch, finally</td></tr><tr class="b"><td>Label declaration</td><td><tt>fine :</tt></td><td>normal, case, default</td></tr></table>In some cases consecutive semicolons are illegal according to the JLS but JavaNCSS still tolerates them (thought JavaNCSS is still more strict as 'javac'). Nevertheless they are never counted as two statements.<b>Cyclomatic Complexity Number (CCN)</b>CCN is also know as McCabe Metric. There exists a much hyped theory behind it based on graph theory, but it all comes down to simply counting 'if', 'for', 'while' statements etc. in a method. Whenever the control flow of a method splits, the &quot;CCN counter&quot; gets incremented by one.Each method has a minimum value of 1 per default. For each of the following Java keywords/statements this value gets incremented by one:<ul><li><tt>if</tt></li><li><tt>for</tt></li><li><tt>while</tt></li><li><tt>case</tt></li><li><tt>catch</tt></li></ul>Also if the control flow of a method returns abortively the CCNvalue will be incremented by one:<ul><li><tt>if</tt></li><li><tt>for</tt></li></ul>An ordinary return at the end of method will not be counted.Note that else, default, and finallydon't increment the CCN value any further. On the other hand, a simple method with a switchstatement and a huge block of casestatements can have a surprisingly high CCN value (still it has the same value when converting a switchblock to an equivalent sequence of ifstatements).The first article about this trivial software metric is one of the most cited papers in computer science. Sometimes you just must be the first to point out some basic shit and you are history. It seems just like a wonder that nobody was able to package Lines of Code in a more scientific manner. Now it's too late to label someone's name on it :).</div>
-      </div>
-    </div>
-    <div class="clear">
-      <hr/>
-    </div>
-    <div id="footer">
-      <div class="xright">&#169;  
-          2005-2006
-    
-          CodeHaus
-          
-  
-
-  
-    
-  
-  
-  </div>
-      <div class="clear">
-        <hr/>
-      </div>
-    </div>
-  </body>
-</html>
+<div class="clear">
+<hr/>
+</div>
+</div>
+<div id="breadcrumbs">
+<div class="xleft">Last Published: Wed Nov 22 14:05:21 CET 2006</div>
+<div class="xright"></div>
+<div class="clear">
+<hr/>
+</div>
+</div>
+<div id="leftColumn"><div id="navcolumn"><h5>Project Documentation</h5>
+<ul>
+  <li class="none">
+    <strong>
+      <a href="javancss.html">JavaNCSS Report</a>
+    </strong>
+  </li>
+</ul><a href="http://maven.apache.org/" title="Built by Maven" id="poweredBy">
+<img alt="Built by Maven" src="./images/logos/maven-feather.png"></img>
+</a>
+</div></div>
+<div id="bodyColumn">
+<div id="contentBox">
+<div class="section"><h2>JavaNCSS Metric Results</h2><p><p>[ <a href="#package">package</a> ] [ <a href="#object">object</a> ] [ <a href="#method">method</a> ] [ <a href="#explanation">explanation</a> ]</p>The following document contains the results of a JavaNCSS metric analysis. <br /><a href="http://www.kclee.de/clemens/java/javancss/">JavaNCSS web site.</a></p></div><div class="section"><h2><a name="package">Packages</a></h2><p>[ <a href="#package">package</a> ] [ <a href="#object">object</a> ] [ <a href="#method">method</a> ] [ <a href="#explanation">explanation</a> ]</p><p><b>Packages sorted by NCSS.</b></p><table class="bodyTable"><tr class="a"><th>Package</th><th>Classes</th><th>Methods</th><th>NCSS</th><th>Javadocs</th><th>Javadoc lines</th><th>Single lines comment</th><th>Multi lines comment</th></tr><tr class="b"><td>org.codehaus.mojo.javancss</td><td>8</td><td>68</td><td>776</td><td>39</td><td>322</td><td>44</td><td>131</td></tr></table><table class="bodyTable"><tr class="a"><th>Classes total</th><th>Methods total</th><th>NCSS total</th><th>Javadocs</th><th>Javadoc lines</th><th>Single lines comment</th><th>Multi lines comment</th></tr><tr class="b"><td>8</td><td>68</td><td>776</td><td>39</td><td>322</td><td>44</td><td>131</td></tr></table></div><div class="section"><h2><a name="object">Objects</a></h2><p>[ <a href="#package">package</a> ] [ <a href="#object">object</a> ] [ <a href="#method">method</a> ] [ <a href="#explanation">explanation</a> ]</p><p><b>TOP 30 classes containing the most NCSS.</b></p><table class="bodyTable"><tr class="a"><th>Object</th><th>NCSS</th><th>Methods</th><th>Classes</th><th>Javadocs</th></tr><tr class="b"><td><a href="./xref/org/codehaus/mojo/javancss/NcssReportGenerator.html">org.codehaus.mojo.javancss.NcssReportGenerator</a></td><td>331</td><td>16</td><td>0</td><td>3</td></tr><tr class="a"><td><a href="./xref/org/codehaus/mojo/javancss/NcssReportMojo.html">org.codehaus.mojo.javancss.NcssReportMojo</a></td><td>142</td><td>22</td><td>0</td><td>12</td></tr><tr class="b"><td><a href="./xref/org/codehaus/mojo/javancss/NcssAggregateReportGenerator.html">org.codehaus.mojo.javancss.NcssAggregateReportGenerator</a></td><td>94</td><td>4</td><td>0</td><td>3</td></tr><tr class="a"><td><a href="./xref/org/codehaus/mojo/javancss/AbstractNcssReportGenerator.html">org.codehaus.mojo.javancss.AbstractNcssReportGenerator</a></td><td>53</td><td>12</td><td>0</td><td>13</td></tr><tr class="b"><td><a href="./xref/org/codehaus/mojo/javancss/NcssViolationCheckMojo.html">org.codehaus.mojo.javancss.NcssViolationCheckMojo</a></td><td>36</td><td>3</td><td>0</td><td>1</td></tr><tr class="a"><td><a href="./xref/org/codehaus/mojo/javancss/NcssExecuter.html">org.codehaus.mojo.javancss.NcssExecuter</a></td><td>29</td><td>4</td><td>0</td><td>3</td></tr><tr class="b"><td><a href="./xref/org/codehaus/mojo/javancss/ModuleReport.html">org.codehaus.mojo.javancss.ModuleReport</a></td><td>14</td><td>5</td><td>0</td><td>1</td></tr><tr class="a"><td><a href="./xref/org/codehaus/mojo/javancss/NumericNodeComparator.html">org.codehaus.mojo.javancss.NumericNodeComparator</a></td><td>8</td><td>2</td><td>0</td><td>3</td></tr></table><p><b>TOP 30 classes containing the most methods.</b></p><table class="bodyTable"><tr class="b"><th>Object</th><th>NCSS</th><th>Methods</th><th>Classes</th><th>Javadocs</th></tr><tr class="a"><td><a href="./xref/org/codehaus/mojo/javancss/NcssReportMojo.html">org.codehaus.mojo.javancss.NcssReportMojo</a></td><td>142</td><td>22</td><td>0</td><td>12</td></tr><tr class="b"><td><a href="./xref/org/codehaus/mojo/javancss/NcssReportGenerator.html">org.codehaus.mojo.javancss.NcssReportGenerator</a></td><td>331</td><td>16</td><td>0</td><td>3</td></tr><tr class="a"><td><a href="./xref/org/codehaus/mojo/javancss/AbstractNcssReportGenerator.html">org.codehaus.mojo.javancss.AbstractNcssReportGenerator</a></td><td>53</td><td>12</td><td>0</td><td>13</td></tr><tr class="b"><td><a href="./xref/org/codehaus/mojo/javancss/ModuleReport.html">org.codehaus.mojo.javancss.ModuleReport</a></td><td>14</td><td>5</td><td>0</td><td>1</td></tr><tr class="a"><td><a href="./xref/org/codehaus/mojo/javancss/NcssAggregateReportGenerator.html">org.codehaus.mojo.javancss.NcssAggregateReportGenerator</a></td><td>94</td><td>4</td><td>0</td><td>3</td></tr><tr class="b"><td><a href="./xref/org/codehaus/mojo/javancss/NcssExecuter.html">org.codehaus.mojo.javancss.NcssExecuter</a></td><td>29</td><td>4</td><td>0</td><td>3</td></tr><tr class="a"><td><a href="./xref/org/codehaus/mojo/javancss/NcssViolationCheckMojo.html">org.codehaus.mojo.javancss.NcssViolationCheckMojo</a></td><td>36</td><td>3</td><td>0</td><td>1</td></tr><tr class="b"><td><a href="./xref/org/codehaus/mojo/javancss/NumericNodeComparator.html">org.codehaus.mojo.javancss.NumericNodeComparator</a></td><td>8</td><td>2</td><td>0</td><td>3</td></tr></table><p><b>Averages.</b></p><table class="bodyTable"><tr class="a"><th>NCSS average</th><th>Program NCSS</th><th>Classes average</th><th>Methods average</th><th>Javadocs average</th></tr><tr class="b"><td>88.38</td><td>776.00</td><td>0.00</td><td>8.50</td><td>4.88</td></tr></table></div><div class="section"><h2><a name="method">Methods</a></h2><p>[ <a href="#package">package</a> ] [ <a href="#object">object</a> ] [ <a href="#method">method</a> ] [ <a href="#explanation">explanation</a> ]</p><p><b>TOP 30 Methods containing the most NCSS.</b></p><p><table class="bodyTable"><tr class="a"><th>Methods</th><th>NCSS</th><th>CCN</th><th>Javadocs</th></tr><tr class="b"><td><a href="./xref/org/codehaus/mojo/javancss/NcssReportGenerator.html">org.codehaus.mojo.javancss.NcssReportGenerator.doExplanation()</a></td><td>97</td><td>1</td><td>0</td></tr><tr class="a"><td><a href="./xref/org/codehaus/mojo/javancss/NcssAggregateReportGenerator.html">org.codehaus.mojo.javancss.NcssAggregateReportGenerator.doModuleAnalysis(List)</a></td><td>65</td><td>2</td><td>0</td></tr><tr class="b"><td><a href="./xref/org/codehaus/mojo/javancss/NcssReportGenerator.html">org.codehaus.mojo.javancss.NcssReportGenerator.doMainPackageAnalysis(Document)</a></td><td>29</td><td>2</td><td>0</td></tr><tr class="a"><td><a href="./xref/org/codehaus/mojo/javancss/NcssReportGenerator.html">org.codehaus.mojo.javancss.NcssReportGenerator.doReport(Document,int)</a></td><td>26</td><td>1</td><td>1</td></tr><tr class="b"><td><a href="./xref/org/codehaus/mojo/javancss/NcssReportGenerator.html">org.codehaus.mojo.javancss.NcssReportGenerator.doFunctionAnalysis(Document)</a></td><td>26</td><td>3</td><td>0</td></tr><tr class="a"><td><a href="./xref/org/codehaus/mojo/javancss/NcssReportMojo.html">org.codehaus.mojo.javancss.NcssReportMojo.generateAggregateReport(Locale)</a></td><td>24</td><td>6</td><td>0</td></tr><tr class="b"><td><a href="./xref/org/codehaus/mojo/javancss/NcssReportGenerator.html">org.codehaus.mojo.javancss.NcssReportGenerator.doTopObjectGeneric(List)</a></td><td>23</td><td>3</td><td>0</td></tr><tr class="a"><td><a href="./xref/org/codehaus/mojo/javancss/NcssReportGenerator.html">org.codehaus.mojo.javancss.NcssReportGenerator.doTotalPackageAnalysis(Document)</a></td><td>22</td><td>1</td><td>0</td></tr><tr class="b"><td><a href="./xref/org/codehaus/mojo/javancss/NcssReportGenerator.html">org.codehaus.mojo.javancss.NcssReportGenerator.doObjectAverage(Document)</a></td><td>20</td><td>1</td><td>0</td></tr><tr class="a"><td><a href="./xref/org/codehaus/mojo/javancss/NcssReportGenerator.html">org.codehaus.mojo.javancss.NcssReportGenerator.doFunctionAverage(Document)</a></td><td>20</td><td>1</td><td>0</td></tr><tr class="b"><td><a href="./xref/org/codehaus/mojo/javancss/NcssReportGenerator.html">org.codehaus.mojo.javancss.NcssReportGenerator.navigationBar()</a></td><td>20</td><td>1</td><td>0</td></tr><tr class="a"><td><a href="./xref/org/codehaus/mojo/javancss/NcssReportMojo.html">org.codehaus.mojo.javancss.NcssReportMojo.constructXRefLocation()</a></td><td>18</td><td>8</td><td>0</td></tr><tr class="b"><td><a href="./xref/org/codehaus/mojo/javancss/NcssReportMojo.html">org.codehaus.mojo.javancss.NcssReportMojo.createTempFile()</a></td><td>15</td><td>4</td><td>0</td></tr><tr class="a"><td><a href="./xref/org/codehaus/mojo/javancss/NcssViolationCheckMojo.html">org.codehaus.mojo.javancss.NcssViolationCheckMojo.execute()</a></td><td>15</td><td>4</td><td>0</td></tr><tr class="b"><td><a href="./xref/org/codehaus/mojo/javancss/NcssExecuter.html">org.codehaus.mojo.javancss.NcssExecuter.getCommandLineArgument()</a></td><td>14</td><td>2</td><td>0</td></tr><tr class="a"><td><a href="./xref/org/codehaus/mojo/javancss/NcssReportGenerator.html">org.codehaus.mojo.javancss.NcssReportGenerator.doIntro()</a></td><td>14</td><td>1</td><td>0</td></tr><tr class="b"><td><a href="./xref/org/codehaus/mojo/javancss/NcssAggregateReportGenerator.html">org.codehaus.mojo.javancss.NcssAggregateReportGenerator.doReport(Locale,List,int)</a></td><td>13</td><td>1</td><td>1</td></tr><tr class="a"><td><a href="./xref/org/codehaus/mojo/javancss/NcssAggregateReportGenerator.html">org.codehaus.mojo.javancss.NcssAggregateReportGenerator.doIntro()</a></td><td>13</td><td>1</td><td>0</td></tr><tr class="b"><td><a href="./xref/org/codehaus/mojo/javancss/NcssReportMojo.html">org.codehaus.mojo.javancss.NcssReportMojo.scanForSources()</a></td><td>12</td><td>3</td><td>1</td></tr><tr class="a"><td><a href="./xref/org/codehaus/mojo/javancss/NcssReportMojo.html">org.codehaus.mojo.javancss.NcssReportMojo.generateSingleReport(Locale)</a></td><td>10</td><td>4</td><td>0</td></tr><tr class="b"><td><a href="./xref/org/codehaus/mojo/javancss/NcssViolationCheckMojo.html">org.codehaus.mojo.javancss.NcssViolationCheckMojo.reportViolation(String,Set,int)</a></td><td>10</td><td>5</td><td>0</td></tr><tr class="a"><td><a href="./xref/org/codehaus/mojo/javancss/NcssReportGenerator.html">org.codehaus.mojo.javancss.NcssReportGenerator.jxrFunctionLink(String)</a></td><td>9</td><td>5</td><td>0</td></tr><tr class="b"><td><a href="./xref/org/codehaus/mojo/javancss/AbstractNcssReportGenerator.html">org.codehaus.mojo.javancss.AbstractNcssReportGenerator.startSection(String,String)</a></td><td>7</td><td>1</td><td>1</td></tr><tr class="a"><td><a href="./xref/org/codehaus/mojo/javancss/NcssReportMojo.html">org.codehaus.mojo.javancss.NcssReportMojo.executeReport(Locale)</a></td><td>7</td><td>5</td><td>1</td></tr><tr class="b"><td><a href="./xref/org/codehaus/mojo/javancss/NcssReportMojo.html">org.codehaus.mojo.javancss.NcssReportMojo.canGenerateAggregateReport()</a></td><td>7</td><td>7</td><td>0</td></tr><tr class="a"><td><a href="./xref/org/codehaus/mojo/javancss/AbstractNcssReportGenerator.html">org.codehaus.mojo.javancss.AbstractNcssReportGenerator.codeItemListHelper(String)</a></td><td>6</td><td>1</td><td>1</td></tr><tr class="b"><td><a href="./xref/org/codehaus/mojo/javancss/AbstractNcssReportGenerator.html">org.codehaus.mojo.javancss.AbstractNcssReportGenerator.subtitleHelper(String)</a></td><td>6</td><td>1</td><td>1</td></tr><tr class="a"><td><a href="./xref/org/codehaus/mojo/javancss/AbstractNcssReportGenerator.html">org.codehaus.mojo.javancss.AbstractNcssReportGenerator.codeCellHelper(String)</a></td><td>6</td><td>1</td><td>1</td></tr><tr class="b"><td><a href="./xref/org/codehaus/mojo/javancss/NcssReportGenerator.html">org.codehaus.mojo.javancss.NcssReportGenerator.jxrLink(String)</a></td><td>6</td><td>3</td><td>0</td></tr><tr class="a"><td><a href="./xref/org/codehaus/mojo/javancss/NcssExecuter.html">org.codehaus.mojo.javancss.NcssExecuter.execute()</a></td><td>5</td><td>3</td><td>1</td></tr></table></p><p><b>Averages.</b></p><p><table class="bodyTable"><tr class="b"><th>Program NCSS</th><th>NCSS average</th><th>CCN average</th><th>Javadocs average</th></tr><tr class="a"><td>776.00</td><td>9.85</td><td>1.93</td><td>0.46</td></tr></table></p></div><div class="section"><h2><a name="explanation">Explanations</a></h2><p>[ <a href="#package">package</a> ] [ <a href="#object">object</a> ] [ <a href="#method">method</a> ] [ <a href="#explanation">explanation</a> ]</p><p><b>Non Commenting Source Statements (NCSS)</b></p><p>Statements for JavaNCSS are not statements as specified in the Java Language Specification but include all kinds of declarations too. Roughly spoken, NCSS is approximately equivalent to counting ';' and '{' characters in Java source files.</p><p>Not counted are empty statements, empty blocks or semicolons after closing brackets. Of course, comments don't get counted too. Closing brackets also never get counted, the same applies to blocks in general.</p><table class="bodyTable"><tr class="b"><th></th><th>Examples</th></tr><tr class="a"><td>Package declaration</td><td><tt>package java.lang;</tt></td></tr><tr class="b"><td>Import declaration</td><td><tt>import java.awt.*;</tt></td></tr><tr class="a"><td>Class declaration</td><td><ul><li><tt>public class Foo {</tt></li><li><tt>public class Foo extends Bla {</tt></li></ul></td></tr><tr class="b"><td>Interface declaration</td><td><tt>public interface Able ; {</tt></td></tr><tr class="a"><td>Field declaration</td><td><ul><li><tt>int a; </tt></li><li><tt>int a, b, c = 5, d = 6;</tt></li></ul></td></tr><tr class="b"><td>Method declaration</td><td><ul><li><tt>public void cry();</tt></li><li><tt>public void gib() throws DeadException {</tt></li></ul></td></tr><tr class="a"><td>Constructor declaration</td><td><tt>public Foo() {</tt></td></tr><tr class="b"><td>Constructor invocation</td><td><ul><li><tt>this();</tt></li><li><tt>super();</tt></li></ul></td></tr><tr class="a"><td>Statement declaration</td><td><ul><li><tt>i = 0;</tt></li><li><tt>if (ok)</tt></li><li><tt>if (exit) {</tt></li><li><tt>if (3 == 4);</tt></li><li><tt>if (4 == 4) { ;</tt></li><li><tt>} else {</tt></li></ul></td></tr><tr class="b"><td>Label declaration</td><td><tt>fine :</tt></td></tr></table>In some cases consecutive semicolons are illegal according to the JLS but JavaNCSS still tolerates them (thought JavaNCSS is still more strict as 'javac'). Nevertheless they are never counted as two statements.<p><b>Cyclomatic Complexity Number (CCN)</b></p><p>CCN is also know as McCabe Metric. There exists a much hyped theory behind it based on graph theory, but it all comes down to simply counting 'if', 'for', 'while' statements etc. in a method. Whenever the control flow of a method splits, the &quot;CCN counter&quot; gets incremented by one.</p><p>Each method has a minimum value of 1 per default. For each of the following Java keywords/statements this value gets incremented by one:</p><ul><li><tt>if</tt></li><li><tt>for</tt></li><li><tt>while</tt></li><li><tt>case</tt></li><li><tt>catch</tt></li></ul>Also if the control flow of a method returns abortively the CCNvalue will be incremented by one:<ul><li><tt>if</tt></li><li><tt>for</tt></li></ul>An ordinary return at the end of method will not be counted.<p>Note that 'else', 'default', and 'finally' don't increment the CCN value any further. On the other hand, a simple method with a 'switch' statement and a huge block of 'case' statements can have a surprisingly high CCN value (still it has the same value when converting a 'switch' block to an equivalent sequence of 'if' statements).</p></div>
+</div>
+</div>
+<div class="
