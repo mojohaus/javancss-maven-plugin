@@ -324,7 +324,6 @@ public class NcssReportMojo extends AbstractMavenReport
     private File createTempFile() throws MavenReportException
     {
         File file;
-        // TODO: decide if this is better than having it in the target directory...
         try
         {
             file = File.createTempFile( "MJNCSS", null );
@@ -335,7 +334,7 @@ public class NcssReportMojo extends AbstractMavenReport
             for ( int i = 0; i < sourceList.length; i++ )
             {
                 String file2Include = sourceDirectory + File.separator + sourceList[i];
-                getLog().info( "Including for parsing : " + file2Include );
+                getLog().debug( "Including for parsing : " + file2Include );
                 printWriter.println( file2Include );
             }
             printWriter.close();
