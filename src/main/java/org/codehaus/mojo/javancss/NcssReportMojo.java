@@ -212,15 +212,27 @@ public class NcssReportMojo extends AbstractMavenReport
         reportGenerator.doReport( locale, reports, lineThreshold );
     }
 
+    private boolean isIncludeExcludeUsed() {
+        return ( (excludes != null) || (includes != null) );
+    }
+    
     private void generateSingleReport( Locale locale ) throws MavenReportException
     {
         if ( getLog().isDebugEnabled() )
         {
             getLog().debug( "Calling NCSSExecuter with src    : " + sourceDirectory );
             getLog().debug( "Calling NCSSExecuter with output : " + buildOutputFileName() );
+            getLog().debug( "Calling NCSSExecuter with includes : " + includes );
+            getLog().debug( "Calling NCSSExecuter with excludes : " + excludes );
         }
         // run javaNCss and produce an temp xml file
-        NcssExecuter ncssExecuter = new NcssExecuter( createTempFile(), buildOutputFileName() );
+        File target;
+        if (isIncludeExcludeUsed()) {
+            target = createTempFile();
+        } else {
+            target = sourceDirectory;
+        }
+        NcssExecuter ncssExecuter = new NcssExecuter( target, buildOutputFileName() );
         ncssExecuter.execute();
         if ( !isTempReportGenerated() )
         {
@@ -326,16 +338,19 @@ public class NcssReportMojo extends AbstractMavenReport
         File file;
         try
         {
-            file = File.createTempFile( "MJNCSS", null );
-            getLog().debug( "Writing javancss temporary file to " + file.toString() );
+            file = new File(project.getBuild().getDirectory() + File.separator + "MJNCSS-TMP.txt");
+            getLog().debug( "Writing javancss temporary file to " + file.getAbsolutePath().toString() );
             file.deleteOnExit();
             PrintWriter printWriter = new PrintWriter( new FileOutputStream( file ) );
             String[] sourceList = scanForSources();
             for ( int i = 0; i < sourceList.length; i++ )
             {
-                String file2Include = sourceDirectory + File.separator + sourceList[i];
-                getLog().debug( "Including for parsing : " + file2Include );
-                printWriter.println( file2Include );
+                String file2Include = new File( sourceDirectory + File.separator + sourceList[i] ).getCanonicalPath();
+                if ( ( file2Include != null ) )
+                {
+                    getLog().debug( "Including for parsing : " + file2Include );
+                    printWriter.println( file2Include );
+                }
             }
             printWriter.close();
         }

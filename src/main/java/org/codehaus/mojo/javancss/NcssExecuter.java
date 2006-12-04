@@ -104,7 +104,7 @@ public class NcssExecuter
         }
         else
         {
-            argumentList.add( '@' + sourceLocation.getAbsolutePath() );
+            argumentList.add( '@' + sourceLocation.getPath() );
         }
         return (String[]) argumentList.toArray( new String[argumentList.size()] );
     }
