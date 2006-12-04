@@ -43,6 +43,7 @@ public class NcssExecuter
 
     // JavaNCSS will write an xml output into this file.
     private String outputFilename;
+    private String[] fileList;
 
     /**
      * Construct a NcssExecuter with no arguments.<br>
@@ -52,6 +53,7 @@ public class NcssExecuter
     {
         this.sourceLocation = null;
         this.outputFilename = null;
+        this.fileList = null;
     }
 
     /**
@@ -65,6 +67,13 @@ public class NcssExecuter
     public NcssExecuter( File sourceDirectory, String outputFilename )
     {
         this.sourceLocation = sourceDirectory;
+        this.outputFilename = outputFilename;
+        this.fileList = null;
+    }
+    
+    public NcssExecuter(String[] fileList, String outputFilename) {
+        this.sourceLocation = null;
+        this.fileList =fileList;
         this.outputFilename = outputFilename;
     }
 
@@ -98,13 +107,15 @@ public class NcssExecuter
         // javancss. If it's a file, we assume it's containing the file list to parse
         // so we pass it to javancss the way it expects it.
         // (check javancss cmd line doc for more information)
-        if ( sourceLocation.isDirectory() )
+        if ( ( sourceLocation != null ) && (sourceLocation.isDirectory() ) )
         {
             argumentList.add( sourceLocation.getAbsolutePath() );
         }
         else
         {
-            argumentList.add( '@' + sourceLocation.getPath() );
+           for( int i=0;i<fileList.length;i++) {
+               argumentList.add(fileList[i]);
+           }
         }
         return (String[]) argumentList.toArray( new String[argumentList.size()] );
     }

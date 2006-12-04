@@ -17,9 +17,6 @@ package org.codehaus.mojo.javancss;
  */
 
 import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -226,13 +223,13 @@ public class NcssReportMojo extends AbstractMavenReport
             getLog().debug( "Calling NCSSExecuter with excludes : " + excludes );
         }
         // run javaNCss and produce an temp xml file
-        File target;
+        NcssExecuter ncssExecuter;
         if (isIncludeExcludeUsed()) {
-            target = createTempFile();
+            ncssExecuter = new NcssExecuter( scanForSources(), buildOutputFileName() );
         } else {
-            target = sourceDirectory;
+            ncssExecuter = new NcssExecuter( sourceDirectory, buildOutputFileName() );
         }
-        NcssExecuter ncssExecuter = new NcssExecuter( target, buildOutputFileName() );
+        
         ncssExecuter.execute();
         if ( !isTempReportGenerated() )
         {
@@ -331,34 +328,6 @@ public class NcssReportMojo extends AbstractMavenReport
         ds.setBasedir( sourceDirectory );
         ds.scan();
         return ds.getIncludedFiles();
-    }
-
-    private File createTempFile() throws MavenReportException
-    {
-        File file;
-        try
-        {
-            file = new File(project.getBuild().getDirectory() + File.separator + "MJNCSS-TMP.txt");
-            getLog().debug( "Writing javancss temporary file to " + file.getAbsolutePath().toString() );
-            file.deleteOnExit();
-            PrintWriter printWriter = new PrintWriter( new FileOutputStream( file ) );
-            String[] sourceList = scanForSources();
-            for ( int i = 0; i < sourceList.length; i++ )
-            {
-                String file2Include = new File( sourceDirectory + File.separator + sourceList[i] ).getCanonicalPath();
-                if ( ( file2Include != null ) )
-                {
-                    getLog().debug( "Including for parsing : " + file2Include );
-                    printWriter.println( file2Include );
-                }
-            }
-            printWriter.close();
-        }
-        catch ( IOException e )
-        {
-            throw new MavenReportException( e.getMessage() );
-        }
-        return file;
     }
 
     /**
