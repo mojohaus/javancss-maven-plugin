@@ -209,10 +209,11 @@ public class NcssReportMojo extends AbstractMavenReport
         reportGenerator.doReport( locale, reports, lineThreshold );
     }
 
-    private boolean isIncludeExcludeUsed() {
-        return ( (excludes != null) || (includes != null) );
+    private boolean isIncludeExcludeUsed()
+    {
+        return ( ( excludes != null ) || ( includes != null ) );
     }
-    
+
     private void generateSingleReport( Locale locale ) throws MavenReportException
     {
         if ( getLog().isDebugEnabled() )
@@ -224,12 +225,15 @@ public class NcssReportMojo extends AbstractMavenReport
         }
         // run javaNCss and produce an temp xml file
         NcssExecuter ncssExecuter;
-        if (isIncludeExcludeUsed()) {
+        if ( isIncludeExcludeUsed() )
+        {
             ncssExecuter = new NcssExecuter( scanForSources(), buildOutputFileName() );
-        } else {
+        }
+        else
+        {
             ncssExecuter = new NcssExecuter( sourceDirectory, buildOutputFileName() );
         }
-        
+
         ncssExecuter.execute();
         if ( !isTempReportGenerated() )
         {
@@ -326,8 +330,15 @@ public class NcssReportMojo extends AbstractMavenReport
             ds.setExcludes( excludes );
         }
         ds.setBasedir( sourceDirectory );
+        getLog().debug( "Scanning base directory " + sourceDirectory );
         ds.scan();
-        return ds.getIncludedFiles();
+        int maxFiles = ds.getIncludedFiles().length;
+        String[] result = new String[maxFiles];
+        for ( int i = 0; i < maxFiles; i++ )
+        {
+            result[i] = sourceDirectory + File.separator + ds.getIncludedFiles()[i];
+        }
+        return result;
     }
 
     /**
