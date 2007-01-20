@@ -144,6 +144,12 @@ public class NcssReportMojo extends AbstractMavenReport
     private String[] excludes;
 
     /**
+     * 
+     * @parameter
+     */
+    private String forceEncoding;
+
+    /**
      * @see org.apache.maven.reporting.MavenReport#execute(java.util.Locale)
      */
     public void executeReport( Locale locale ) throws MavenReportException
@@ -249,12 +255,38 @@ public class NcssReportMojo extends AbstractMavenReport
     {
         try
         {
-            return new SAXReader().read( file );
+            return loadDocument( file, null );
         }
-        catch ( DocumentException de )
+        catch ( DocumentException ignored )
         {
-            throw new MavenReportException( de.getMessage() );
+            if ( forceEncoding == null )
+            {
+                forceEncoding = System.getProperty( "file.encoding" );
+            }
+            getLog().debug(
+                            "Loading document without specifying encoding failed, trying with forceEncoding = ["
+                                            + forceEncoding + "]" );
+            try
+            {
+                return loadDocument( file, forceEncoding );
+            }
+            catch ( DocumentException de )
+            {
+
+                throw new MavenReportException( de.getMessage(), de );
+            }
         }
+    }
+
+    private Document loadDocument( File file, String encoding ) throws DocumentException
+    {
+        SAXReader saxReader = new SAXReader();
+        if ( encoding != null )
+        {
+            saxReader.setEncoding( encoding );
+            getLog().debug( "Loading xml file with encoding : " + encoding );
+        }
+        return saxReader.read( file );
     }
 
     private Document loadDocument() throws MavenReportException
