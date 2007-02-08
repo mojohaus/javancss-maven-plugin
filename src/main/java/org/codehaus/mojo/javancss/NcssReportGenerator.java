@@ -30,6 +30,8 @@ import org.dom4j.Node;
  * Generates the javaNcss maven report.
  * 
  * @author <a href="jeanlaurentATgmail.com">Jean-Laurent de Morlhon</a>
+ * 
+ * @version $Id$
  */
 public class NcssReportGenerator extends AbstractNcssReportGenerator
 {

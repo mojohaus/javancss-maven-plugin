@@ -37,6 +37,8 @@ import org.dom4j.io.SAXReader;
  * 
  * @author <a href="jeanlaurentATgmail.com">Jean-Laurent de Morlhon</a>
  * 
+ * @version $Id$
+ * 
  * @goal check
  * @phase verify
  * @execute goal="report"

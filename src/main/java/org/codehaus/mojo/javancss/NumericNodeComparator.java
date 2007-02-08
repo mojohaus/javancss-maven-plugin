@@ -24,6 +24,8 @@ import org.dom4j.Node;
  * Comparator for numeric xml node tag.
  * 
  * @author <a href="jeanlaurentATgmail.com">Jean-Laurent de Morlhon</a>
+ * 
+ * @version $Id$
  */
 public class NumericNodeComparator implements Comparator
 {
