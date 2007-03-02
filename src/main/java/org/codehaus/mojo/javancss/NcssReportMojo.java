@@ -128,16 +128,16 @@ public class NcssReportMojo extends AbstractMavenReport
     private File xrefLocation;
 
     /**
-     * List of ant-style patterns used to specify the java sources that should be excluded when running JavaNCSS. When
-     * none specified all .java files in the project source directories are included.
+     * List of ant-style patterns used to specify the java sources that should be included when running JavaNCSS.
+     * If this is not specified, all .java files in the project source directories are included.
      * 
      * @parameter
      */
     private String[] includes;
 
     /**
-     * List of ant-style patterns used to specify the java sources that should be excluded when running JavaNCSS. When
-     * none specified all .java files in the project source directories are excluded.
+     * List of ant-style patterns used to specify the java sources that should be excluded when running JavaNCSS.
+     * If this is not specified, no files in the project source directories are excluded.
      * 
      * @parameter
      */
