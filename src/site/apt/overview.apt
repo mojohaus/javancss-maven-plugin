@@ -1,11 +1,11 @@
  ------
- Maven 2 JavaNCSS Plugin
+ Introduction
  ------
  Jean-Laurent de Morlhon
  <jeanlaurent@NOSPAMgmail.com>
  ------
 
-Maven2 JavaNCSS Plugin
+Maven 2 JavaNCSS Plugin
  
   {{{http://www.kclee.de/clemens/java/javancss/}JavaNCSS}} is a source measurement suite for Java which produces quantity & complexity metrics for your java source code.
 
@@ -23,7 +23,7 @@ Goals Overview
 
 Usage
 
-  Instructions on how to use the Maven2 JavaNCSS plugin can be found {{{usage.html}here}}.
+  Instructions on how to use the Maven 2 JavaNCSS plugin can be found {{{usage.html}here}}.
 
 Examples
 

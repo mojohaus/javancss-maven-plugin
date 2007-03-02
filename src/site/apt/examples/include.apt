@@ -1,11 +1,11 @@
  ------
- Maven 2 JavaNCSS Plugin - Include Configuration Example
+ Include/Exclude Configuration
  ------
  Jean-Laurent de Morlhon
  <jeanlaurent@NOSPAMgmail.com>
  ------
  
-Include, Exclude usage
+Include/Exclude Configuration
  
  You may need to exclude or include some file conditionally.
  The Maven 2 JavaNCSS is able to do this by using the standard <excludes> and <includes> tags.
