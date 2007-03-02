@@ -7,36 +7,35 @@
  
 Include, Exclude usage
  
- You may be in need to exclude or include conditionally some file to parse.
- the Maven 2 JavaNCSS is able to do it by using the standard <excludes> and <includes> tags.
+ You may need to exclude or include some file conditionally.
+ The Maven 2 JavaNCSS is able to do this by using the standard <excludes> and <includes> tags.
  By default all classes of your source directory are included.
    
- Take a look at the following example which includes all classes ending to know how to include, exclude conditionally :
+ Take a look at the following example to learn how to include and exclude conditionally:
  
 -------------------
 <project>
- ...
+  ...
   <reporting>
-   <plugins>
-    <plugin>
-    
-     <groupId>org.codehaus.mojo</groupId>
-     <artifactId>javancss-maven-plugin</artifactId>
-     <version>2.0-beta-2</version>
-     
-     <configuration>
-      <include>
-       <include>**/*foo.java</include>
-      </includes>
-	   <excludes>
-		 <exclude>**/bar.java</exclude>
-		 <exclude>**/foobar.java</exclude>
-	   </excludes>
-	  </configuration>
-	  
-    </plugin>
-   </plugins>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>javancss-maven-plugin</artifactId>
+        <version>2.0-beta-2</version>
+        
+        <configuration>
+          <includes>
+            <include>**/*foo.java</include>
+          </includes>
+          <excludes>
+            <exclude>**/bar.java</exclude>
+            <exclude>**/foobar.java</exclude>
+          </excludes>
+        </configuration>
+      
+      </plugin>
+    </plugins>
   </reporting>
- ...
+  ...
 </project>
 -------------------   
