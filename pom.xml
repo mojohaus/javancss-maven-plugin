@@ -5,86 +5,88 @@
     <version>16</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
-	<artifactId>javancss-maven-plugin</artifactId>
-	<packaging>maven-plugin</packaging>
-	<version>2.0-beta-3-SNAPSHOT</version>
-	<name>JavaNCSS Maven Plugin</name>
-	<inceptionYear>2005</inceptionYear>
-        <organization>
-          <name>CodeHaus</name>
-          <url>http://www.codehaus.org</url>
-        </organization>
-        <prerequisites>
-          <maven>2.0</maven>
-        </prerequisites>
-	<description>Maven2 plugins which generates NCSS and CCN code metrics.</description>
-	<licenses>
-	    <license>
-	      <name>Apache License 2</name>
-	      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url> 
-	      <distribution>repo</distribution>
-	    </license>
-	</licenses>	
-	<issueManagement>
-      <system>JIRA</system>
-      <url>http://jira.codehaus.org/browse/MJNCSS</url>
-    </issueManagement>
-	<developers>
-		<developer>
-			<name>Jean-Laurent de Morlhon</name>
-			<id>jeanlaurent</id>
-			<email>jeanlaurent@gmail.com</email>
-			<roles>
-				<role>Java Developer</role>
-			</roles>
-			<timezone>+1</timezone>
-		</developer>
-		<developer>
-			<name>Mike Perham</name>
-			<id>mperham</id>
-			<email>mperham@gmail.com</email>
-			<roles>
-				<role>Java Developer</role>
-			</roles>
-			<timezone>-6</timezone>
-		</developer>
-	</developers>
-	<dependencies>
-		<dependency>
-			<groupId>org.apache.maven</groupId>
-			<artifactId>maven-plugin-api</artifactId>
-			<version>2.0</version>
-		</dependency>
-		<dependency>
-			<groupId>dom4j</groupId>
-			<artifactId>dom4j</artifactId>
-			<version>1.6.1</version>
-		</dependency>
-    	<dependency>
-      		<groupId>jaxen</groupId>
-      		<artifactId>jaxen</artifactId>
-      		<version>1.1-beta-6</version>
-    	</dependency>		
-		<dependency>
-			<groupId>org.apache.maven.reporting</groupId>
-			<artifactId>maven-reporting-impl</artifactId>
-			<version>2.0</version>
-		</dependency>
-		<dependency>
-			<groupId>javancss</groupId>
-			<artifactId>javancss</artifactId>
-			<version>29.50</version>
-		</dependency>
-		<dependency>
-			<groupId>easymock</groupId>
-			<artifactId>easymock</artifactId>
-			<version>1.1</version>
-			<scope>test</scope>
-		</dependency>
-	</dependencies>
-       <build>
-       <!--
-<plugins>
+  <artifactId>javancss-maven-plugin</artifactId>
+  <packaging>maven-plugin</packaging>
+  <version>2.0-beta-3-SNAPSHOT</version>
+  <name>JavaNCSS Maven Plugin</name>
+  <inceptionYear>2005</inceptionYear>
+    <organization>
+      <name>CodeHaus</name>
+      <url>http://www.codehaus.org</url>
+    </organization>
+    <prerequisites>
+      <maven>2.0</maven>
+    </prerequisites>
+  <description>Maven2 plugin that generates NCSS and CCN code metrics.</description>
+  <licenses>
+    <license>
+      <name>Apache License 2</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url> 
+      <distribution>repo</distribution>
+    </license>
+  </licenses>  
+  <issueManagement>
+    <system>JIRA</system>
+    <url>http://jira.codehaus.org/browse/MJNCSS</url>
+  </issueManagement>
+
+  <developers>
+    <developer>
+      <name>Jean-Laurent de Morlhon</name>
+      <id>jeanlaurent</id>
+      <email>jeanlaurent@gmail.com</email>
+      <roles>
+        <role>Java Developer</role>
+      </roles>
+      <timezone>+1</timezone>
+    </developer>
+    <developer>
+      <name>Mike Perham</name>
+      <id>mperham</id>
+      <email>mperham@gmail.com</email>
+      <roles>
+        <role>Java Developer</role>
+      </roles>
+      <timezone>-6</timezone>
+    </developer>
+  </developers>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.apache.maven</groupId>
+      <artifactId>maven-plugin-api</artifactId>
+      <version>2.0</version>
+    </dependency>
+    <dependency>
+      <groupId>dom4j</groupId>
+      <artifactId>dom4j</artifactId>
+      <version>1.6.1</version>
+    </dependency>
+      <dependency>
+        <groupId>jaxen</groupId>
+        <artifactId>jaxen</artifactId>
+        <version>1.1-beta-6</version>
+      </dependency>    
+    <dependency>
+      <groupId>org.apache.maven.reporting</groupId>
+      <artifactId>maven-reporting-impl</artifactId>
+      <version>2.0</version>
+    </dependency>
+    <dependency>
+      <groupId>javancss</groupId>
+      <artifactId>javancss</artifactId>
+      <version>29.50</version>
+    </dependency>
+    <dependency>
+      <groupId>easymock</groupId>
+      <artifactId>easymock</artifactId>
+      <version>1.1</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <!--<plugins>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-docck-plugin</artifactId>
@@ -96,24 +98,21 @@
           </execution>
         </executions>
       </plugin>
-</plugins>
--->
-</build>
-	<reporting>
- 		<plugins>
-	     	<plugin>
-				<artifactId>maven-javadoc-plugin</artifactId>
-		  	</plugin>
-	     	
-	     	<plugin>
-				<artifactId>maven-jxr-plugin</artifactId>
-		  	</plugin>
-		  	
-		  	<plugin>
-		      <groupId>org.codehaus.mojo</groupId>
-		      <artifactId>javancss-maven-plugin</artifactId>
-		   	</plugin>	   
+    </plugins>-->
+  </build>
 
-		</plugins>
-  	</reporting>
+  <reporting>
+    <plugins>
+      <plugin>
+        <artifactId>maven-javadoc-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <artifactId>maven-jxr-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>javancss-maven-plugin</artifactId>
+      </plugin>     
+    </plugins>
+  </reporting>
 </project>
