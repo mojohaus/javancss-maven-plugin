@@ -2,7 +2,7 @@
   <parent>
     <artifactId>mojo</artifactId>
     <groupId>org.codehaus.mojo</groupId>
-    <version>16</version>
+    <version>17</version>
   </parent>
   <modelVersion>4.0.0</modelVersion>
   <artifactId>javancss-maven-plugin</artifactId>
@@ -10,13 +10,13 @@
   <version>2.0-beta-3-SNAPSHOT</version>
   <name>JavaNCSS Maven Plugin</name>
   <inceptionYear>2005</inceptionYear>
-    <organization>
-      <name>CodeHaus</name>
-      <url>http://www.codehaus.org</url>
-    </organization>
-    <prerequisites>
-      <maven>2.0</maven>
-    </prerequisites>
+  <organization>
+    <name>CodeHaus</name>
+    <url>http://www.codehaus.org</url>
+  </organization>
+  <prerequisites>
+    <maven>2.0</maven>
+  </prerequisites>
   <description>Maven2 plugin that generates NCSS and CCN code metrics.</description>
   <licenses>
     <license>
@@ -75,7 +75,7 @@
     <dependency>
       <groupId>javancss</groupId>
       <artifactId>javancss</artifactId>
-      <version>29.50</version>
+      <version>${javancss-version}</version>
     </dependency>
     <dependency>
       <groupId>easymock</groupId>
@@ -84,6 +84,10 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
+
+  <properties>
+    <javancss-version>29.50</javancss-version>
+  </properties>
 
   <build>
     <!--<plugins>
