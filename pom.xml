@@ -1,30 +1,35 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
   <parent>
     <artifactId>mojo</artifactId>
     <groupId>org.codehaus.mojo</groupId>
     <version>17</version>
   </parent>
-  <modelVersion>4.0.0</modelVersion>
+
   <artifactId>javancss-maven-plugin</artifactId>
   <packaging>maven-plugin</packaging>
   <version>2.0-beta-3-SNAPSHOT</version>
+
   <name>JavaNCSS Maven Plugin</name>
+  <description>Maven2 plugin that generates NCSS and CCN code metrics.</description>
   <inceptionYear>2005</inceptionYear>
   <organization>
     <name>CodeHaus</name>
     <url>http://www.codehaus.org</url>
   </organization>
+
   <prerequisites>
     <maven>2.0</maven>
   </prerequisites>
-  <description>Maven2 plugin that generates NCSS and CCN code metrics.</description>
+
   <licenses>
     <license>
       <name>Apache License 2</name>
-      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url> 
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
       <distribution>repo</distribution>
     </license>
-  </licenses>  
+  </licenses>
   <issueManagement>
     <system>JIRA</system>
     <url>http://jira.codehaus.org/browse/MJNCSS</url>
@@ -53,6 +58,11 @@
 
   <dependencies>
     <dependency>
+      <groupId>org.codehaus.plexus</groupId>
+      <artifactId>plexus-utils</artifactId>
+      <version>1.5.9</version>
+    </dependency>
+    <dependency>
       <groupId>org.apache.maven</groupId>
       <artifactId>maven-plugin-api</artifactId>
       <version>2.0</version>
@@ -66,7 +76,7 @@
         <groupId>jaxen</groupId>
         <artifactId>jaxen</artifactId>
         <version>1.1-beta-6</version>
-      </dependency>    
+      </dependency>
     <dependency>
       <groupId>org.apache.maven.reporting</groupId>
       <artifactId>maven-reporting-impl</artifactId>
@@ -86,7 +96,7 @@
   </dependencies>
 
   <properties>
-    <javancss-version>29.50</javancss-version>
+    <javancss-version>30.51</javancss-version>
   </properties>
 
   <build>
@@ -116,7 +126,7 @@
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>javancss-maven-plugin</artifactId>
-      </plugin>     
+      </plugin>
     </plugins>
   </reporting>
 </project>

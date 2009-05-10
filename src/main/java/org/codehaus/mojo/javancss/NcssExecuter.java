@@ -17,6 +17,7 @@ package org.codehaus.mojo.javancss;
  */
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,9 +29,9 @@ import javancss.Main;
 /**
  * The NcssExecuter is able to call javaNCSS to produce a code analysis.<br>
  * The results are produced into a raw xml file.
- * 
+ *
  * @author <a href="jeanlaurent@gmail.com">Jean-Laurent de Morlhon</a>
- * 
+ *
  * @version $Id$
  */
 public class NcssExecuter
@@ -59,7 +60,7 @@ public class NcssExecuter
 
     /**
      * Construct a NcssExecuter.
-     * 
+     *
      * @param sourceDirectory
      *            the directory where the source to analyse are.
      * @param outputFilename
@@ -81,17 +82,24 @@ public class NcssExecuter
 
     /**
      * Call the javaNCSS code analysis tool to produce the result to a temporary file name.<br>
-     * 
+     *
      * @throws MavenReportException
      *             if somethings goes bad during the execution
      */
     public void execute() throws MavenReportException
     {
-        Javancss javancss = new Javancss( getCommandLineArgument(), Main.S_RCS_HEADER );
-        Throwable ncssException = javancss.getLastError();
-        if ( ncssException != null )
+        try
         {
-            throw new MavenReportException( "Error while JavaNCSS was executing", new Exception( ncssException ) );
+            Javancss javancss = new Javancss( getCommandLineArgument(), Main.S_RCS_HEADER );
+            Throwable ncssException = javancss.getLastError();
+            if ( ncssException != null )
+            {
+                throw new MavenReportException( "Error while JavaNCSS was executing", new Exception( ncssException ) );
+            }
+        }
+        catch ( IOException ioe )
+        {
+            throw new MavenReportException( "Error while running JavaNCSS", ioe );
         }
     }
 
