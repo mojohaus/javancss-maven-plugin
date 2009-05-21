@@ -1,10 +1,10 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
   <parent>
-    <artifactId>mojo</artifactId>
     <groupId>org.codehaus.mojo</groupId>
-    <version>17</version>
+    <artifactId>mojo-parent</artifactId>
+    <version>20</version>
   </parent>
 
   <artifactId>javancss-maven-plugin</artifactId>
@@ -14,10 +14,6 @@
   <name>JavaNCSS Maven Plugin</name>
   <description>Maven2 plugin that generates NCSS and CCN code metrics.</description>
   <inceptionYear>2005</inceptionYear>
-  <organization>
-    <name>CodeHaus</name>
-    <url>http://www.codehaus.org</url>
-  </organization>
 
   <prerequisites>
     <maven>2.0</maven>
@@ -117,12 +113,6 @@
 
   <reporting>
     <plugins>
-      <plugin>
-        <artifactId>maven-javadoc-plugin</artifactId>
-      </plugin>
-      <plugin>
-        <artifactId>maven-jxr-plugin</artifactId>
-      </plugin>
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
         <artifactId>javancss-maven-plugin</artifactId>
