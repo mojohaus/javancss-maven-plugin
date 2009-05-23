@@ -28,9 +28,9 @@ import org.dom4j.Node;
 
 /**
  * Generates the JavaNCSS aggregate report.
- * 
+ *
  * @author <a href="mperham AT gmail.com">Mike Perham</a>
- * 
+ *
  * @version $Id$
  */
 public class NcssAggregateReportGenerator extends AbstractNcssReportGenerator
@@ -50,7 +50,7 @@ public class NcssAggregateReportGenerator extends AbstractNcssReportGenerator
 
     /**
      * Generates the JavaNCSS report.
-     * 
+     *
      * @param locale
      *            the Locale used for this report.
      * @param moduleReports
@@ -63,7 +63,7 @@ public class NcssAggregateReportGenerator extends AbstractNcssReportGenerator
         // HEADER
         getSink().head();
         getSink().title();
-        getSink().text( getResourceBundle().getString( "report.javancss.title" ) );
+        getSink().text( getString( "report.javancss.title" ) );
         getSink().title_();
         getSink().head_();
         // BODY
@@ -81,10 +81,10 @@ public class NcssAggregateReportGenerator extends AbstractNcssReportGenerator
     {
         getSink().section1();
         getSink().sectionTitle1();
-        getSink().text( getResourceBundle().getString( "report.javancss.main.title" ) );
+        getSink().text( getString( "report.javancss.main.title" ) );
         getSink().sectionTitle1_();
         getSink().paragraph();
-        getSink().text( getResourceBundle().getString( "report.javancss.main.text" ) + " " );
+        getSink().text( getString( "report.javancss.main.text" ) + " " );
         getSink().lineBreak();
         getSink().link( "http://www.kclee.de/clemens/java/javancss/" );
         getSink().text( "JavaNCSS web site." );
@@ -97,15 +97,15 @@ public class NcssAggregateReportGenerator extends AbstractNcssReportGenerator
     {
         getSink().table();
         getSink().tableRow();
-        headerCellHelper( getResourceBundle().getString( "report.javancss.header.module" ) );
-        headerCellHelper( getResourceBundle().getString( "report.javancss.header.packages" ) );
-        headerCellHelper( getResourceBundle().getString( "report.javancss.header.classetotal" ) );
-        headerCellHelper( getResourceBundle().getString( "report.javancss.header.functiontotal" ) );
-        headerCellHelper( getResourceBundle().getString( "report.javancss.header.ncsstotal" ) );
-        headerCellHelper( getResourceBundle().getString( "report.javancss.header.javadoc" ) );
-        headerCellHelper( getResourceBundle().getString( "report.javancss.header.javadoc_line" ) );
-        headerCellHelper( getResourceBundle().getString( "report.javancss.header.single_comment" ) );
-        headerCellHelper( getResourceBundle().getString( "report.javancss.header.multi_comment" ) );
+        headerCellHelper( getString( "report.javancss.header.module" ) );
+        headerCellHelper( getString( "report.javancss.header.packages" ) );
+        headerCellHelper( getString( "report.javancss.header.classetotal" ) );
+        headerCellHelper( getString( "report.javancss.header.functiontotal" ) );
+        headerCellHelper( getString( "report.javancss.header.ncsstotal" ) );
+        headerCellHelper( getString( "report.javancss.header.javadoc" ) );
+        headerCellHelper( getString( "report.javancss.header.javadoc_line" ) );
+        headerCellHelper( getString( "report.javancss.header.single_comment" ) );
+        headerCellHelper( getString( "report.javancss.header.multi_comment" ) );
         getSink().tableRow_();
 
         int packages = 0;
@@ -162,7 +162,7 @@ public class NcssAggregateReportGenerator extends AbstractNcssReportGenerator
 
         // Totals row
         getSink().tableRow();
-        tableCellHelper( getResourceBundle().getString( "report.javancss.header.totals" ) );
+        tableCellHelper( getString( "report.javancss.header.totals" ) );
         tableCellHelper( String.valueOf( packages ) );
         tableCellHelper( String.valueOf( classes ) );
         tableCellHelper( String.valueOf( methods ) );
