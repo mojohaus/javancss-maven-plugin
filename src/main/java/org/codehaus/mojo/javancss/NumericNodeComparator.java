@@ -22,12 +22,12 @@ import org.dom4j.Node;
 
 /**
  * Comparator for numeric xml node tag.
- * 
+ *
  * @author <a href="jeanlaurentATgmail.com">Jean-Laurent de Morlhon</a>
- * 
  * @version $Id$
  */
-public class NumericNodeComparator implements Comparator
+public class NumericNodeComparator
+    implements Comparator
 {
     /**
      * the tag property used by this comparator
@@ -36,9 +36,8 @@ public class NumericNodeComparator implements Comparator
 
     /**
      * The numeric node tag property to used by this comparator.
-     * 
-     * @param property
-     *            the tag property used by this comparator.
+     *
+     * @param property the tag property used by this comparator.
      */
     public NumericNodeComparator( String property )
     {

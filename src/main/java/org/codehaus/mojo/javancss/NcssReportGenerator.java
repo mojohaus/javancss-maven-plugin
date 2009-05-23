@@ -30,10 +30,10 @@ import org.dom4j.Node;
  * Generates the javaNcss maven report.
  *
  * @author <a href="jeanlaurentATgmail.com">Jean-Laurent de Morlhon</a>
- *
  * @version $Id$
  */
-public class NcssReportGenerator extends AbstractNcssReportGenerator
+public class NcssReportGenerator
+    extends AbstractNcssReportGenerator
 {
     private String xrefLocation;
 
@@ -42,10 +42,8 @@ public class NcssReportGenerator extends AbstractNcssReportGenerator
     /**
      * build a new NcssReportGenerator.
      *
-     * @param sink
-     *            the sink which will be used for reporting.
-     * @param bundle
-     *            the correct RessourceBundle to be used for reporting.
+     * @param sink the sink which will be used for reporting.
+     * @param bundle the correct RessourceBundle to be used for reporting.
      */
     public NcssReportGenerator( Sink sink, ResourceBundle bundle, Log log, String xrefLocation )
     {
@@ -56,10 +54,8 @@ public class NcssReportGenerator extends AbstractNcssReportGenerator
     /**
      * Generates the JavaNcss reports.
      *
-     * @param document
-     *            the javaNcss raw report as an XML document.
-     * @param lineThreshold
-     *            the maximum number of lines to keep in major reports.
+     * @param document the javaNcss raw report as an XML document.
+     * @param lineThreshold the maximum number of lines to keep in major reports.
      */
     public void doReport( Document document, int lineThreshold )
     {
@@ -160,7 +156,7 @@ public class NcssReportGenerator extends AbstractNcssReportGenerator
     private void doTopObjectNcss( Document document )
     {
         subtitleHelper( getString( "report.javancss.top" ) + " " + lineThreshold + " "
-                        + getString( "report.javancss.object.byncss" ) );
+            + getString( "report.javancss.object.byncss" ) );
         List nodeList = document.selectNodes( "//javancss/objects/object" );
         Collections.sort( nodeList, new NumericNodeComparator( "ncss" ) );
         doTopObjectGeneric( nodeList );
@@ -169,7 +165,7 @@ public class NcssReportGenerator extends AbstractNcssReportGenerator
     private void doTopObjectFunctions( Document document )
     {
         subtitleHelper( getString( "report.javancss.top" ) + " " + lineThreshold + " "
-                        + getString( "report.javancss.object.byfunction" ) );
+            + getString( "report.javancss.object.byfunction" ) );
         List nodeList = document.selectNodes( "//javancss/objects/object" );
         Collections.sort( nodeList, new NumericNodeComparator( "functions" ) );
         doTopObjectGeneric( nodeList );
@@ -230,7 +226,7 @@ public class NcssReportGenerator extends AbstractNcssReportGenerator
     private void doFunctionAnalysis( Document document )
     {
         subtitleHelper( getString( "report.javancss.top" ) + " " + lineThreshold + " "
-                        + getString( "report.javancss.function.byncss" ) );
+            + getString( "report.javancss.function.byncss" ) );
         getSink().paragraph();
         getSink().table();
         getSink().tableRow();

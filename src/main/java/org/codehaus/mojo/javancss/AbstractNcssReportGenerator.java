@@ -29,7 +29,6 @@ import org.codehaus.doxia.sink.Sink;
  * It holds essentially helper methods on top of the Sink Doxia object.
  *
  * @author <a href="jeanlaurent@NOSPAMgmail.com>Jean-Laurent de Morlhon</a>
- *
  * @version $Id$
  */
 public abstract class AbstractNcssReportGenerator
@@ -43,12 +42,9 @@ public abstract class AbstractNcssReportGenerator
     /**
      * build a new NcssReportGenerator.
      *
-     * @param sink
-     *            the sink that will be used for reporting.
-     * @param bundle
-     *            the correct RessourceBundle to be used for reporting.
-     * @param log
-     *            the log object enabling logging within maven plugins.
+     * @param sink the sink that will be used for reporting.
+     * @param bundle the correct RessourceBundle to be used for reporting.
+     * @param log the log object enabling logging within maven plugins.
      */
     protected AbstractNcssReportGenerator( Sink sink, ResourceBundle bundle, Log log )
     {
@@ -90,8 +86,7 @@ public abstract class AbstractNcssReportGenerator
     /**
      * sink helper to write a "code" itemList.
      *
-     * @param text
-     *            the text to write within the code tags.
+     * @param text the text to write within the code tags.
      */
     protected void codeItemListHelper( String text )
     {
@@ -105,8 +100,7 @@ public abstract class AbstractNcssReportGenerator
     /**
      * sink helper to write a paragraph
      *
-     * @param text
-     *            the text to write within the paragraph.
+     * @param text the text to write within the paragraph.
      */
     protected void paragraphHelper( String text )
     {
@@ -118,8 +112,7 @@ public abstract class AbstractNcssReportGenerator
     /**
      * sink helper to write a subtitle
      *
-     * @param text
-     *            the text to write as a subtitle.
+     * @param text the text to write as a subtitle.
      */
     protected void subtitleHelper( String text )
     {
@@ -133,8 +126,7 @@ public abstract class AbstractNcssReportGenerator
     /**
      * sink helper to write cell containing code.
      *
-     * @param text
-     *            the text to write within a cell and within code tags.
+     * @param text the text to write within a cell and within code tags.
      */
     protected void codeCellHelper( String text )
     {
@@ -148,8 +140,7 @@ public abstract class AbstractNcssReportGenerator
     /**
      * sink helper to write a simple table header cell.
      *
-     * @param text
-     *            the text to write within a table header cell.
+     * @param text the text to write within a table header cell.
      */
     protected void headerCellHelper( String text )
     {
@@ -161,8 +152,7 @@ public abstract class AbstractNcssReportGenerator
     /**
      * sink helper to write a simple tabke cell.
      *
-     * @param text
-     *            the text to write within a table cell.
+     * @param text the text to write within a table cell.
      */
     protected void tableCellHelper( String text )
     {
@@ -174,10 +164,8 @@ public abstract class AbstractNcssReportGenerator
     /**
      * sink helper to start a section.
      *
-     * @param link
-     *            the anchor link.
-     * @param title
-     *            the title of the anchor link.
+     * @param link the anchor link.
+     * @param title the title of the anchor link.
      */
     protected void startSection( String link, String title )
     {
@@ -199,6 +187,7 @@ public abstract class AbstractNcssReportGenerator
 
     /**
      * resource bundle helper to get a value.
+     *
      * @param key the key for the desired string.
      * @return the string for the given key.
      */

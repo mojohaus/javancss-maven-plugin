@@ -31,20 +31,26 @@ import org.dom4j.Node;
 import org.dom4j.io.SAXReader;
 
 /**
- * Check the build if for any Method with a ccn greater than a limit in the source code.
- *
- * Fails the build if told so.
+ * Check the build if for any Method with a ccn greater than a limit in the source code. Fails the build if told so.
  *
  * @author <a href="jeanlaurentATgmail.com">Jean-Laurent de Morlhon</a>
- *
  * @version $Id$
- *
  * @goal check
  * @phase verify
  * @execute goal="report"
  */
-public class NcssViolationCheckMojo extends AbstractMojo
+public class NcssViolationCheckMojo
+    extends AbstractMojo
 {
+    /**
+     * Specifies the location of the source files to be used.
+     *
+     * @parameter expression="${project.build.sourceDirectory}"
+     * @required
+     * @readonly
+     */
+    private File sourceDirectory;
+
     /**
      * Specifies the directory where the XML report will be generated.
      *
@@ -87,8 +93,13 @@ public class NcssViolationCheckMojo extends AbstractMojo
      */
     private int ncssLimit;
 
-    public void execute() throws MojoExecutionException, MojoFailureException
+    public void execute()
+        throws MojoExecutionException, MojoFailureException
     {
+         if ( sourceDirectory == null || !sourceDirectory.exists() )
+        {
+            return;
+        }
         Set ccnViolation = new HashSet();
         Set ncssViolation = new HashSet();
         List methodList = loadDocument().selectNodes( "//javancss/functions/function" );
@@ -115,7 +126,8 @@ public class NcssViolationCheckMojo extends AbstractMojo
         reportViolation( "ncss", ncssViolation, ncssLimit );
     }
 
-    private Document loadDocument() throws MojoFailureException
+    private Document loadDocument()
+        throws MojoFailureException
     {
         // FIXME: Building of File is strangely equivalent to method buildOutputFileName of NcssReportGenerator class...
         File ncssXmlFile = new File( xmlOutputDirectory, tempFileName );
@@ -129,7 +141,8 @@ public class NcssViolationCheckMojo extends AbstractMojo
         }
     }
 
-    private void reportViolation( String statName, Set violationSet, int limit ) throws MojoFailureException
+    private void reportViolation( String statName, Set violationSet, int limit )
+        throws MojoFailureException
     {
         getLog().debug( statName + " Violation = " + violationSet.size() );
         if ( violationSet.size() > 0 )

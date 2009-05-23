@@ -30,17 +30,15 @@ import org.dom4j.Node;
  * Generates the JavaNCSS aggregate report.
  *
  * @author <a href="mperham AT gmail.com">Mike Perham</a>
- *
  * @version $Id$
  */
-public class NcssAggregateReportGenerator extends AbstractNcssReportGenerator
+public class NcssAggregateReportGenerator
+    extends AbstractNcssReportGenerator
 {
 
     /**
-     * @param sink
-     *            the sink that will be used for reporting.
-     * @param bundle
-     *            the correct RessourceBundle to be used for reporting.
+     * @param sink the sink that will be used for reporting.
+     * @param bundle the correct RessourceBundle to be used for reporting.
      * @param log
      */
     public NcssAggregateReportGenerator( Sink sink, ResourceBundle bundle, Log log )
@@ -51,12 +49,9 @@ public class NcssAggregateReportGenerator extends AbstractNcssReportGenerator
     /**
      * Generates the JavaNCSS report.
      *
-     * @param locale
-     *            the Locale used for this report.
-     * @param moduleReports
-     *            the javancss raw reports to aggregate, List of ModuleReport.
-     * @param lineThreshold
-     *            the maximum number of lines to keep in major reports.
+     * @param locale the Locale used for this report.
+     * @param moduleReports the javancss raw reports to aggregate, List of ModuleReport.
+     * @param lineThreshold the maximum number of lines to keep in major reports.
      */
     public void doReport( Locale locale, List moduleReports, int lineThreshold )
     {

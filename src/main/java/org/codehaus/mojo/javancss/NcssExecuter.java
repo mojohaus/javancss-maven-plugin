@@ -21,16 +21,15 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.maven.reporting.MavenReportException;
-
 import javancss.Javancss;
+
+import org.apache.maven.reporting.MavenReportException;
 
 /**
  * The NcssExecuter is able to call JavaNCSS to produce a code analysis.<br>
  * The results are produced into a raw xml file.
  *
  * @author <a href="jeanlaurent@gmail.com">Jean-Laurent de Morlhon</a>
- *
  * @version $Id$
  */
 public class NcssExecuter
@@ -62,10 +61,8 @@ public class NcssExecuter
     /**
      * Construct a NcssExecuter.
      *
-     * @param sourceDirectory
-     *            the directory where the source to analyze are.
-     * @param outputFilename
-     *            the output file where the result will be written.
+     * @param sourceDirectory the directory where the source to analyze are.
+     * @param outputFilename the output file where the result will be written.
      */
     public NcssExecuter( File sourceDirectory, String outputFilename )
     {
@@ -94,10 +91,10 @@ public class NcssExecuter
     /**
      * Call the JavaNCSS code analysis tool to produce the result to a temporary file.
      *
-     * @throws MavenReportException
-     *             if something goes bad during the execution
+     * @throws MavenReportException if something goes bad during the execution
      */
-    public void execute() throws MavenReportException
+    public void execute()
+        throws MavenReportException
     {
         try
         {
