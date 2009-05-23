@@ -146,7 +146,7 @@ public class NcssReportMojo extends AbstractMavenReport
     private String[] excludes;
 
     /**
-     * @see org.apache.maven.reporting.MavenReport#execute(java.util.Locale)
+     * @see org.apache.maven.reporting.MavenReport#executeReport(java.util.Locale)
      */
     public void executeReport( Locale locale ) throws MavenReportException
     {

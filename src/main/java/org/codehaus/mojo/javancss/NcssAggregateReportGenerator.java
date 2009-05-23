@@ -37,8 +37,8 @@ public class NcssAggregateReportGenerator extends AbstractNcssReportGenerator
 {
 
     /**
-     * @param getSink()
-     *            the getSink() which will be used for reporting.
+     * @param sink
+     *            the sink that will be used for reporting.
      * @param bundle
      *            the correct RessourceBundle to be used for reporting.
      * @param log

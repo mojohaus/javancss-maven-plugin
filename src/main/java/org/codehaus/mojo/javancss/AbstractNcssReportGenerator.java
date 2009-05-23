@@ -44,7 +44,7 @@ public abstract class AbstractNcssReportGenerator
      * build a new NcssReportGenerator.
      *
      * @param sink
-     *            the sink which will be used for reporting.
+     *            the sink that will be used for reporting.
      * @param bundle
      *            the correct RessourceBundle to be used for reporting.
      * @param log
@@ -90,7 +90,7 @@ public abstract class AbstractNcssReportGenerator
     /**
      * sink helper to write a "code" itemList.
      *
-     * @param test
+     * @param text
      *            the text to write within the code tags.
      */
     protected void codeItemListHelper( String text )
@@ -103,10 +103,10 @@ public abstract class AbstractNcssReportGenerator
     }
 
     /**
-     * sink helper to write a paragrah
+     * sink helper to write a paragraph
      *
-     * @param the
-     *            text to write within the paragraph.
+     * @param text
+     *            the text to write within the paragraph.
      */
     protected void paragraphHelper( String text )
     {
@@ -174,8 +174,6 @@ public abstract class AbstractNcssReportGenerator
     /**
      * sink helper to start a section.
      *
-     * @param locale
-     *            the locale to be used to display text within the section start.
      * @param link
      *            the anchor link.
      * @param title
@@ -201,8 +199,8 @@ public abstract class AbstractNcssReportGenerator
 
     /**
      * resource bundle helper to get a value.
-     * @param key
-     * @return
+     * @param key the key for the desired string.
+     * @return the string for the given key.
      */
     protected String getString( String key )
     {
