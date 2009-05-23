@@ -94,7 +94,14 @@ public class NcssExecuter
             Throwable ncssException = javancss.getLastError();
             if ( ncssException != null )
             {
-                throw new MavenReportException( "Error while JavaNCSS was executing", new Exception( ncssException ) );
+                if ( ncssException instanceof Exception )
+                {
+                    throw new MavenReportException( "Error while JavaNCSS was executing", (Exception) ncssException );
+                }
+                else
+                {
+                    throw new MavenReportException( "Error while JavaNCSS was executing", new Exception( ncssException ) );
+                }
             }
         }
         catch ( IOException ioe )
