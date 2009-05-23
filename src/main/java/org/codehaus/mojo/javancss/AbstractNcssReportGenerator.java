@@ -31,7 +31,6 @@ import org.codehaus.doxia.sink.Sink;
  */
 public abstract class AbstractNcssReportGenerator
 {
-
     private ResourceBundle bundle;
 
     private Sink sink;
@@ -205,5 +204,49 @@ public abstract class AbstractNcssReportGenerator
     protected String getString( String key )
     {
         return bundle.getString( key );
+    }
+
+    protected void doIntro( boolean withNavigationBar )
+    {
+        getSink().section1();
+        getSink().sectionTitle1();
+        getSink().text( getString( "report.javancss.main.title" ) );
+        getSink().sectionTitle1_();
+        getSink().paragraph();
+        if ( withNavigationBar )
+        {
+            navigationBar();
+        }
+        getSink().text( getString( "report.javancss.main.text" ) + " " );
+        getSink().lineBreak();
+        getSink().link( "http://www.kclee.de/clemens/java/javancss/" );
+        getSink().text( "JavaNCSS web site." );
+        getSink().link_();
+        getSink().paragraph_();
+        getSink().section1_();
+    }
+
+    // print out the navigation bar
+    protected void navigationBar()
+    {
+        getSink().paragraph();
+        getSink().text( "[ " );
+        getSink().link( "#" + getString( "report.javancss.package.link" ) );
+        getSink().text( getString( "report.javancss.package.link" ) );
+        getSink().link_();
+        getSink().text( " ] [ " );
+        getSink().link( "#" + getString( "report.javancss.object.link" ) );
+        getSink().text( getString( "report.javancss.object.link" ) );
+        getSink().link_();
+        getSink().text( " ] [ " );
+        getSink().link( "#" + getString( "report.javancss.function.link" ) );
+        getSink().text( getString( "report.javancss.function.link" ) );
+        getSink().link_();
+        getSink().text( " ] [ " );
+        getSink().link( "#" + getString( "report.javancss.explanation.link" ) );
+        getSink().text( getString( "report.javancss.explanation.link" ) );
+        getSink().link_();
+        getSink().text( " ]" );
+        getSink().paragraph_();
     }
 }

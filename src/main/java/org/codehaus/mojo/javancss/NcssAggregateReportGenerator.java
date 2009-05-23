@@ -68,29 +68,13 @@ public class NcssAggregateReportGenerator extends AbstractNcssReportGenerator
         getSink().head_();
         // BODY
         getSink().body();
-        doIntro();
+        doIntro( false );
         // packages
         startSection( "report.javancss.module.link", "report.javancss.module.title" );
         doModuleAnalysis( moduleReports );
         endSection();
         getSink().body_();
         getSink().close();
-    }
-
-    private void doIntro()
-    {
-        getSink().section1();
-        getSink().sectionTitle1();
-        getSink().text( getString( "report.javancss.main.title" ) );
-        getSink().sectionTitle1_();
-        getSink().paragraph();
-        getSink().text( getString( "report.javancss.main.text" ) + " " );
-        getSink().lineBreak();
-        getSink().link( "http://www.kclee.de/clemens/java/javancss/" );
-        getSink().text( "JavaNCSS web site." );
-        getSink().link_();
-        getSink().paragraph_();
-        getSink().section1_();
     }
 
     private void doModuleAnalysis( List reports )

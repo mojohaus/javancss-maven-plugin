@@ -72,7 +72,7 @@ public class NcssReportGenerator extends AbstractNcssReportGenerator
         getSink().head_();
         // BODY
         getSink().body();
-        doIntro();
+        doIntro( true );
         // packages
         startSection( "report.javancss.package.link", "report.javancss.package.title" );
         doMainPackageAnalysis( document );
@@ -94,23 +94,6 @@ public class NcssReportGenerator extends AbstractNcssReportGenerator
         doExplanation();
         endSection();
         getSink().body_();
-    }
-
-    private void doIntro()
-    {
-        getSink().section1();
-        getSink().sectionTitle1();
-        getSink().text( getString( "report.javancss.main.title" ) );
-        getSink().sectionTitle1_();
-        getSink().paragraph();
-        navigationBar();
-        getSink().text( getString( "report.javancss.main.text" ) + " " );
-        getSink().lineBreak();
-        getSink().link( "http://www.kclee.de/clemens/java/javancss/" );
-        getSink().text( "JavaNCSS web site." );
-        getSink().link_();
-        getSink().paragraph_();
-        getSink().section1_();
     }
 
     private void doMainPackageAnalysis( Document document )
@@ -411,30 +394,6 @@ public class NcssReportGenerator extends AbstractNcssReportGenerator
         getSink().list_();
         paragraphHelper( getString( "report.javancss.explanation.ccn.paragraph4" ) );
         paragraphHelper( getString( "report.javancss.explanation.ccn.paragraph5" ) );
-    }
-
-    // print out the navigation bar
-    private void navigationBar()
-    {
-        getSink().paragraph();
-        getSink().text( "[ " );
-        getSink().link( "#" + getString( "report.javancss.package.link" ) );
-        getSink().text( getString( "report.javancss.package.link" ) );
-        getSink().link_();
-        getSink().text( " ] [ " );
-        getSink().link( "#" + getString( "report.javancss.object.link" ) );
-        getSink().text( getString( "report.javancss.object.link" ) );
-        getSink().link_();
-        getSink().text( " ] [ " );
-        getSink().link( "#" + getString( "report.javancss.function.link" ) );
-        getSink().text( getString( "report.javancss.function.link" ) );
-        getSink().link_();
-        getSink().text( " ] [ " );
-        getSink().link( "#" + getString( "report.javancss.explanation.link" ) );
-        getSink().text( getString( "report.javancss.explanation.link" ) );
-        getSink().link_();
-        getSink().text( " ]" );
-        getSink().paragraph_();
     }
 
     // sink helper to start a section
