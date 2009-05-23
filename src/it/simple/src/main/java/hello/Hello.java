@@ -4,6 +4,9 @@ import java.util.Vector;
 
 public class Hello
 {
+    @Deprecated
+    public static final String SYS_PROPERTY_LOADBALANCER = "s";
+
     public String hello( String name )
     {
         @SuppressWarnings("unused")

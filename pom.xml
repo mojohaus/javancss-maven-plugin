@@ -92,7 +92,7 @@
   </dependencies>
 
   <properties>
-    <javancss-version>30.51</javancss-version>
+    <javancss-version>31.53-SNAPSHOT</javancss-version>
   </properties>
 
   <build>
