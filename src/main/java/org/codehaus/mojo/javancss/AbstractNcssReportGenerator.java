@@ -16,7 +16,10 @@ package org.codehaus.mojo.javancss;
  * limitations under the License.
  */
 
+import java.text.MessageFormat;
 import java.util.ResourceBundle;
+
+import javancss.Javancss;
 
 import org.apache.maven.plugin.logging.Log;
 import org.codehaus.doxia.sink.Sink;
@@ -217,7 +220,13 @@ public abstract class AbstractNcssReportGenerator
         {
             navigationBar();
         }
-        getSink().text( getString( "report.javancss.main.text" ) + " " );
+        String version = Javancss.class.getPackage().getSpecificationVersion();
+        if ( version == null )
+        {
+            version = "unknown";
+        }
+        String[] args = { version };
+        getSink().text( MessageFormat.format( getString( "report.javancss.main.text" ), args ) );
         getSink().lineBreak();
         getSink().link( "http://www.kclee.de/clemens/java/javancss/" );
         getSink().text( "JavaNCSS web site." );
