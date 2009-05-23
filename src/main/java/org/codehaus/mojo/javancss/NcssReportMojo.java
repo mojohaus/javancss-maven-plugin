@@ -153,13 +153,13 @@ public class NcssReportMojo extends AbstractMavenReport
     private String[] excludes;
 
     /**
-     * Gets the source files effective encoding.
+     * Gets the source files encoding.
      *
-     * @return The effective source file encoding, never <code>null</code> (ISO-8859-1 by default).
+     * @return The source file encoding.
      */
     protected String getSourceEncoding()
     {
-        return ( sourceEncoding == null ) ? "ISO-8859-1" : sourceEncoding;
+        return sourceEncoding;
     }
 
     /**
@@ -253,7 +253,7 @@ public class NcssReportMojo extends AbstractMavenReport
         {
             ncssExecuter = new NcssExecuter( sourceDirectory, buildOutputFileName() );
         }
-        ncssExecuter.setEncoding( getSourceEncoding() );
+        ncssExecuter.setEncoding( getSourceEncoding() ); // in case of null value, JavaNCSS uses platform encoding, as expected
 
         ncssExecuter.execute();
         if ( !isTempReportGenerated() )
