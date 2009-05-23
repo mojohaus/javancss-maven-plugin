@@ -90,7 +90,7 @@ public class NcssExecuter
     {
         try
         {
-            Javancss javancss = new Javancss( getCommandLineArgument(), Main.S_RCS_HEADER );
+            Javancss javancss = new Javancss( getCommandLineArgument() );
             Throwable ncssException = javancss.getLastError();
             if ( ncssException != null )
             {
