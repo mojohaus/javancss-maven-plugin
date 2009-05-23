@@ -77,6 +77,13 @@ public class NcssReportMojo extends AbstractMavenReport
     private File sourceDirectory;
 
     /**
+     * Specifies the encoding of the source files.
+     *
+     * @parameter expression="${encoding}" default-value="${project.build.sourceEncoding}"
+     */
+    private String sourceEncoding;
+
+    /**
      * Specifies the maximum number of lines to take into account into the reports.
      *
      * @parameter default-value="30"
@@ -144,6 +151,16 @@ public class NcssReportMojo extends AbstractMavenReport
      * @parameter
      */
     private String[] excludes;
+
+    /**
+     * Gets the source files effective encoding.
+     *
+     * @return The effective source file encoding, never <code>null</code> (ISO-8859-1 by default).
+     */
+    protected String getSourceEncoding()
+    {
+        return ( sourceEncoding == null ) ? "ISO-8859-1" : sourceEncoding;
+    }
 
     /**
      * @see org.apache.maven.reporting.MavenReport#executeReport(java.util.Locale)
@@ -224,6 +241,7 @@ public class NcssReportMojo extends AbstractMavenReport
             getLog().debug( "Calling NCSSExecuter with output : " + buildOutputFileName() );
             getLog().debug( "Calling NCSSExecuter with includes : " + includes );
             getLog().debug( "Calling NCSSExecuter with excludes : " + excludes );
+            getLog().debug( "Calling NCSSExecuter with encoding : " + getSourceEncoding() );
         }
         // run javaNCss and produce an temp xml file
         NcssExecuter ncssExecuter;
@@ -235,6 +253,7 @@ public class NcssReportMojo extends AbstractMavenReport
         {
             ncssExecuter = new NcssExecuter( sourceDirectory, buildOutputFileName() );
         }
+        ncssExecuter.setEncoding( getSourceEncoding() );
 
         ncssExecuter.execute();
         if ( !isTempReportGenerated() )

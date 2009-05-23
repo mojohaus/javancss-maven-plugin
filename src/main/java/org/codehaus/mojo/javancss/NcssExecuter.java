@@ -46,6 +46,8 @@ public class NcssExecuter
 
     private String[] fileList;
 
+    private String encoding = null;
+
     /**
      * Construct a NcssExecuter with no arguments.<br>
      * Used for testing.
@@ -77,6 +79,16 @@ public class NcssExecuter
         this.sourceLocation = null;
         this.fileList = fileList;
         this.outputFilename = outputFilename;
+    }
+
+    public void setEncoding( String encoding )
+    {
+        this.encoding = encoding;
+    }
+
+    public String getEncoding()
+    {
+        return encoding;
     }
 
     /**
@@ -119,6 +131,13 @@ public class NcssExecuter
         argumentList.add( "-recursive" );
         argumentList.add( "-out" );
         argumentList.add( outputFilename );
+
+        if ( encoding != null )
+        {
+            argumentList.add( "-encoding" );
+            argumentList.add( encoding );
+        }
+
         // If the source location is a directory, it means we can pass it straight to
         // javancss. If it's a file, we assume it's containing the file list to parse
         // so we pass it to javancss the way it expects it.
