@@ -27,7 +27,7 @@ import javancss.Javancss;
 import javancss.Main;
 
 /**
- * The NcssExecuter is able to call javaNCSS to produce a code analysis.<br>
+ * The NcssExecuter is able to call JavaNCSS to produce a code analysis.<br>
  * The results are produced into a raw xml file.
  *
  * @author <a href="jeanlaurent@gmail.com">Jean-Laurent de Morlhon</a>
@@ -62,7 +62,7 @@ public class NcssExecuter
      * Construct a NcssExecuter.
      *
      * @param sourceDirectory
-     *            the directory where the source to analyse are.
+     *            the directory where the source to analyze are.
      * @param outputFilename
      *            the output file where the result will be written.
      */
@@ -81,10 +81,10 @@ public class NcssExecuter
     }
 
     /**
-     * Call the javaNCSS code analysis tool to produce the result to a temporary file name.<br>
+     * Call the JavaNCSS code analysis tool to produce the result to a temporary file.
      *
      * @throws MavenReportException
-     *             if somethings goes bad during the execution
+     *             if something goes bad during the execution
      */
     public void execute() throws MavenReportException
     {
@@ -120,7 +120,7 @@ public class NcssExecuter
         argumentList.add( "-recursive" );
         argumentList.add( "-out" );
         argumentList.add( outputFilename );
-        // If the sourcelocation is a directory it means we can pass it straight to
+        // If the source location is a directory, it means we can pass it straight to
         // javancss. If it's a file, we assume it's containing the file list to parse
         // so we pass it to javancss the way it expects it.
         // (check javancss cmd line doc for more information)
