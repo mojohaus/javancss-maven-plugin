@@ -24,7 +24,6 @@ import java.util.List;
 import org.apache.maven.reporting.MavenReportException;
 
 import javancss.Javancss;
-import javancss.Main;
 
 /**
  * The NcssExecuter is able to call JavaNCSS to produce a code analysis.<br>
