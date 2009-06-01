@@ -41,20 +41,20 @@
       <developer>
          <name>Jean-Laurent de Morlhon</name>
          <id>jeanlaurent</id>
-         <email>jeanlaurent@gmail.com</email>
-         <roles>
-            <role>Java Developer</role>
-         </roles>
+         <email>jeanlaurent@codehaus.org</email>
          <timezone>+1</timezone>
       </developer>
       <developer>
          <name>Mike Perham</name>
          <id>mperham</id>
          <email>mperham@gmail.com</email>
-         <roles>
-            <role>Java Developer</role>
-         </roles>
          <timezone>-6</timezone>
+      </developer>
+      <developer>
+        <id>hboutemy</id>
+        <name>Hervé Boutemy</name>
+        <email>hboutemy@codehaus.org</email>
+        <timezone>+1</timezone>
       </developer>
    </developers>
 
