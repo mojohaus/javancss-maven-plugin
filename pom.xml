@@ -66,8 +66,39 @@
       </dependency>
       <dependency>
          <groupId>org.apache.maven</groupId>
+         <artifactId>maven-project</artifactId>
+         <version>2.0</version>
+      </dependency>
+      <dependency>
+         <groupId>org.apache.maven</groupId>
+         <artifactId>maven-model</artifactId>
+         <version>2.0</version>
+      </dependency>
+      <dependency>
+         <groupId>org.apache.maven</groupId>
          <artifactId>maven-plugin-api</artifactId>
          <version>2.0</version>
+      </dependency>
+      <dependency>
+         <groupId>org.apache.maven.reporting</groupId>
+         <artifactId>maven-reporting-api</artifactId>
+         <version>2.0</version>
+      </dependency>
+      <dependency>
+         <groupId>doxia</groupId>
+         <artifactId>doxia-sink-api</artifactId>
+         <version>1.0-alpha-4</version>
+      </dependency>
+      <dependency>
+         <groupId>doxia</groupId>
+         <artifactId>doxia-core</artifactId>
+         <version>1.0-alpha-4</version>
+         <exclusions>
+           <exclusion>
+             <groupId>plexus</groupId>
+             <artifactId>plexus-utils</artifactId>
+           </exclusion>
+         </exclusions>
       </dependency>
       <dependency>
          <groupId>dom4j</groupId>
@@ -88,6 +119,12 @@
          <groupId>org.codehaus.javancss</groupId>
          <artifactId>javancss</artifactId>
          <version>${javancss-version}</version>
+      </dependency>
+      <dependency>
+         <groupId>junit</groupId>
+         <artifactId>junit</artifactId>
+         <version>3.8.2</version>
+         <scope>test</scope>
       </dependency>
       <dependency>
          <groupId>easymock</groupId>
