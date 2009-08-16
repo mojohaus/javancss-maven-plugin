@@ -174,10 +174,12 @@ public abstract class AbstractNcssReportGenerator
     {
         sink.section1();
         sink.sectionTitle1();
+        sink.text( bundle.getString( title ) );
+        sink.sectionTitle1_();
+
         sink.anchor( bundle.getString( link ) );
         sink.text( bundle.getString( title ) );
         sink.anchor_();
-        sink.sectionTitle1_();
     }
 
     /**
@@ -210,11 +212,11 @@ public abstract class AbstractNcssReportGenerator
         getSink().sectionTitle1();
         getSink().text( getString( "report.javancss.main.title" ) );
         getSink().sectionTitle1_();
-        getSink().paragraph();
         if ( withNavigationBar )
         {
             navigationBar();
         }
+        getSink().paragraph();
         String version = Javancss.class.getPackage().getSpecificationVersion();
         if ( version == null )
         {

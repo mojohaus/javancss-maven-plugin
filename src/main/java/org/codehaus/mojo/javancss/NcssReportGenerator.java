@@ -232,7 +232,6 @@ public class NcssReportGenerator
     {
         subtitleHelper( getString( "report.javancss.top" ) + " " + lineThreshold + " "
             + getString( "report.javancss.function.byncss" ) );
-        getSink().paragraph();
         getSink().table();
         getSink().tableRow();
         headerCellHelper( getString( "report.javancss.header.function" ) );
@@ -257,13 +256,11 @@ public class NcssReportGenerator
             getSink().tableRow_();
         }
         getSink().table_();
-        getSink().paragraph_();
     }
 
     private void doFunctionAverage( Document document )
     {
         subtitleHelper( getString( "report.javancss.averages" ) );
-        getSink().paragraph();
         getSink().table();
         getSink().tableRow();
         headerCellHelper( getString( "report.javancss.header.programncss" ) );
@@ -280,7 +277,6 @@ public class NcssReportGenerator
         tableCellHelper( node.valueOf( "javadocs" ) );
         getSink().tableRow_();
         getSink().table_();
-        getSink().paragraph_();
     }
 
     private void doExplanation()
