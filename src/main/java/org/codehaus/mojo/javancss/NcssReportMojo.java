@@ -109,7 +109,7 @@ public class NcssReportMojo
     private MavenProject project;
 
     /**
-     * @parameter expression="${component.org.codehaus.doxia.site.renderer.SiteRenderer}"
+     * @component role="org.codehaus.doxia.site.renderer.SiteRenderer"
      * @required
      * @readonly
      */
