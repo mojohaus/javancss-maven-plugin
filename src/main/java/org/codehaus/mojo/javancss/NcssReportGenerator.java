@@ -95,6 +95,7 @@ public class NcssReportGenerator
         doExplanation();
         endSection();
         getSink().body_();
+        getSink().close();
     }
 
     private void doMainPackageAnalysis( Document document )
