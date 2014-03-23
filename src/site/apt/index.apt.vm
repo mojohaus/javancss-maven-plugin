@@ -11,8 +11,9 @@ Maven 2 JavaNCSS Plugin
   & complexity metrics for your java source code.
 
   This plugin provides the capability to run the JavaNCSS tool on your Maven 2 project sources and produce an html report.
-  Optionally you can fail the build whenever one of the metrics goes beyond a fixed limit. By default,
-  {{{http://javancss.codehaus.org/release.html}JavaNCSS version ${javancss-version}}} is used.
+  Optionally you can fail the build whenever one of the metrics goes beyond a fixed limit.
+  
+  By default, {{{http://javancss.codehaus.org/release.html}JavaNCSS version ${javancss-version}}} is used.
 
   Many thanks to Clemens Lee and the many contributors to the JavaNCSS project for producing this tool for all to use.
 
