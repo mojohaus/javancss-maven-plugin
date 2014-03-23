@@ -204,7 +204,7 @@ public abstract class AbstractNcssReportGenerator
     /**
      * Output the report introduction.
      *
-     * @param withNavigationBar a boolean stating wether or not the navigationBar should be displayed.
+     * @param withNavigationBar a boolean stating whether or not the navigationBar should be displayed.
      */
     protected void doIntro( boolean withNavigationBar )
     {
@@ -225,7 +225,7 @@ public abstract class AbstractNcssReportGenerator
         String[] args = { version };
         getSink().text( MessageFormat.format( getString( "report.javancss.main.text" ), args ) );
         getSink().lineBreak();
-        getSink().link( "http://www.kclee.de/clemens/java/javancss/" );
+        getSink().link( "http://javancss.codehaus.org/" );
         getSink().text( "JavaNCSS web site." );
         getSink().link_();
         getSink().paragraph_();
