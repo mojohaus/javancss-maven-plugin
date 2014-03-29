@@ -55,7 +55,7 @@ public class NcssReportMojo
     /**
      * Specifies the directory where the HTML report will be generated.
      *
-     * @parameter expression="${project.reporting.outputDirectory}"
+     * @parameter default-value="${project.reporting.outputDirectory}"
      * @required
      * @readonly
      */
@@ -72,7 +72,7 @@ public class NcssReportMojo
     /**
      * Specifies the location of the source files to be used.
      *
-     * @parameter expression="${project.build.sourceDirectory}"
+     * @parameter default-value="${project.build.sourceDirectory}"
      * @required
      * @readonly
      */
@@ -81,7 +81,7 @@ public class NcssReportMojo
     /**
      * Specifies the encoding of the source files.
      *
-     * @parameter expression="${encoding}" default-value="${project.build.sourceEncoding}"
+     * @parameter property="encoding" default-value="${project.build.sourceEncoding}"
      */
     private String sourceEncoding;
 
@@ -102,7 +102,7 @@ public class NcssReportMojo
     private String tempFileName;
 
     /**
-     * @parameter expression="${project}"
+     * @parameter default-value="${project}"
      * @required
      * @readonly
      */
@@ -118,16 +118,16 @@ public class NcssReportMojo
     /**
      * The projects in the reactor for aggregation report.
      *
-     * @parameter expression="${reactorProjects}"
+     * @parameter default-value="${reactorProjects}"
      * @readonly
      */
-    private List reactorProjects;
+    private List<MavenProject> reactorProjects;
 
     /**
      * Link the violation line numbers to the source xref. Defaults to true and will link automatically if jxr plugin is
      * being used.
      *
-     * @parameter expression="${linkXRef}" default-value="true"
+     * @parameter property="linkXRef" default-value="true"
      */
     private boolean linkXRef;
 
@@ -210,10 +210,9 @@ public class NcssReportMojo
             return;
         }
         getLog().debug( "relative: " + relative );
-        List reports = new ArrayList();
-        for ( Iterator it = reactorProjects.iterator(); it.hasNext(); )
+        List<ModuleReport> reports = new ArrayList<ModuleReport>();
+        for ( MavenProject child : reactorProjects )
         {
-            MavenProject child = (MavenProject) it.next();
             File xmlReport = new File( child.getBasedir() + File.separator + relative, tempFileName );
             if ( xmlReport.exists() )
             {
@@ -478,10 +477,8 @@ public class NcssReportMojo
             else
             {
                 // Not yet generated - check if the report is on its way
-                for ( Iterator reports = project.getReportPlugins().iterator(); reports.hasNext(); )
+                for ( ReportPlugin plugin : (List<ReportPlugin>)project.getReportPlugins() )
                 {
-                    ReportPlugin plugin = (ReportPlugin) reports.next();
-
                     String artifactId = plugin.getArtifactId();
                     if ( "maven-jxr-plugin".equals( artifactId ) || "jxr-maven-plugin".equals( artifactId ) )
                     {

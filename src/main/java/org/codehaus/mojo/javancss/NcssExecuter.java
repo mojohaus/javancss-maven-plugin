@@ -125,7 +125,7 @@ public class NcssExecuter
 
     private String[] getCommandLineArgument()
     {
-        List argumentList = new ArrayList( ARG_SIZE );
+        List<String> argumentList = new ArrayList<String>( ARG_SIZE );
         argumentList.add( "-package" );
         argumentList.add( "-object" );
         argumentList.add( "-function" );

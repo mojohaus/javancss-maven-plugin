@@ -19,7 +19,6 @@ package org.codehaus.mojo.javancss;
  * under the License.
  */
 
-import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -56,7 +55,7 @@ public class NcssAggregateReportGenerator
      * @param moduleReports the javancss raw reports to aggregate, List of ModuleReport.
      * @param lineThreshold the maximum number of lines to keep in major reports.
      */
-    public void doReport( Locale locale, List moduleReports, int lineThreshold )
+    public void doReport( Locale locale, List<ModuleReport> moduleReports, int lineThreshold )
     {
         // HEADER
         getSink().head();
@@ -75,7 +74,7 @@ public class NcssAggregateReportGenerator
         getSink().close();
     }
 
-    private void doModuleAnalysis( List reports )
+    private void doModuleAnalysis( List<ModuleReport> reports )
     {
         getSink().table();
         getSink().tableRow();
@@ -98,9 +97,8 @@ public class NcssAggregateReportGenerator
         int jdlines = 0;
         int single = 0;
         int multi = 0;
-        for ( Iterator it = reports.iterator(); it.hasNext(); )
+        for ( ModuleReport report : reports )
         {
-            ModuleReport report = (ModuleReport) it.next();
             Document document = report.getJavancssDocument();
             getSink().tableRow();
             getLog().debug( "Aggregating " + report.getModule().getArtifactId() );

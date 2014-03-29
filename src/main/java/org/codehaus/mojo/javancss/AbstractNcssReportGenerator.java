@@ -222,8 +222,7 @@ public abstract class AbstractNcssReportGenerator
         {
             version = "unknown";
         }
-        String[] args = { version };
-        getSink().text( MessageFormat.format( getString( "report.javancss.main.text" ), args ) );
+        getSink().text( MessageFormat.format( getString( "report.javancss.main.text" ), version ) );
         getSink().lineBreak();
         getSink().link( "http://javancss.codehaus.org/" );
         getSink().text( "JavaNCSS web site." );

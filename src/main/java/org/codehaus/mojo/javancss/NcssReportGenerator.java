@@ -114,12 +114,10 @@ public class NcssReportGenerator
         headerCellHelper( getString( "report.javancss.header.multi_comment" ) );
         getSink().tableRow_();
         // DATA
-        List list = document.selectNodes( "//javancss/packages/package" );
-        Collections.sort( list, new NumericNodeComparator( "ncss" ) );
-        Iterator nodeIterator = list.iterator();
-        while ( nodeIterator.hasNext() )
+        List<Node> list = document.selectNodes( "//javancss/packages/package" );
+        Collections.<Node>sort( list, new NumericNodeComparator( "ncss" ) );
+        for ( Node node : list )
         {
-            Node node = (Node) nodeIterator.next();
             getSink().tableRow();
             tableCellHelper( node.valueOf( "name" ) );
             tableCellHelper( node.valueOf( "classes" ) );
@@ -163,8 +161,8 @@ public class NcssReportGenerator
     {
         subtitleHelper( getString( "report.javancss.top" ) + " " + lineThreshold + " "
             + getString( "report.javancss.object.byncss" ) );
-        List nodeList = document.selectNodes( "//javancss/objects/object" );
-        Collections.sort( nodeList, new NumericNodeComparator( "ncss" ) );
+        List<Node> nodeList = document.selectNodes( "//javancss/objects/object" );
+        Collections.<Node>sort( nodeList, new NumericNodeComparator( "ncss" ) );
         doTopObjectGeneric( nodeList );
     }
 
@@ -172,13 +170,13 @@ public class NcssReportGenerator
     {
         subtitleHelper( getString( "report.javancss.top" ) + " " + lineThreshold + " "
             + getString( "report.javancss.object.byfunction" ) );
-        List nodeList = document.selectNodes( "//javancss/objects/object" );
-        Collections.sort( nodeList, new NumericNodeComparator( "functions" ) );
+        List<Node> nodeList = document.selectNodes( "//javancss/objects/object" );
+        Collections.<Node>sort( nodeList, new NumericNodeComparator( "functions" ) );
         doTopObjectGeneric( nodeList );
     }
 
     // generic method called by doTopObjectFunctions & doTopObjectNCss
-    private void doTopObjectGeneric( List nodeList )
+    private void doTopObjectGeneric( List<Node> nodeList )
     {
         getSink().table();
         getSink().tableRow();
@@ -188,11 +186,11 @@ public class NcssReportGenerator
         headerCellHelper( getString( "report.javancss.header.classe" ) );
         headerCellHelper( getString( "report.javancss.header.javadoc" ) );
         getSink().tableRow_();
-        Iterator nodeIterator = nodeList.iterator();
+        Iterator<Node> nodeIterator = nodeList.iterator();
         int i = 0;
         while ( nodeIterator.hasNext() && ( i++ < lineThreshold ) )
         {
-            Node node = (Node) nodeIterator.next();
+            Node node = nodeIterator.next();
             getSink().tableRow();
             getSink().tableCell();
             jxrLink( node.valueOf( "name" ) );
@@ -240,13 +238,13 @@ public class NcssReportGenerator
         headerCellHelper( getString( "report.javancss.header.ccn" ) );
         headerCellHelper( getString( "report.javancss.header.javadoc" ) );
         getSink().tableRow_();
-        List list = document.selectNodes( "//javancss/functions/function" );
-        Collections.sort( list, new NumericNodeComparator( "ncss" ) );
-        Iterator nodeIterator = list.iterator();
+        List<Node> list = document.selectNodes( "//javancss/functions/function" );
+        Collections.<Node>sort( list, new NumericNodeComparator( "ncss" ) );
+        Iterator<Node> nodeIterator = list.iterator();
         int i = 0;
         while ( nodeIterator.hasNext() && ( i++ < lineThreshold ) )
         {
-            Node node = (Node) nodeIterator.next();
+            Node node = nodeIterator.next();
             getSink().tableRow();
             getSink().tableCell();
             jxrFunctionLink( node.valueOf( "name" ) );

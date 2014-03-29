@@ -21,7 +21,6 @@ package org.codehaus.mojo.javancss;
 
 import java.io.File;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -48,7 +47,7 @@ public class NcssViolationCheckMojo
     /**
      * Specifies the location of the source files to be used.
      *
-     * @parameter expression="${project.build.sourceDirectory}"
+     * @parameter default-value="${project.build.sourceDirectory}"
      * @required
      * @readonly
      */
@@ -103,14 +102,12 @@ public class NcssViolationCheckMojo
         {
             return;
         }
-        Set ccnViolation = new HashSet();
-        Set ncssViolation = new HashSet();
-        List methodList = loadDocument().selectNodes( "//javancss/functions/function" );
+        Set<String> ccnViolation = new HashSet<String>();
+        Set<String> ncssViolation = new HashSet<String>();
+        List<Node> methodList = loadDocument().selectNodes( "//javancss/functions/function" );
         // Count ccn & ncss violations
-        Iterator nodeIterator = methodList.iterator();
-        while ( nodeIterator.hasNext() )
+        for ( Node node : methodList )
         {
-            Node node = (Node) nodeIterator.next();
             // count ccn violation
             int ccn = new Integer( node.valueOf( "ccn" ) ).intValue();
             if ( ccn > ccnLimit )
@@ -144,7 +141,7 @@ public class NcssViolationCheckMojo
         }
     }
 
-    private void reportViolation( String statName, Set violationSet, int limit )
+    private void reportViolation( String statName, Set<String> violationSet, int limit )
         throws MojoFailureException
     {
         getLog().debug( statName + " Violation = " + violationSet.size() );
@@ -153,10 +150,9 @@ public class NcssViolationCheckMojo
             String violationString =
                 "Your code has " + violationSet.size() + " method(s) with a " + statName + " greater than " + limit;
             getLog().warn( violationString );
-            Iterator iterator = violationSet.iterator();
-            while ( iterator.hasNext() )
+            for ( String violation : violationSet )
             {
-                getLog().warn( "    " + (String) iterator.next() );
+                getLog().warn( "    " + violation );
             }
             if ( failOnViolation )
             {
