@@ -31,7 +31,7 @@ import org.apache.maven.model.ReportPlugin;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.reporting.AbstractMavenReport;
 import org.apache.maven.reporting.MavenReportException;
-import org.codehaus.doxia.site.renderer.SiteRenderer;
+import org.apache.maven.doxia.siterenderer.Renderer;
 import org.codehaus.plexus.util.DirectoryScanner;
 import org.codehaus.plexus.util.PathTool;
 import org.codehaus.plexus.util.ReaderFactory;
@@ -109,11 +109,11 @@ public class NcssReportMojo
     private MavenProject project;
 
     /**
-     * @component role="org.codehaus.doxia.site.renderer.SiteRenderer"
+     * @component role="org.apache.maven.doxia.siterenderer.Renderer"
      * @required
      * @readonly
      */
-    private SiteRenderer siteRenderer;
+    private Renderer siteRenderer;
 
     /**
      * The projects in the reactor for aggregation report.
@@ -428,7 +428,7 @@ public class NcssReportMojo
     /**
      * @see org.apache.maven.reporting.AbstractMavenReport#getSiteRenderer()
      */
-    protected SiteRenderer getSiteRenderer()
+    protected Renderer getSiteRenderer()
     {
         return siteRenderer;
     }
