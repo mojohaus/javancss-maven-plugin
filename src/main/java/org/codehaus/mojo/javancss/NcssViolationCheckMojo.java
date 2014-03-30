@@ -95,10 +95,18 @@ public class NcssViolationCheckMojo
      */
     private int ncssLimit;
 
+    /**
+     * Skip entire check.
+     *
+     * @parameter property="ncss.skip" default-value="false"
+     * @since 2.1
+     */
+    private boolean skip;
+
     public void execute()
         throws MojoExecutionException, MojoFailureException
     {
-         if ( sourceDirectory == null || !sourceDirectory.exists() )
+         if ( skip || ( sourceDirectory == null ) || !sourceDirectory.exists() )
         {
             return;
         }

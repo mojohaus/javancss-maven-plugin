@@ -22,7 +22,6 @@ package org.codehaus.mojo.javancss;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -153,6 +152,14 @@ public class NcssReportMojo
      * @parameter
      */
     private String[] excludes;
+
+    /**
+     * Skip the report.
+     *
+     * @parameter property="ncss.skip" default-value="false"
+     * @since 2.1
+     */
+    private boolean skip;
 
     /**
      * Gets the source files encoding.
@@ -313,7 +320,7 @@ public class NcssReportMojo
      */
     public boolean canGenerateReport()
     {
-        return ( canGenerateSingleReport() || canGenerateAggregateReport() );
+        return !skip && ( canGenerateSingleReport() || canGenerateAggregateReport() );
     }
 
     private boolean canGenerateAggregateReport()
