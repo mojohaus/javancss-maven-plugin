@@ -19,8 +19,10 @@ package org.codehaus.mojo.javancss;
  * under the License.
  */
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,6 +30,7 @@ import javancss.Javancss;
 import javancss.parser.ParseException;
 
 import org.apache.maven.reporting.MavenReportException;
+import org.codehaus.plexus.util.IOUtil;
 
 /**
  * The NcssExecuter is able to call JavaNCSS to produce a code analysis.<br>
@@ -38,9 +41,6 @@ import org.apache.maven.reporting.MavenReportException;
  */
 public class NcssExecuter
 {
-    private static final String DEFAULT_ERROR_MESSAGE = "Error while JavaNCSS " + getJavaNCSSVersion()
-        + " was executing";
-
     private static final int ARG_SIZE = 8;
 
     // the full path to the directory holding the sources to point JavaNCSS to.
@@ -106,23 +106,57 @@ public class NcssExecuter
         try
         {
             Javancss javancss = new Javancss( getCommandLineArgument() );
-            Throwable ncssException = javancss.getLastError();
-            if ( ncssException != null )
+            Throwable ncssThrow = javancss.getLastError();
+            if ( ncssThrow != null )
             {
-                if ( ncssException instanceof Exception )
+                String lastErrorMessage = limit( javancss.getLastErrorMessage(), 3 );
+
+                if ( ncssThrow instanceof ParseException )
                 {
-                    throw new MavenReportException( DEFAULT_ERROR_MESSAGE, (Exception) ncssException );
+                    throw new MavenReportException( "Parsing error while executing JavaNCSS " + getJavaNCSSVersion()
+                        + " " + lastErrorMessage, (Exception) ncssThrow );
                 }
-                else
-                {
-                    throw new MavenReportException( DEFAULT_ERROR_MESSAGE, new Exception( ncssException ) );
-                }
+
+                Exception e = ( ncssThrow instanceof Exception ) ? (Exception) ncssThrow : new Exception( ncssThrow );
+                throw new MavenReportException( "Unexpected error while executing JavaNCSS " + getJavaNCSSVersion()
+                    + " " + lastErrorMessage, e );
             }
         }
         catch ( IOException ioe )
         {
-            throw new MavenReportException( "IO " + DEFAULT_ERROR_MESSAGE, ioe );
+            throw new MavenReportException( "IO Error while executing JavaNCSS " + getJavaNCSSVersion(), ioe );
         }
+    }
+
+    private String limit( String source, int lines )
+    {
+        BufferedReader reader = new BufferedReader( new StringReader( source ) );
+        StringBuilder sb = new StringBuilder();
+        try
+        {
+            for ( int i = 0; i < lines; i++ )
+            {
+                String line = reader.readLine();
+
+                if ( line != null )
+                {
+                    if ( sb.length() > 0 )
+                    {
+                        sb.append( "\n" );
+                    }
+                    sb.append( line );
+                }
+            }
+        }
+        catch (IOException ioe)
+        {
+            // cannot happen: in-memory StringReader
+        }
+        finally
+        {
+            IOUtil.close( reader );
+        }
+        return sb.toString();
     }
 
     private String[] getCommandLineArgument()
