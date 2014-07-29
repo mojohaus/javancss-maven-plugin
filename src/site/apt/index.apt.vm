@@ -13,15 +13,15 @@ Maven 2 JavaNCSS Plugin
   This plugin provides the capability to run the JavaNCSS tool on your Maven 2 project sources and produce an html report.
   Optionally you can fail the build whenever one of the metrics goes beyond a fixed limit.
   
-  By default, {{{http://javancss.codehaus.org/release.html}JavaNCSS version ${javancss-version}}} is used.
+  By default, {{{http://javancss.codehaus.org/release-history.html}JavaNCSS version ${javancss-version}}} is used.
 
   Many thanks to Clemens Lee and the many contributors to the JavaNCSS project for producing this tool for all to use.
 
 Goals Overview
 
- * {{{report-mojo.html}javancss:report}} Generates a report of quantity and complexity metric on your code.
+ * {{{./report-mojo.html}javancss:report}} Generates a report of quantity and complexity metric on your code.
 
- * {{{check-mojo.html}javancss:check}} Check if your source code has a CCN or NCSS value too high, fails the build if so.
+ * {{{./check-mojo.html}javancss:check}} Check if your source code has a CCN or NCSS value too high, fails the build if so.
 
 
 Usage
