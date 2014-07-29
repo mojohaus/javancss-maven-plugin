@@ -217,11 +217,7 @@ public abstract class AbstractNcssReportGenerator
             navigationBar();
         }
         getSink().paragraph();
-        String version = Javancss.class.getPackage().getSpecificationVersion();
-        if ( version == null )
-        {
-            version = "unknown";
-        }
+        String version = NcssExecuter.getJavaNCSSVersion();
         getSink().text( MessageFormat.format( getString( "report.javancss.main.text" ), version ) );
         getSink().lineBreak();
         getSink().link( "http://javancss.codehaus.org/" );

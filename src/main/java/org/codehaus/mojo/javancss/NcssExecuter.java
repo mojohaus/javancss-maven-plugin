@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javancss.Javancss;
+import javancss.parser.ParseException;
 
 import org.apache.maven.reporting.MavenReportException;
 
@@ -37,7 +38,8 @@ import org.apache.maven.reporting.MavenReportException;
  */
 public class NcssExecuter
 {
-    private static final String DEFAULT_ERROR_MESSAGE = "Error while JavaNCSS was executing";
+    private static final String DEFAULT_ERROR_MESSAGE = "Error while JavaNCSS " + getJavaNCSSVersion()
+        + " was executing";
 
     private static final int ARG_SIZE = 8;
 
@@ -119,7 +121,7 @@ public class NcssExecuter
         }
         catch ( IOException ioe )
         {
-            throw new MavenReportException( "IO Error while running JavaNCSS", ioe );
+            throw new MavenReportException( "IO " + DEFAULT_ERROR_MESSAGE, ioe );
         }
     }
 
@@ -158,4 +160,14 @@ public class NcssExecuter
         return (String[]) argumentList.toArray( new String[argumentList.size()] );
     }
 
+    public static String getJavaNCSSVersion()
+    {
+        Package p = Javancss.class.getPackage();
+        String version = ( p == null ) ? null : p.getSpecificationVersion();
+        if ( version == null )
+        {
+            version = "unknown";
+        }
+        return version;
+    }
 }

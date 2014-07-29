@@ -134,7 +134,7 @@
 
    <properties>
       <javancss-version>32.53</javancss-version>
-      <sitePluginVersion>3.3</sitePluginVersion>
+      <sitePluginVersion>3.4</sitePluginVersion>
    </properties>
 
   <build>
