@@ -228,14 +228,16 @@ public class NcssReportMojo
     private void generateSingleReport( Locale locale )
         throws MavenReportException
     {
+        getLog().info( "Running JavaNCSS " + NcssExecuter.getJavaNCSSVersion() );
         if ( getLog().isDebugEnabled() )
         {
-            getLog().debug( "Calling NCSSExecuter with src    : " + sourceDirectory );
-            getLog().debug( "Calling NCSSExecuter with output : " + buildOutputFileName() );
-            getLog().debug( "Calling NCSSExecuter with includes : " + includes );
-            getLog().debug( "Calling NCSSExecuter with excludes : " + excludes );
-            getLog().debug( "Calling NCSSExecuter with encoding : " + getSourceEncoding() );
+            getLog().debug( "Calling NcssExecuter with src: " + sourceDirectory );
+            getLog().debug( "                       output: " + buildOutputFileName() );
+            getLog().debug( "                     includes: " + includes );
+            getLog().debug( "                     excludes: " + excludes );
+            getLog().debug( "                     encoding: " + getSourceEncoding() );
         }
+
         // run javaNCss and produce an temp xml file
         NcssExecuter ncssExecuter;
         if ( isIncludeExcludeUsed() )
