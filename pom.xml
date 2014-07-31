@@ -133,7 +133,7 @@
    </dependencies>
 
    <properties>
-      <javancss-version>32.53</javancss-version>
+      <javancss-version>33.54</javancss-version>
       <sitePluginVersion>3.4</sitePluginVersion>
    </properties>
 
