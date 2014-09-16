@@ -148,7 +148,7 @@ public class NcssExecuter
                 }
             }
         }
-        catch (IOException ioe)
+        catch ( IOException ioe )
         {
             // cannot happen: in-memory StringReader
         }

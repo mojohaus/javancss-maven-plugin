@@ -22,8 +22,6 @@ package org.codehaus.mojo.javancss;
 import java.text.MessageFormat;
 import java.util.ResourceBundle;
 
-import javancss.Javancss;
-
 import org.apache.maven.doxia.sink.Sink;
 import org.apache.maven.plugin.logging.Log;
 

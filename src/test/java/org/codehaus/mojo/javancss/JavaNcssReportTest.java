@@ -33,10 +33,12 @@ import org.dom4j.io.SAXReader;
 /**
  * @author Jean-Laurent de Morlhon
  */
-public class JavaNcssReportTest extends TestCase
+public class JavaNcssReportTest
+    extends TestCase
 {
 
-    public void testSort() throws DocumentException
+    public void testSort()
+        throws DocumentException
     {
         String toBeSorted =
             "<test><person><name>Arthur</name><age>5</age></person><person><name>Blake</name><age>400</age></person><person><name>John</name><age>30</age></person></test>";

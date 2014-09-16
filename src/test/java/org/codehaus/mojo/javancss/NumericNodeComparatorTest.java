@@ -29,7 +29,8 @@ import org.easymock.MockControl;
  *
  * @author <a href="jeanlaurent@gmail.com">Jean-Laurent de Morlhon</a>
  */
-public class NumericNodeComparatorTest extends TestCase
+public class NumericNodeComparatorTest
+    extends TestCase
 {
     private static final String NODE_PROPERTY = "foobar";
 

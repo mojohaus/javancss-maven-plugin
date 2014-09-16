@@ -48,7 +48,7 @@ import org.dom4j.io.SAXReader;
  * @author <a href="jeanlaurentATgmail.com">Jean-Laurent de Morlhon</a>
  * @version $Id$
  */
-@Mojo( name="report" )
+@Mojo( name = "report" )
 public class NcssReportMojo
     extends AbstractMavenReport
 {
@@ -468,7 +468,7 @@ public class NcssReportMojo
             else
             {
                 // Not yet generated - check if the report is on its way
-                for ( ReportPlugin plugin : (List<ReportPlugin>)project.getReportPlugins() )
+                for ( ReportPlugin plugin : (List<ReportPlugin>) project.getReportPlugins() )
                 {
                     String artifactId = plugin.getArtifactId();
                     if ( "maven-jxr-plugin".equals( artifactId ) || "jxr-maven-plugin".equals( artifactId ) )
