@@ -55,12 +55,6 @@ public class NcssReportMojo
     private static final String OUTPUT_NAME = "javancss";
 
     /**
-     * Specifies the directory where the HTML report will be generated.
-     */
-    @Parameter( defaultValue = "${project.reporting.outputDirectory}", readonly = true, required = true )
-    private File outputDirectory;
-
-    /**
      * Specifies the directory where the XML report will be generated.
      */
     @Parameter( defaultValue = "${project.build.directory}", readonly = true, required = true )
@@ -89,18 +83,6 @@ public class NcssReportMojo
      */
     @Parameter( defaultValue = "javancss-raw-report.xml" )
     private String tempFileName;
-
-    /**
-     * the current project
-     */
-    @Parameter( defaultValue = "${project}", readonly = true, required = true )
-    private MavenProject project;
-
-    /**
-     * Doxia Site Renderer component
-     */
-    @Component
-    private Renderer siteRenderer;
 
     /**
      * The projects in the reactor for aggregation report.
@@ -394,33 +376,9 @@ public class NcssReportMojo
         return getBundle( locale ).getString( "report.javancss.description" );
     }
 
-    /**
-     * @see org.apache.maven.reporting.AbstractMavenReport#getOutputDirectory()
-     */
-    protected String getOutputDirectory()
-    {
-        return outputDirectory.getAbsolutePath();
-    }
-
     protected String getXmlOutputDirectory()
     {
         return xmlOutputDirectory.getAbsolutePath();
-    }
-
-    /**
-     * @see org.apache.maven.reporting.AbstractMavenReport#getProject()
-     */
-    protected MavenProject getProject()
-    {
-        return project;
-    }
-
-    /**
-     * @see org.apache.maven.reporting.AbstractMavenReport#getSiteRenderer()
-     */
-    protected Renderer getSiteRenderer()
-    {
-        return siteRenderer;
     }
 
     /**
