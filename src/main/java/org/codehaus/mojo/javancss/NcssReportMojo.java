@@ -27,13 +27,11 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 import org.apache.maven.model.ReportPlugin;
-import org.apache.maven.plugins.annotations.Component;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
 import org.apache.maven.reporting.AbstractMavenReport;
 import org.apache.maven.reporting.MavenReportException;
-import org.apache.maven.doxia.siterenderer.Renderer;
 import org.codehaus.plexus.util.DirectoryScanner;
 import org.codehaus.plexus.util.PathTool;
 import org.codehaus.plexus.util.ReaderFactory;
