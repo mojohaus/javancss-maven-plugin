@@ -151,7 +151,7 @@ public abstract class AbstractNcssReportGenerator
     }
 
     /**
-     * sink helper to write a simple tabke cell.
+     * sink helper to write a simple table cell.
      *
      * @param text the text to write within a table cell.
      */
