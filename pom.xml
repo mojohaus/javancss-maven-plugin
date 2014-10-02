@@ -4,7 +4,7 @@
    <parent>
       <groupId>org.codehaus.mojo</groupId>
       <artifactId>mojo-parent</artifactId>
-      <version>33</version>
+      <version>34</version>
    </parent>
 
    <artifactId>javancss-maven-plugin</artifactId>
@@ -231,22 +231,5 @@
            </plugins>
         </build>
      </profile>
-    <profile>
-      <id>reporting</id>
-      <reporting>
-        <plugins>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-checkstyle-plugin</artifactId>
-            <version>2.13</version>
-          </plugin>
-          <plugin>
-            <groupId>org.apache.maven.plugins</groupId>
-            <artifactId>maven-pmd-plugin</artifactId>
-            <version>3.2</version>
-          </plugin>
-        </plugins>
-      </reporting>
-    </profile>
   </profiles>
 </project>
