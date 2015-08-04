@@ -65,12 +65,6 @@ public class NcssReportMojo
     private File sourceDirectory;
 
     /**
-     * Specifies the encoding of the source files.
-     */
-    @Parameter( property = "encoding", defaultValue = "${project.build.sourceEncoding}" )
-    private String sourceEncoding;
-
-    /**
      * Specifies the maximum number of lines to take into account into the reports.
      */
     @Parameter( defaultValue = "30" )
@@ -122,16 +116,6 @@ public class NcssReportMojo
      */
     @Parameter( property = "ncss.skip", defaultValue = "false" )
     private boolean skip;
-
-    /**
-     * Gets the source files encoding.
-     *
-     * @return The source file encoding.
-     */
-    protected String getSourceEncoding()
-    {
-        return sourceEncoding;
-    }
 
     /**
      * @see org.apache.maven.reporting.MavenReport#executeReport(java.util.Locale)
@@ -215,7 +199,7 @@ public class NcssReportMojo
             getLog().debug( "                       output: " + buildOutputFileName() );
             getLog().debug( "                     includes: " + includes );
             getLog().debug( "                     excludes: " + excludes );
-            getLog().debug( "                     encoding: " + getSourceEncoding() );
+            getLog().debug( "                     encoding: " + getInputEncoding() );
         }
 
         // run javaNCss and produce an temp xml file
@@ -228,7 +212,7 @@ public class NcssReportMojo
         {
             ncssExecuter = new NcssExecuter( sourceDirectory, buildOutputFileName() );
         }
-        ncssExecuter.setEncoding( getSourceEncoding() ); // in case of null value, JavaNCSS uses platform encoding, as
+        ncssExecuter.setEncoding( getInputEncoding() ); // in case of null value, JavaNCSS uses platform encoding, as
         // expected
 
         ncssExecuter.execute();
