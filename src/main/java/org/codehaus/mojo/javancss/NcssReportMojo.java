@@ -22,6 +22,8 @@ package org.codehaus.mojo.javancss;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -117,31 +119,18 @@ public class NcssReportMojo
     @Parameter( property = "ncss.skip", defaultValue = "false" )
     private boolean skip;
 
+    
     /**
-     * @see org.apache.maven.reporting.MavenReport#executeReport(java.util.Locale)
+     * The relative path to generate / find XMl reports.
      */
-    public void executeReport( Locale locale )
-        throws MavenReportException
-    {
-        if ( !canGenerateReport() )
-        {
-            return;
-        }
-
-        if ( canGenerateSingleReport() )
-        {
-            generateSingleReport( locale );
-        }
-        if ( canGenerateAggregateReport() )
-        {
-            generateAggregateReport( locale );
-        }
-    }
-
-    private void generateAggregateReport( Locale locale )
-        throws MavenReportException
-    {
-        // All this work just to get "target" so that we can scan the filesystem for
+    private String relativeXMLOutputDirectory;
+    
+    /**
+	 * Constructor. It finds out the relative directory to use for XML output
+	 */
+	public NcssReportMojo() {
+		super();        
+		// All this work just to get "target" so that we can scan the filesystem for
         // child javancss xml files...
         String basedir = project.getBasedir().toString();
         String output = xmlOutputDirectory.toString();
@@ -150,10 +139,9 @@ public class NcssReportMojo
             getLog().debug( "basedir: " + basedir );
             getLog().debug( "output: " + output );
         }
-        String relative = null;
         if ( output.startsWith( basedir ) )
         {
-            relative = output.substring( basedir.length() + 1 );
+            relativeXMLOutputDirectory = output.substring( basedir.length() + 1 );
         }
         else
         {
@@ -162,186 +150,248 @@ public class NcssReportMojo
                                 + "determine the relative location of the XML report" );
             return;
         }
-        getLog().debug( "relative: " + relative );
-        List<ModuleReport> reports = new ArrayList<ModuleReport>();
-        for ( MavenProject child : reactorProjects )
-        {
-            File xmlReport = new File( child.getBasedir() + File.separator + relative, tempFileName );
-            if ( xmlReport.exists() )
-            {
-                reports.add( new ModuleReport( child, loadDocument( xmlReport ) ) );
-            }
-            else
-            {
-                getLog().debug( "xml file not found: " + xmlReport );
-            }
-        }
-        getLog().debug( "Aggregating " + reports.size() + " JavaNCSS reports" );
+        getLog().debug( "relative: " + relativeXMLOutputDirectory );
+        
+	}
 
-        // parse the freshly generated file and write the report
-        NcssAggregateReportGenerator reportGenerator =
-            new NcssAggregateReportGenerator( getSink(), getBundle( locale ), getLog() );
-        reportGenerator.doReport( locale, reports, lineThreshold );
-    }
-
-    private boolean isIncludeExcludeUsed()
-    {
-        return ( ( excludes != null ) || ( includes != null ) );
-    }
-
-    private void generateSingleReport( Locale locale )
+	/**
+     * @see org.apache.maven.reporting.MavenReport#executeReport(java.util.Locale)
+     */
+    public void executeReport( Locale locale )
         throws MavenReportException
     {
-        getLog().info( "Running JavaNCSS " + NcssExecuter.getJavaNCSSVersion() );
-        if ( getLog().isDebugEnabled() )
-        {
-            getLog().debug( "Calling NcssExecuter with src: " + sourceDirectory );
-            getLog().debug( "                       output: " + buildOutputFileName() );
-            getLog().debug( "                     includes: " + includes );
-            getLog().debug( "                     excludes: " + excludes );
-            getLog().debug( "                     encoding: " + getInputEncoding() );
-        }
+    	LinkedList forLater = new LinkedList(); // list to reorder execution of aggregated projects
+    	for (Iterator i = reactorProjects.iterator(); i.hasNext();) 
+    	{
+    		MavenProject mp = (MavenProject) i.next();
+    		ProjectReporter pr = new ProjectReporter(mp);
 
-        // run javaNCss and produce an temp xml file
-        NcssExecuter ncssExecuter;
-        if ( isIncludeExcludeUsed() )
-        {
-            ncssExecuter = new NcssExecuter( scanForSources(), buildOutputFileName() );
-        }
-        else
-        {
-            ncssExecuter = new NcssExecuter( sourceDirectory, buildOutputFileName() );
-        }
-        ncssExecuter.setEncoding( getInputEncoding() ); // in case of null value, JavaNCSS uses platform encoding, as
-        // expected
-
-        ncssExecuter.execute();
-        if ( !isTempReportGenerated() )
-        {
-            throw new MavenReportException( "Can't process temp ncss xml file." );
-        }
-        // parse the freshly generated file and write the report
-        NcssReportGenerator reportGenerator =
-            new NcssReportGenerator( getSink(), getBundle( locale ), getLog(), constructXRefLocation() );
-        reportGenerator.doReport( loadDocument(), lineThreshold );
+    		if (pr.canGenerateSingleReport()) 
+    		{
+    			getLog().debug("running Single Reporting for: " + pr.project.getGroupId() + ":" + pr.project.getArtifactId() +":" + pr.project.getVersion());
+    			pr.generateSingleReport(locale);
+    		}
+    		if (project.getModules().size() > 0 && !pr.canGenerateAggregateReport())
+    		{	
+    			//an aggregated project that can not be generated at this moment -> try later
+    			forLater.addFirst(pr);
+    		}
+    	}
+    	
+    	while (!forLater.isEmpty())
+    	{
+    		ProjectReporter pr = (ProjectReporter) forLater.getFirst();
+    		forLater.removeFirst();
+    		if (pr.canGenerateAggregateReport())
+    		{
+    			getLog().debug("running Aggregate Reporting for: " + pr.project.getGroupId() + ":" + pr.project.getArtifactId() +":" + pr.project.getVersion());
+    			pr.generateAggregateReport(locale);
+    		}
+    		else 
+    		{
+    			// Aggregate report could not be generated, maybe because it depends on other aggregate reports try again later.
+    			forLater.addLast(pr);
+    		}
+    	}
     }
+    private class ProjectReporter {
+    	
 
-    /**
-     * Load the xml file generated by javancss.
-     */
-    private Document loadDocument( File file )
-        throws MavenReportException
-    {
-        try
-        {
-            SAXReader saxReader = new SAXReader();
-            return saxReader.read( ReaderFactory.newXmlReader( file ) );
+        private MavenProject project;
+        
+        private File sourceDirectory;
+       
+        ProjectReporter(MavenProject mp){
+        	project = mp;
+        	sourceDirectory = new File (project.getBuild().getSourceDirectory());
         }
-        catch ( DocumentException de )
+
+        private void generateAggregateReport( Locale locale )
+        		throws MavenReportException
+        		{
+        	// All this work just to get "target" so that we can scan the filesystem for
+        	// child javancss xml files...
+        	
+        	getLog().debug( "relative: " + relativeXMLOutputDirectory );
+        	List<ModuleReport> reports = new ArrayList<ModuleReport>();
+        	for ( MavenProject child : reactorProjects )
+        	{
+        		File xmlReport = new File( child.getBasedir() + File.separator + relativeXMLOutputDirectory, tempFileName );
+        		if ( xmlReport.exists() )
+        		{
+        			reports.add( new ModuleReport( child, loadDocument( xmlReport ) ) );
+        		}
+        		else
+        		{
+        			getLog().debug( "xml file not found: " + xmlReport );
+        		}
+        	}
+        	getLog().debug( "Aggregating " + reports.size() + " JavaNCSS reports" );
+
+        	// parse the freshly generated file and write the report
+        	NcssAggregateReportGenerator reportGenerator =
+        			new NcssAggregateReportGenerator( getSink(), getBundle( locale ), getLog() );
+        	reportGenerator.doReport( locale, reports, lineThreshold );
+        		}
+
+        private boolean isIncludeExcludeUsed()
         {
-            throw new MavenReportException( de.getMessage(), de );
+        	return ( ( excludes != null ) || ( includes != null ) );
         }
-        catch ( IOException ioe )
+
+        private void generateSingleReport( Locale locale )
+        		throws MavenReportException
+        		{
+        	getLog().info( "Running JavaNCSS " + NcssExecuter.getJavaNCSSVersion() );
+        	if ( getLog().isDebugEnabled() )
+        	{
+        		getLog().debug( "Calling NcssExecuter with src: " + sourceDirectory );
+        		getLog().debug( "                       output: " + buildOutputFileName() );
+        		getLog().debug( "                     includes: " + includes );
+        		getLog().debug( "                     excludes: " + excludes );
+        		getLog().debug( "                     encoding: " + getInputEncoding() );
+        	}
+
+        	// run javaNCss and produce an temp xml file
+        	NcssExecuter ncssExecuter;
+        	if ( isIncludeExcludeUsed() )
+        	{
+        		ncssExecuter = new NcssExecuter( scanForSources(), buildOutputFileName() );
+        	}
+        	else
+        	{
+        		ncssExecuter = new NcssExecuter( sourceDirectory, buildOutputFileName() );
+        	}
+        	ncssExecuter.setEncoding( getInputEncoding() ); // in case of null value, JavaNCSS uses platform encoding, as
+        	// expected
+
+        	ncssExecuter.execute();
+        	if ( !isTempReportGenerated() )
+        	{
+        		throw new MavenReportException( "Can't process temp ncss xml file." );
+        	}
+        	// parse the freshly generated file and write the report
+        	NcssReportGenerator reportGenerator =
+        			new NcssReportGenerator( getSink(), getBundle( locale ), getLog(), constructXRefLocation() );
+        	reportGenerator.doReport( loadDocument(), lineThreshold );
+        		}
+
+        /**
+         * Load the xml file generated by javancss.
+         */
+        private Document loadDocument( File file )
+        		throws MavenReportException
+        		{
+        	try
+        	{
+        		SAXReader saxReader = new SAXReader();
+        		return saxReader.read( ReaderFactory.newXmlReader( file ) );
+        	}
+        	catch ( DocumentException de )
+        	{
+        		throw new MavenReportException( de.getMessage(), de );
+        	}
+        	catch ( IOException ioe )
+        	{
+        		throw new MavenReportException( ioe.getMessage(), ioe );
+        	}
+        		}
+
+        private Document loadDocument()
+        		throws MavenReportException
+        		{
+        	return loadDocument( new File( buildOutputFileName() ) );
+        		}
+
+        /**
+         * Check that the expected temporary file generated by JavaNCSS exists.
+         *
+         * @return <code>true</code> if the temporary report exists, <code>false</code> otherwise.
+         */
+        private boolean isTempReportGenerated()
         {
-            throw new MavenReportException( ioe.getMessage(), ioe );
+        	return new File( buildOutputFileName() ).exists();
+        }
+
+        /**
+         * @see org.apache.maven.reporting.MavenReport#canGenerateReport()
+         */
+        public boolean canGenerateReport()
+        {
+        	return !skip && ( canGenerateSingleReport() || canGenerateAggregateReport() );
+        }
+
+        private boolean canGenerateAggregateReport()
+        {
+        	if ( project.getModules().size() == 0 )
+        	{
+        		// no child modules
+        		return false;
+        	}
+        	if ( sourceDirectory != null && sourceDirectory.exists() )
+        	{
+        		// only non-source projects can aggregate
+        		String[] sources = scanForSources();
+        		return !( ( sources != null ) && ( sources.length > 0 ) );
+        	}
+        	return true;
+        }
+
+        private boolean canGenerateSingleReport()
+        {
+        	if ( sourceDirectory == null || !sourceDirectory.exists() )
+        	{
+        		return false;
+        	}
+        	// now that we know we have a valid existing source directory
+        	// we check if any *.java files are existing.
+        	String[] sources = scanForSources();
+        	return ( sources != null ) && ( sources.length > 0 );
+        }
+
+        /**
+         * gets a list of all files in the source directory.
+         *
+         * @return the list of all files in the source directory;
+         */
+        private String[] scanForSources()
+        {
+        	String[] defaultIncludes = { "**\\*.java" };
+        	DirectoryScanner ds = new DirectoryScanner();
+        	if ( includes == null )
+        	{
+        		ds.setIncludes( defaultIncludes );
+        	}
+        	else
+        	{
+        		ds.setIncludes( includes );
+        	}
+        	if ( excludes != null )
+        	{
+        		ds.setExcludes( excludes );
+        	}
+        	ds.setBasedir( sourceDirectory );
+        	getLog().debug( "Scanning base directory " + sourceDirectory );
+        	ds.scan();
+        	int maxFiles = ds.getIncludedFiles().length;
+        	String[] result = new String[maxFiles];
+        	for ( int i = 0; i < maxFiles; i++ )
+        	{
+        		result[i] = sourceDirectory + File.separator + ds.getIncludedFiles()[i];
+        	}
+        	return result;
+        }
+
+        /**
+         * Build a path for the output filename.
+         *
+         * @return A String representation of the output filename.
+         */
+        /* package */String buildOutputFileName()
+        {
+        	return project.getBasedir().getAbsolutePath() + File.separator + relativeXMLOutputDirectory + File.separator + tempFileName;
         }
     }
-
-    private Document loadDocument()
-        throws MavenReportException
-    {
-        return loadDocument( new File( buildOutputFileName() ) );
-    }
-
-    /**
-     * Check that the expected temporary file generated by JavaNCSS exists.
-     *
-     * @return <code>true</code> if the temporary report exists, <code>false</code> otherwise.
-     */
-    private boolean isTempReportGenerated()
-    {
-        return new File( buildOutputFileName() ).exists();
-    }
-
-    /**
-     * @see org.apache.maven.reporting.MavenReport#canGenerateReport()
-     */
-    public boolean canGenerateReport()
-    {
-        return !skip && ( canGenerateSingleReport() || canGenerateAggregateReport() );
-    }
-
-    private boolean canGenerateAggregateReport()
-    {
-        if ( project.getModules().size() == 0 )
-        {
-            // no child modules
-            return false;
-        }
-        if ( sourceDirectory != null && sourceDirectory.exists() )
-        {
-            // only non-source projects can aggregate
-            String[] sources = scanForSources();
-            return !( ( sources != null ) && ( sources.length > 0 ) );
-        }
-        return true;
-    }
-
-    private boolean canGenerateSingleReport()
-    {
-        if ( sourceDirectory == null || !sourceDirectory.exists() )
-        {
-            return false;
-        }
-        // now that we know we have a valid existing source directory
-        // we check if any *.java files are existing.
-        String[] sources = scanForSources();
-        return ( sources != null ) && ( sources.length > 0 );
-    }
-
-    /**
-     * gets a list of all files in the source directory.
-     *
-     * @return the list of all files in the source directory;
-     */
-    private String[] scanForSources()
-    {
-        String[] defaultIncludes = { "**\\*.java" };
-        DirectoryScanner ds = new DirectoryScanner();
-        if ( includes == null )
-        {
-            ds.setIncludes( defaultIncludes );
-        }
-        else
-        {
-            ds.setIncludes( includes );
-        }
-        if ( excludes != null )
-        {
-            ds.setExcludes( excludes );
-        }
-        ds.setBasedir( sourceDirectory );
-        getLog().debug( "Scanning base directory " + sourceDirectory );
-        ds.scan();
-        int maxFiles = ds.getIncludedFiles().length;
-        String[] result = new String[maxFiles];
-        for ( int i = 0; i < maxFiles; i++ )
-        {
-            result[i] = sourceDirectory + File.separator + ds.getIncludedFiles()[i];
-        }
-        return result;
-    }
-
-    /**
-     * Build a path for the output filename.
-     *
-     * @return A String representation of the output filename.
-     */
-    /* package */String buildOutputFileName()
-    {
-        return getXmlOutputDirectory() + File.separator + tempFileName;
-    }
-
     /**
      * @see org.apache.maven.reporting.MavenReport#getName(java.util.Locale)
      */
@@ -356,11 +406,6 @@ public class NcssReportMojo
     public String getDescription( Locale locale )
     {
         return getBundle( locale ).getString( "report.javancss.description" );
-    }
-
-    protected String getXmlOutputDirectory()
-    {
-        return xmlOutputDirectory.getAbsolutePath();
     }
 
     /**
