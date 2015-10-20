@@ -40,10 +40,11 @@ Usage
 
 *Aggregate Reporting
 
-  When running against a project which has no source but has child modules, the JavaNCSS plugin will attempt to aggregate
-  any child JavaNCSS reports into an aggregate report.  Unfortunately Maven's internal support for report aggregation
-  is rather poor so it does have a number of limitations.  Foremost the aggregate report is generated <<before>> the child
-  reports so you must re-run the JavaNCSS report after the children have generated, like this:
+  Since version 2.2 running against a project that contains only child modules, the plugin will generate all the project's 
+  reports, including any aggregated subprojects recursively.
+  
+  For versions prior to 2.2 the aggregate report is generated <<before>> the child reports so you must re-run the JavaNCSS 
+  report after the children have generated, like this:
 
 -------------------
   mvn clean site (generate the site for every module recursively)
