@@ -154,8 +154,11 @@ public class NcssReportMojo
         }
         getLog().debug( "relative: " + relativeXMLOutputDirectory );
         
+        List<MavenProject> relatedProjects = getAllProjectModules(project, reactorProjects);
+        relatedProjects.add(project);
+        
         LinkedList forLater = new LinkedList(); // list to reorder execution of aggregated projects
-    	for (Iterator i = reactorProjects.iterator(); i.hasNext();) 
+    	for (Iterator i = relatedProjects.iterator(); i.hasNext();) 
     	{
     		MavenProject mp = (MavenProject) i.next();
     		ProjectReporter pr = new ProjectReporter(mp);
