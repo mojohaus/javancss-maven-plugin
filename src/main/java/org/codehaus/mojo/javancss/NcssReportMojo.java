@@ -383,6 +383,12 @@ public class NcssReportMojo
          */
         /* package */String buildOutputFileName()
         {
+        	File outputDir = new File(project.getBasedir().getAbsolutePath() + File.separator + relativeXMLOutputDirectory);
+        	if (!outputDir.exists())
+        	{
+        		outputDir.mkdirs();
+        	}
+        	
         	return project.getBasedir().getAbsolutePath() + File.separator + relativeXMLOutputDirectory + File.separator + tempFileName;
         }
     }
