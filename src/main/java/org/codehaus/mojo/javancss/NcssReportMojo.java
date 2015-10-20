@@ -259,9 +259,10 @@ public class NcssReportMojo
 		private void generateAggregateReport( Locale locale )
         		throws MavenReportException
         		{
-        	// All this work just to get "target" so that we can scan the filesystem for
-        	// child javancss xml files...
-        	
+			if (!project.equals(NcssReportMojo.this.project)) {
+				//this avoids writing in the wrong sink.
+				return;
+			}
         	getLog().debug( "relative: " + relativeXMLOutputDirectory );
         	List<ModuleReport> reports = new ArrayList<ModuleReport>();
         	for ( MavenProject child : reactorProjects )
