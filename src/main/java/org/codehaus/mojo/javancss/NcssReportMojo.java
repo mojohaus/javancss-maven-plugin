@@ -292,7 +292,6 @@ public class NcssReportMojo
         private void generateSingleReport( Locale locale )
         		throws MavenReportException
         		{
-        	getLog().info( "Running JavaNCSS " + NcssExecuter.getJavaNCSSVersion() );
         	if ( getLog().isDebugEnabled() )
         	{
         		getLog().debug( "Calling NcssExecuter with src: " + sourceDirectory );
@@ -315,15 +314,23 @@ public class NcssReportMojo
         	ncssExecuter.setEncoding( getInputEncoding() ); // in case of null value, JavaNCSS uses platform encoding, as
         	// expected
 
-        	ncssExecuter.execute();
-        	if ( !isTempReportGenerated() )
-        	{
-        		throw new MavenReportException( "Can't process temp ncss xml file." );
-        	}
-        	// parse the freshly generated file and write the report
-        	NcssReportGenerator reportGenerator =
-        			new NcssReportGenerator( getSink(), getBundle( locale ), getLog(), constructXRefLocation() );
-        	reportGenerator.doReport( loadDocument(), lineThreshold );
+        	if (isTempReportOutdated()) {
+				getLog().info(
+						"Running JavaNCSS " + NcssExecuter.getJavaNCSSVersion());
+				ncssExecuter.execute();
+				if (!isTempReportGenerated()) {
+					throw new MavenReportException(
+							"Can't process temp ncss xml file.");
+				}
+			}
+			if (project.equals(NcssReportMojo.this.project)) {
+				// only if sink will be generated with the correct context
+				// parse the freshly generated file and write the report
+				NcssReportGenerator reportGenerator = new NcssReportGenerator(
+						getSink(), getBundle(locale), getLog(),
+						constructXRefLocation());
+				reportGenerator.doReport(loadDocument(), lineThreshold);
+			}
         		}
 
         /**
@@ -361,6 +368,18 @@ public class NcssReportMojo
         private boolean isTempReportGenerated()
         {
         	return new File( buildOutputFileName() ).exists();
+        }
+        
+        private boolean isTempReportOutdated(){
+        	if (!isTempReportGenerated()){
+        		return true;
+        	}
+        	String[] sources = scanForSources();
+        	long latestModificationInSource = 0;
+        	for (String string : sources) {
+        		latestModificationInSource = Math.max(latestModificationInSource, new File(string).lastModified());
+			}
+        	return latestModificationInSource < new File( buildOutputFileName() ).lastModified();
         }
 
         /**
