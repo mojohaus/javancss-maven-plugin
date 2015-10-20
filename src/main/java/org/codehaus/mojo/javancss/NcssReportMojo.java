@@ -153,7 +153,7 @@ public class NcssReportMojo
             return;
         }
         getLog().debug( "relative: " + relativeXMLOutputDirectory );
-    	
+        
     	LinkedList forLater = new LinkedList(); // list to reorder execution of aggregated projects
     	for (Iterator i = reactorProjects.iterator(); i.hasNext();) 
     	{
@@ -329,7 +329,17 @@ public class NcssReportMojo
         		String[] sources = scanForSources();
         		return !( ( sources != null ) && ( sources.length > 0 ) );
         	}
-        	return true;
+        	boolean allXMLexists = true;
+        	for ( MavenProject child : reactorProjects )
+        	{
+        		File xmlReport = new File( child.getBasedir() + File.separator + relativeXMLOutputDirectory, tempFileName );
+        		allXMLexists &= xmlReport.exists();
+        		if (!allXMLexists)
+        		{
+        			break;
+        		}
+        	}
+        	return allXMLexists;
         }
 
         private boolean canGenerateSingleReport()
