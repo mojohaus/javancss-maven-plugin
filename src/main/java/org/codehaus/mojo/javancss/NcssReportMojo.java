@@ -248,9 +248,12 @@ public class NcssReportMojo
 		private void buildSubReactor() {
 			getLog().debug("Building sub reactor project list for " + project.getArtifactId());
 			reactorProjects = getAllProjectModules(project, NcssReportMojo.this.reactorProjects);
-			for (MavenProject pr : reactorProjects) {
-				getLog().debug("\tAdding " + pr.getArtifactId() + " to sub reactor.");
-			}
+			if ( getLog().isDebugEnabled() )
+	        {
+				for (MavenProject pr : reactorProjects) {
+					getLog().debug("\tAdding " + pr.getArtifactId() + " to sub reactor.");
+				}
+	        }
 		}
 
 		private void generateAggregateReport( Locale locale )
