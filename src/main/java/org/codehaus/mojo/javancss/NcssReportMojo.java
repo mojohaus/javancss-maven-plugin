@@ -173,6 +173,11 @@ public class NcssReportMojo
     			//an aggregated project that can not be generated at this moment -> try later
     			forLater.addFirst(pr);
     		}
+    		if (pr.project.getModules().size() > 0 && pr.canGenerateAggregateReport())
+    		{	
+    			//an aggregated project that can not be generated at this moment -> try now
+    			pr.generateAggregateReport(locale);
+    		}
     	}
     	
     	while (!forLater.isEmpty())
