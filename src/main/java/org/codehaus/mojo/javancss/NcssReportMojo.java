@@ -154,7 +154,7 @@ public class NcssReportMojo
         }
         getLog().debug( "relative: " + relativeXMLOutputDirectory );
         
-    	LinkedList forLater = new LinkedList(); // list to reorder execution of aggregated projects
+        LinkedList forLater = new LinkedList(); // list to reorder execution of aggregated projects
     	for (Iterator i = reactorProjects.iterator(); i.hasNext();) 
     	{
     		MavenProject mp = (MavenProject) i.next();
@@ -189,6 +189,33 @@ public class NcssReportMojo
     		}
     	}
     }
+    
+	private static List<MavenProject> getAllProjectModules(MavenProject project, List<MavenProject> allprojects ){
+		List<MavenProject> subProjects = new ArrayList<MavenProject>();
+		for (MavenProject candidate : allprojects) {
+			File candidateBaseDir = candidate.getBasedir();
+			for (Iterator i = project.getModules().iterator(); i
+					.hasNext();) {
+				String module = (String) i.next();
+
+				File moduleBaseDir = new File(project.getBasedir(), module);
+				if(moduleBaseDir.isFile())
+				{
+					moduleBaseDir = moduleBaseDir.getParentFile();
+				}
+
+				try {
+					if (candidateBaseDir.getCanonicalFile().equals(moduleBaseDir.getCanonicalFile())){
+						subProjects.addAll(getAllProjectModules(candidate, allprojects));
+						subProjects.add(candidate);
+						continue;
+					}
+				} catch (IOException e) {}
+			}
+		}
+		return subProjects;
+	}
+  
     private class ProjectReporter {
     	
 
@@ -196,12 +223,29 @@ public class NcssReportMojo
         
         private File sourceDirectory;
        
+        /**
+         * Filtered projects in the reactor for aggregation report, that are modules of the project, or the project.
+         */
+        private List<MavenProject> reactorProjects;
+        
         ProjectReporter(MavenProject mp){
         	project = mp;
         	sourceDirectory = new File (project.getBuild().getSourceDirectory());
+        	buildSubReactor();
         }
 
-        private void generateAggregateReport( Locale locale )
+        /**
+		 * Builds the variable {@link ProjectReporter#reactorProjects} filtering {@link NcssReportMojo#reactorProjects}.
+		 */
+		private void buildSubReactor() {
+			getLog().debug("Building sub reactor project list for " + project.getArtifactId());
+			reactorProjects = getAllProjectModules(project, NcssReportMojo.this.reactorProjects);
+			for (MavenProject pr : reactorProjects) {
+				getLog().debug("\tAdding " + pr.getArtifactId() + " to sub reactor.");
+			}
+		}
+
+		private void generateAggregateReport( Locale locale )
         		throws MavenReportException
         		{
         	// All this work just to get "target" so that we can scan the filesystem for
