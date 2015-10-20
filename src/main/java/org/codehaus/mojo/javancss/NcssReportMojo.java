@@ -376,12 +376,18 @@ public class NcssReportMojo
         	boolean allXMLexists = true;
         	for ( MavenProject child : reactorProjects )
         	{
-        		File xmlReport = new File( child.getBasedir() + File.separator + relativeXMLOutputDirectory, tempFileName );
-        		allXMLexists &= xmlReport.exists();
-        		if (!allXMLexists)
-        		{
-        			break;
-        		}
+        		if (child.getModules().size() == 0) {
+        			// only check availability for non-aggregated projects that have sources
+					File xmlReport = new File(child.getBasedir()
+							+ File.separator + relativeXMLOutputDirectory,
+							tempFileName);
+					allXMLexists &= xmlReport.exists() || 
+							!(new ProjectReporter(child).hasSources());
+					if (!allXMLexists) {
+						getLog().error(xmlReport + " does not exist.");
+						break;
+					}
+				}
         	}
         	return allXMLexists;
         }
@@ -432,6 +438,14 @@ public class NcssReportMojo
         }
 
         /**
+         * Determine if the project has sources.
+		 * @return
+		 */
+		private boolean hasSources() {
+			return sourceDirectory.exists() && scanForSources().length > 0;
+		}
+
+		/**
          * Build a path for the output filename.
          *
          * @return A String representation of the output filename.
