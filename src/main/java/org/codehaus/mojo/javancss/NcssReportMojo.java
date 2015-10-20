@@ -124,13 +124,15 @@ public class NcssReportMojo
      * The relative path to generate / find XMl reports.
      */
     private String relativeXMLOutputDirectory;
-    
-    /**
-	 * Constructor. It finds out the relative directory to use for XML output
-	 */
-	public NcssReportMojo() {
-		super();        
-		// All this work just to get "target" so that we can scan the filesystem for
+
+	/**
+     * @see org.apache.maven.reporting.MavenReport#executeReport(java.util.Locale)
+     */
+    public void executeReport( Locale locale )
+        throws MavenReportException
+    {
+    	
+    	// All this work just to get "target" so that we can scan the filesystem for
         // child javancss xml files...
         String basedir = project.getBasedir().toString();
         String output = xmlOutputDirectory.toString();
@@ -151,15 +153,7 @@ public class NcssReportMojo
             return;
         }
         getLog().debug( "relative: " + relativeXMLOutputDirectory );
-        
-	}
-
-	/**
-     * @see org.apache.maven.reporting.MavenReport#executeReport(java.util.Locale)
-     */
-    public void executeReport( Locale locale )
-        throws MavenReportException
-    {
+    	
     	LinkedList forLater = new LinkedList(); // list to reorder execution of aggregated projects
     	for (Iterator i = reactorProjects.iterator(); i.hasNext();) 
     	{
