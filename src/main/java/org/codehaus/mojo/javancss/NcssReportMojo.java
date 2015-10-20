@@ -380,7 +380,7 @@ public class NcssReportMojo
         	for (String string : sources) {
         		latestModificationInSource = Math.max(latestModificationInSource, new File(string).lastModified());
 			}
-        	return latestModificationInSource < new File( buildOutputFileName() ).lastModified();
+        	return latestModificationInSource > new File( buildOutputFileName() ).lastModified();
         }
 
         /**
