@@ -165,7 +165,7 @@ public class NcssReportMojo
     			getLog().debug("running Single Reporting for: " + pr.project.getGroupId() + ":" + pr.project.getArtifactId() +":" + pr.project.getVersion());
     			pr.generateSingleReport(locale);
     		}
-    		if (project.getModules().size() > 0 && !pr.canGenerateAggregateReport())
+    		if (pr.project.getModules().size() > 0 && !pr.canGenerateAggregateReport())
     		{	
     			//an aggregated project that can not be generated at this moment -> try later
     			forLater.addFirst(pr);
@@ -185,6 +185,7 @@ public class NcssReportMojo
     		{
     			// Aggregate report could not be generated, maybe because it depends on other aggregate reports try again later.
     			forLater.addLast(pr);
+    			getLog().warn("Can't generate Aggregate for " + pr.project.getArtifactId() + " at this moment.");
     		}
     	}
     }
