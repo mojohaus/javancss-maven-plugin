@@ -23,9 +23,8 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ResourceBundle;
-
-import org.apache.maven.plugin.logging.Log;
 import org.apache.maven.doxia.sink.Sink;
+import org.apache.maven.plugin.logging.Log;
 import org.dom4j.Document;
 import org.dom4j.Node;
 
@@ -100,60 +99,104 @@ public class NcssReportGenerator
 
     private void doMainPackageAnalysis( Document document )
     {
+        String[] headers = {
+            "report.javancss.header.package",
+            "report.javancss.header.classe",
+            "report.javancss.header.function",
+            "report.javancss.header.ncss",
+            "report.javancss.header.javadoc",
+            "report.javancss.header.javadoc_line",
+            "report.javancss.header.single_comment",
+            "report.javancss.header.multi_comment"
+        };       
+        String[] fields = {
+            "classes",
+            "functions",
+            "ncss",
+            "javadocs",
+            "javadoc_lines",
+            "single_comment_lines",
+            "multi_comment_lines"
+        };        
+        
+        List<Node> list = document.selectNodes( "//javancss/packages/package" );
+        
         subtitleHelper( getString( "report.javancss.package.text" ) );
         getSink().table();
-        getSink().tableRow();
+        getSink().tableRows(null, true);
+        
         // HEADER
-        headerCellHelper( getString( "report.javancss.header.package" ) );
-        headerCellHelper( getString( "report.javancss.header.classe" ) );
-        headerCellHelper( getString( "report.javancss.header.function" ) );
-        headerCellHelper( getString( "report.javancss.header.ncss" ) );
-        headerCellHelper( getString( "report.javancss.header.javadoc" ) );
-        headerCellHelper( getString( "report.javancss.header.javadoc_line" ) );
-        headerCellHelper( getString( "report.javancss.header.single_comment" ) );
-        headerCellHelper( getString( "report.javancss.header.multi_comment" ) );
+        getSink().tableRow();
+        
+        for (String header : headers) 
+        {
+            headerCellHelper(getString(header));
+        }
+        
         getSink().tableRow_();
+        
         // DATA
-        List<Node> list = document.selectNodes( "//javancss/packages/package" );
         Collections.<Node>sort( list, new NumericNodeComparator( "ncss" ) );
+        
         for ( Node node : list )
         {
             getSink().tableRow();
-            tableCellHelper( node.valueOf( "name" ) );
-            tableCellHelper( node.valueOf( "classes" ) );
-            tableCellHelper( node.valueOf( "functions" ) );
-            tableCellHelper( node.valueOf( "ncss" ) );
-            tableCellHelper( node.valueOf( "javadocs" ) );
-            tableCellHelper( node.valueOf( "javadoc_lines" ) );
-            tableCellHelper( node.valueOf( "single_comment_lines" ) );
-            tableCellHelper( node.valueOf( "multi_comment_lines" ) );
+            getSink().tableCell();
+            getSink().text(node.valueOf("name"));
+            getSink().tableCell_();
+            
+            for (String field : fields) 
+            {
+                tableCellHelper(node.valueOf(field));
+            }
+
             getSink().tableRow_();
         }
+        getSink().tableRows_();
         getSink().table_();
     }
 
     private void doTotalPackageAnalysis( Document document )
     {
-        getSink().table();
-        getSink().tableRow();
-        headerCellHelper( getString( "report.javancss.header.classetotal" ) );
-        headerCellHelper( getString( "report.javancss.header.functiontotal" ) );
-        headerCellHelper( getString( "report.javancss.header.ncsstotal" ) );
-        headerCellHelper( getString( "report.javancss.header.javadoc" ) );
-        headerCellHelper( getString( "report.javancss.header.javadoc_line" ) );
-        headerCellHelper( getString( "report.javancss.header.single_comment" ) );
-        headerCellHelper( getString( "report.javancss.header.multi_comment" ) );
-        getSink().tableRow_();
+        String[] headers = {
+            "report.javancss.header.classetotal",
+            "report.javancss.header.functiontotal",
+            "report.javancss.header.ncsstotal",
+            "report.javancss.header.javadoc",
+            "report.javancss.header.javadoc_line",
+            "report.javancss.header.single_comment",
+            "report.javancss.header.multi_comment"
+        };      
+        String[] fields = {
+            "classes", 
+            "functions", 
+            "ncss", "javadocs", 
+            "javadoc_lines", 
+            "single_comment_lines", 
+            "multi_comment_lines"
+        };
+        
         Node node = document.selectSingleNode( "//javancss/packages/total" );
+
+        getSink().table();
+        getSink().tableRows(null, true);        
         getSink().tableRow();
-        tableCellHelper( node.valueOf( "classes" ) );
-        tableCellHelper( node.valueOf( "functions" ) );
-        tableCellHelper( node.valueOf( "ncss" ) );
-        tableCellHelper( node.valueOf( "javadocs" ) );
-        tableCellHelper( node.valueOf( "javadoc_lines" ) );
-        tableCellHelper( node.valueOf( "single_comment_lines" ) );
-        tableCellHelper( node.valueOf( "multi_comment_lines" ) );
+        
+        for (String header : headers) 
+        {
+            headerCellHelper(getString(header));
+        }
+        
+        getSink().tableRow_();    
+        getSink().tableRow();      
+        
+        for (String field : fields) 
+        {
+            tableCellHelper(node.valueOf(field));
+        }       
+        
         getSink().tableRow_();
+        getSink().tableRows_();
         getSink().table_();
     }
 
@@ -178,16 +221,35 @@ public class NcssReportGenerator
     // generic method called by doTopObjectFunctions & doTopObjectNCss
     private void doTopObjectGeneric( List<Node> nodeList )
     {
-        getSink().table();
-        getSink().tableRow();
-        headerCellHelper( getString( "report.javancss.header.object" ) );
-        headerCellHelper( getString( "report.javancss.header.ncss" ) );
-        headerCellHelper( getString( "report.javancss.header.function" ) );
-        headerCellHelper( getString( "report.javancss.header.classe" ) );
-        headerCellHelper( getString( "report.javancss.header.javadoc" ) );
-        getSink().tableRow_();
-        Iterator<Node> nodeIterator = nodeList.iterator();
         int i = 0;
+        
+        String[] headers = {
+            "report.javancss.header.object",
+            "report.javancss.header.ncss",
+            "report.javancss.header.function",
+            "report.javancss.header.classe",
+            "report.javancss.header.javadoc"
+        };        
+        String[] fields = {
+            "ncss", 
+            "functions", 
+            "classes", 
+            "javadocs"
+        };
+        
+        Iterator<Node> nodeIterator = nodeList.iterator();
+        
+        getSink().table();
+        getSink().tableRows(null, true);      
+        getSink().tableRow();
+        
+        for (String header : headers) 
+        {
+            headerCellHelper(getString(header));
+        }
+        
+        getSink().tableRow_();
+        
         while ( nodeIterator.hasNext() && ( i++ < lineThreshold ) )
         {
             Node node = nodeIterator.next();
@@ -195,28 +257,44 @@ public class NcssReportGenerator
             getSink().tableCell();
             jxrLink( node.valueOf( "name" ) );
             getSink().tableCell_();
-            tableCellHelper( node.valueOf( "ncss" ) );
-            tableCellHelper( node.valueOf( "functions" ) );
-            tableCellHelper( node.valueOf( "classes" ) );
-            tableCellHelper( node.valueOf( "javadocs" ) );
+            
+            for (String field : fields) 
+            {
+                tableCellHelper(node.valueOf(field));
+            }
+            
             getSink().tableRow_();
-        }
+        }       
+        
+        getSink().tableRows_();
         getSink().table_();
     }
 
     private void doObjectAverage( Document document )
     {
-        subtitleHelper( getString( "report.javancss.averages" ) );
-        getSink().table();
-        getSink().tableRow();
-        headerCellHelper( getString( "report.javancss.header.ncssaverage" ) );
-        headerCellHelper( getString( "report.javancss.header.programncss" ) );
-        headerCellHelper( getString( "report.javancss.header.classeaverage" ) );
-        headerCellHelper( getString( "report.javancss.header.functionaverage" ) );
-        headerCellHelper( getString( "report.javancss.header.javadocaverage" ) );
-        getSink().tableRow_();
+        String[] headers = {
+            "report.javancss.header.ncssaverage",
+            "report.javancss.header.programncss",
+            "report.javancss.header.classeaverage",
+            "report.javancss.header.functionaverage",
+            "report.javancss.header.javadocaverage"
+        };
+        
         Node node = document.selectSingleNode( "//javancss/objects/averages" );
         String totalNcss = document.selectSingleNode( "//javancss/objects/ncss" ).getText();
+        
+        subtitleHelper( getString( "report.javancss.averages" ) );
+        getSink().table();
+        getSink().tableRows(null, true);
+        getSink().tableRow();     
+        
+        for (String header : headers) 
+        {
+            headerCellHelper(getString(header));
+        }      
+        
+        getSink().tableRow_();
+     
         getSink().tableRow();
         tableCellHelper( node.valueOf( "ncss" ) );
         tableCellHelper( totalNcss );
@@ -224,24 +302,40 @@ public class NcssReportGenerator
         tableCellHelper( node.valueOf( "functions" ) );
         tableCellHelper( node.valueOf( "javadocs" ) );
         getSink().tableRow_();
+        getSink().tableRows_();
         getSink().table_();
     }
 
     private void doFunctionAnalysis( Document document )
     {
-        subtitleHelper( getString( "report.javancss.top" ) + " " + lineThreshold + " "
-            + getString( "report.javancss.function.byncss" ) );
-        getSink().table();
-        getSink().tableRow();
-        headerCellHelper( getString( "report.javancss.header.function" ) );
-        headerCellHelper( getString( "report.javancss.header.ncss" ) );
-        headerCellHelper( getString( "report.javancss.header.ccn" ) );
-        headerCellHelper( getString( "report.javancss.header.javadoc" ) );
-        getSink().tableRow_();
+        int i = 0;
+        
+        String[] headers = {
+            "report.javancss.header.function",
+            "report.javancss.header.ncss",
+            "report.javancss.header.ccn",
+            "report.javancss.header.javadoc"
+        };
+        String[] fields = {"ncss", "ccn", "javadocs"};
+        
         List<Node> list = document.selectNodes( "//javancss/functions/function" );
         Collections.<Node>sort( list, new NumericNodeComparator( "ncss" ) );
         Iterator<Node> nodeIterator = list.iterator();
-        int i = 0;
+        
+        subtitleHelper( getString( "report.javancss.top" ) + " " + lineThreshold + " "
+            + getString( "report.javancss.function.byncss" ) );
+        
+        getSink().table();
+        getSink().tableRows(null, true);
+        getSink().tableRow();
+        
+        for (String header : headers) 
+        {
+            headerCellHelper(getString(header));
+        }
+        
+        getSink().tableRow_();
+        
         while ( nodeIterator.hasNext() && ( i++ < lineThreshold ) )
         {
             Node node = nodeIterator.next();
@@ -249,32 +343,49 @@ public class NcssReportGenerator
             getSink().tableCell();
             jxrFunctionLink( node.valueOf( "name" ) );
             getSink().tableCell_();
-            tableCellHelper( node.valueOf( "ncss" ) );
-            tableCellHelper( node.valueOf( "ccn" ) );
-            tableCellHelper( node.valueOf( "javadocs" ) );
+
+            for (String field : fields) 
+            {
+                tableCellHelper(node.valueOf(field));
+            }
+            
             getSink().tableRow_();
         }
+        
+        getSink().tableRows_();
         getSink().table_();
     }
 
     private void doFunctionAverage( Document document )
     {
-        subtitleHelper( getString( "report.javancss.averages" ) );
-        getSink().table();
-        getSink().tableRow();
-        headerCellHelper( getString( "report.javancss.header.programncss" ) );
-        headerCellHelper( getString( "report.javancss.header.ncssaverage" ) );
-        headerCellHelper( getString( "report.javancss.header.ccnaverage" ) );
-        headerCellHelper( getString( "report.javancss.header.javadocaverage" ) );
-        getSink().tableRow_();
         Node node = document.selectSingleNode( "//javancss/functions/function_averages" );
         String totalNcss = document.selectSingleNode( "//javancss/functions/ncss" ).getText();
+        
+        String[] headers = {
+            "report.javancss.header.programncss",
+            "report.javancss.header.ncssaverage",
+            "report.javancss.header.ccnaverage",
+            "report.javancss.header.javadocaverage"
+        };
+        
+        subtitleHelper( getString( "report.javancss.averages" ) );
+        getSink().table();
+        getSink().tableRows(null, true);
+        getSink().tableRow();
+  
+        for (String header : headers) 
+        {
+            tableCellHelper(getString(header));
+        }
+        
+        getSink().tableRow_();
         getSink().tableRow();
         tableCellHelper( totalNcss );
         tableCellHelper( node.valueOf( "ncss" ) );
         tableCellHelper( node.valueOf( "ccn" ) );
         tableCellHelper( node.valueOf( "javadocs" ) );
         getSink().tableRow_();
+        getSink().tableRows_();
         getSink().table_();
     }
 
@@ -285,7 +396,7 @@ public class NcssReportGenerator
         paragraphHelper( getString( "report.javancss.explanation.ncss.paragraph2" ) );
         getSink().table();
 
-        getSink().tableRow();
+        getSink().tableRows(null, true);
         headerCellHelper( "" );
         headerCellHelper( getString( "report.javancss.explanation.ncss.table.examples" ) );
         getSink().tableRow_();
@@ -368,7 +479,8 @@ public class NcssReportGenerator
         tableCellHelper( getString( "report.javancss.explanation.ncss.table.label" ) );
         codeCellHelper( "fine :" );
         getSink().tableRow_();
-
+        
+        getSink().tableRows_();
         getSink().table_();
         paragraphHelper( getString( "report.javancss.explanation.ncss.paragraph3" ) );
 

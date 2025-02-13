@@ -25,12 +25,9 @@ import java.io.IOException;
 import java.io.StringReader;
 import java.util.ArrayList;
 import java.util.List;
-
 import javancss.Javancss;
 import javancss.parser.ParseException;
-
 import org.apache.maven.reporting.MavenReportException;
-import org.codehaus.plexus.util.IOUtil;
 
 /**
  * The NcssExecuter is able to call JavaNCSS to produce a code analysis.<br>
@@ -130,9 +127,9 @@ public class NcssExecuter
 
     private String limit( String source, int lines )
     {
-        BufferedReader reader = new BufferedReader( new StringReader( source ) );
         StringBuilder sb = new StringBuilder();
-        try
+        
+        try(BufferedReader reader = new BufferedReader(new StringReader(source)))
         {
             for ( int i = 0; i < lines; i++ )
             {
@@ -152,10 +149,7 @@ public class NcssExecuter
         {
             // cannot happen: in-memory StringReader
         }
-        finally
-        {
-            IOUtil.close( reader );
-        }
+        
         return sb.toString();
     }
 
