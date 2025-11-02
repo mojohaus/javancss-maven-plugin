@@ -22,23 +22,23 @@ package org.codehaus.mojo.javancss;
 import java.io.StringReader;
 import java.util.Collections;
 import java.util.List;
-
-import junit.framework.TestCase;
+import org.junit.jupiter.api.Test;
 
 import org.dom4j.Document;
-import org.dom4j.DocumentException;
 import org.dom4j.Node;
 import org.dom4j.io.SAXReader;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * @author Jean-Laurent de Morlhon
  */
-public class JavaNcssReportTest
-    extends TestCase
+class JavaNcssReportTest
 {
 
-    public void testSort()
-        throws DocumentException
+    @Test
+    void sort()
+        throws Exception
     {
         String toBeSorted =
             "<test><person><name>Arthur</name><age>5</age></person><person><name>Blake</name><age>400</age></person><person><name>John</name><age>30</age></person></test>";

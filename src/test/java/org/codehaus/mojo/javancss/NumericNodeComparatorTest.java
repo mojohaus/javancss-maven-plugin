@@ -1,36 +1,19 @@
 package org.codehaus.mojo.javancss;
 
-/*
- * Licensed to the Apache Software Foundation (ASF) under one
- * or more contributor license agreements.  See the NOTICE file
- * distributed with this work for additional information
- * regarding copyright ownership.  The ASF licenses this file
- * to you under the Apache License, Version 2.0 (the
- * "License"); you may not use this file except in compliance
- * with the License.  You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing,
- * software distributed under the License is distributed on an
- * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
- * KIND, either express or implied.  See the License for the
- * specific language governing permissions and limitations
- * under the License.
- */
-
-import junit.framework.TestCase;
-
 import org.dom4j.Node;
 import org.easymock.MockControl;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test for NumericNodeComparator class.
  *
  * @author <a href="jeanlaurent@gmail.com">Jean-Laurent de Morlhon</a>
  */
-public class NumericNodeComparatorTest
-    extends TestCase
+class NumericNodeComparatorTest
 {
     private static final String NODE_PROPERTY = "foobar";
 
@@ -46,7 +29,8 @@ public class NumericNodeComparatorTest
 
     private NumericNodeComparator nnc;
 
-    public void setUp()
+    @BeforeEach
+    void setUp()
     {
         control = MockControl.createControl( Node.class );
         nnc = new NumericNodeComparator( NODE_PROPERTY );
@@ -54,7 +38,8 @@ public class NumericNodeComparatorTest
         smallNodeMock = (Node) control.getMock();
     }
 
-    public void testComparePositive()
+    @Test
+    void comparePositive()
     {
         bigNodeMock.numberValueOf( NODE_PROPERTY );
         control.setReturnValue( BIG_VALUE );
@@ -65,7 +50,8 @@ public class NumericNodeComparatorTest
         control.verify();
     }
 
-    public void testCompareNegative()
+    @Test
+    void compareNegative()
     {
         bigNodeMock.numberValueOf( NODE_PROPERTY );
         control.setReturnValue( SMALL_VALUE );
@@ -76,7 +62,8 @@ public class NumericNodeComparatorTest
         control.verify();
     }
 
-    public void testCompareEqual()
+    @Test
+    void compareEqual()
     {
         bigNodeMock.numberValueOf( NODE_PROPERTY );
         control.setReturnValue( SMALL_VALUE );
@@ -88,7 +75,8 @@ public class NumericNodeComparatorTest
     }
 
     // should throw npe whenever one of the node is null
-    public void testCompareWithBigNull()
+    @Test
+    void compareWithBigNull()
     {
         smallNodeMock.numberValueOf( NODE_PROPERTY );
         control.setReturnValue( SMALL_VALUE );
@@ -106,7 +94,8 @@ public class NumericNodeComparatorTest
         control.verify();
     }
 
-    public void testCompareWithSmallNull()
+    @Test
+    void compareWithSmallNull()
     {
         bigNodeMock.numberValueOf( NODE_PROPERTY );
         control.setReturnValue( BIG_VALUE, MockControl.ZERO_OR_MORE );
